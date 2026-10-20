@@ -261,6 +261,7 @@ __marimo__/
 !/solution/build/stage7_foldable_model_metrics.json
 !/solution/build/stage8_onfold_tree_metrics.json
 !/solution/build/stage8_linear_fit.json
+!/solution/build/stage8_foldable_bits_metrics.json
 !/solution/build/stage5_manifest.json
 !/solution/build/stage5_score_metrics.json
 !/solution/build/stage5_accuracy_metrics.json

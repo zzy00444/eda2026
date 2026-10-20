@@ -1,0 +1,54 @@
+{
+  "rounds": 300,
+  "rate": 0.08,
+  "features": [
+    "source_port",
+    "source_family",
+    "source_bit",
+    "target_port",
+    "target_family",
+    "target_bit",
+    "first_dx",
+    "first_dy",
+    "dx_mod",
+    "dy_mod",
+    "ax_mod",
+    "ay_mod",
+    "remaining_x_mod",
+    "remaining_y_mod",
+    "remaining_ax_mod",
+    "remaining_ay_mod",
+    "port_pair",
+    "family_pair",
+    "bit_pair",
+    "direction",
+    "table_scaled",
+    "envelope_proxy"
+  ],
+  "scores": {
+    "25": {
+      "valid": 94.1239569883763,
+      "test": 94.10634362291043
+    },
+    "50": {
+      "valid": 94.29764556052245,
+      "test": 94.27850819501737
+    },
+    "100": {
+      "valid": 94.36696664600592,
+      "test": 94.34332957070644
+    },
+    "150": {
+      "valid": 94.38745340659304,
+      "test": 94.36160174495824
+    },
+    "200": {
+      "valid": 94.39809643342359,
+      "test": 94.3704751149347
+    },
+    "300": {
+      "valid": 94.40344271386742,
+      "test": 94.37837318965504
+    }
+  }
+}
