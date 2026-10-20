@@ -43,31 +43,31 @@
       "score": 97.28488711787328
     }
   },
-  "average_10m_cpu_seconds": 1.5105438000000002,
-  "average_projected_1b_cpu_seconds": 151.05438,
-  "average_projected_1b_cpu_minutes": 2.517573,
+  "average_10m_cpu_seconds": 1.3498318,
+  "average_projected_1b_cpu_seconds": 134.98318,
+  "average_projected_1b_cpu_minutes": 2.2497196666666666,
   "cpu_10m_range": [
-    1.4276590000000005,
-    1.599462
+    1.2569599999999999,
+    1.5122260000000003
   ],
-  "time_score": 13.741213499999999,
-  "projected_total_from_validation": 94.43821181240244,
-  "projected_total_from_test": 94.42713479257017,
+  "time_score": 13.875140166666668,
+  "projected_total_from_validation": 94.57213847906911,
+  "projected_total_from_test": 94.56106145923684,
   "stage6_projected_total_from_test": 94.12324936863257,
   "stage6_average_projected_1b_cpu_seconds": 222.44016000000002,
-  "cpu_reduction_vs_stage6": 0.32092127608611687,
-  "max_process_rss_kib": 50432,
-  "max_container_bytes": 806817792,
+  "cpu_reduction_vs_stage6": 0.3931708195138863,
+  "max_process_rss_kib": 50688,
+  "max_container_bytes": 806977536,
   "benchmark_runs": 5,
   "max_threads": 1,
   "output_10m_sha256": "87f0875aae4496e9e872f14b2e1556aa5c667f2db6a6d945dd02cec6fec19cd7",
   "generated_header_sha256": "82fa07a0f90fb3d2274f11352c591b3c72626a4028809d158427c0f7ed61e7dd",
   "folded_table_bytes": 57507840,
   "package": {
-    "binary_bytes": 57599944,
-    "zip_bytes": 46580810,
-    "binary_sha256": "8f732ba1ef183a6b257e91312200b2d98edc8ebb562a304a60c9f4d1006f05e2",
-    "zip_sha256": "3f5a9b4ae206eb6809aeb912ee3ea56cbdae65721760e2107425fbd62b57f996",
+    "binary_bytes": 57595848,
+    "zip_bytes": 46580381,
+    "binary_sha256": "15764fac6339adb230cbb1ba33556d76c86f45fb2502f85cb394dd2f25775b2c",
+    "zip_sha256": "66f9cbe869ab6886328d43f594ef21272681c1cfe57f7699230c0d535cf7abf6",
     "contents": [
       "bin/estimate"
     ],
@@ -80,12 +80,12 @@
   "full_1b_run_completed": false,
   "score_caveat": "Local held-out accuracy plus 10M timing extrapolation, not an official hidden-set score.",
   "source_hashes": {
-    "src\\main.cpp": "29975ce417b7699410effeea8f35dd9b9ede5ce2a1693fde162f13700e168848",
+    "src\\main.cpp": "8026fd8c587cd13b5fb902aeac10ef2acb0419c05e36e825772d5c28f41bcc06",
     "tools\\train_foldable.py": "a8032a5196bb41692ca6c1a4f81651101f39af5c08251493e622a8196bdfce2b",
     "tools\\fold_features.py": "868ad3a50450b55fcf033b0bf7c24cf2772fb193e45e07b4d227cb2c0b69042b",
     "tools\\fold_model.py": "497a9e08ce4716e2acf75582ae35cc9b87378cb1eec3c9e36fe3474ffe7c8f0e",
     "tools\\fit_netcorr_folded.py": "76b77afe17a9cb321ae741b2b6f157d616ad4cd0fb9da29e7c611a5bb5a8f3c4",
-    "tools\\export_cpp.py": "9858aa41aaa005095e1fbef0524bc69cd53427a856c9d9f147791b437e8337bf",
+    "tools\\export_cpp.py": "4c90a3798f0d0fc81cc7ed002af858349d57fc254983f7cdb8d74ce920edd63b",
     "tools\\pareto.py": "9c18e0240763384d4438070d68953b299224eb0ada38c88d848fcb14c693e51a"
   }
 }

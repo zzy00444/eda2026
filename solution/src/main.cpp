@@ -278,7 +278,7 @@ static inline int estimate(const Pin& s,const Pin& t) {return complete(s,t,prepa
 #ifndef ESTIMATE_NO_MAIN
 namespace {
 constexpr size_t kBufferBytes = size_t(1) << 22;
-char input_buffer[kBufferBytes];
+char input_buffer[kBufferBytes+64];
 char output_buffer[kBufferBytes];
 }  // namespace
 
@@ -364,7 +364,10 @@ int main(int argc,char**argv) {
             if(!length) continue;
             if(length>=sizeof(rows[slot][n].text)) {failure="line longer than input buffer";return n;}
             Row& row=rows[slot][n];
-            std::memcpy(row.text,line,length);
+            // Fixed-size copy: a variable-length memcpy becomes a PLT call with a
+            // size dispatch, which costs more than the 64 bytes moved here.
+            if(length<=64) std::memcpy(row.text,line,64);
+            else std::memcpy(row.text,line,length);
             row.length=length;
             const std::string_view text(row.text,length);
             const size_t comma=text.find(',');
@@ -393,16 +396,31 @@ int main(int argc,char**argv) {
             for(int i=0;i<pending;++i) {
                 const Row& row=rows[cur][i];
                 const int delay=complete(row.s,row.t,prepared[cur][i]);
-                if(out_len+row.length+40>kBufferBytes && !flush()) throw std::runtime_error("output write error");
-                std::memcpy(output_buffer+out_len,row.text,row.length);
+                if(out_len+row.length+72>kBufferBytes && !flush()) throw std::runtime_error("output write error");
+                // Same trick on the way out; the excess bytes are overwritten by the
+                // next row and never reach the file.
+                if(row.length<=64) std::memcpy(output_buffer+out_len,row.text,64);
+                else std::memcpy(output_buffer+out_len,row.text,row.length);
                 out_len+=row.length;
-                output_buffer[out_len++]=',';
-                char number[16];
-                int digits=0;
-                unsigned magnitude=unsigned(delay);
-                do {number[digits++]=char('0'+magnitude%10u); magnitude/=10u;} while(magnitude);
-                while(digits) output_buffer[out_len++]=number[--digits];
-                output_buffer[out_len++]='\n';
+                // Branchless ",DDDD\n": the digit loop's trip count varies per row,
+                // and a mispredicted branch plus the serial divide chain cost more
+                // than the whole row copy.  Build the 8-byte payload in registers
+                // and store it once; bytes past the payload are overwritten by the
+                // next row and never flushed.
+                const std::uint32_t value_u=std::uint32_t(delay);
+                const std::uint32_t digit_count=1u+(value_u>=10u)+(value_u>=100u)+
+                                                (value_u>=1000u)+(value_u>=10000u);
+                std::uint64_t digits_le=0;
+                std::uint32_t rest=value_u;
+                for(int i=0;i<5;++i) {
+                    digits_le|=std::uint64_t('0'+rest%10u)<<(8*i);
+                    rest/=10u;
+                }
+                const std::uint64_t digits_be=__builtin_bswap64(digits_le)>>(8u*(8u-digit_count));
+                const std::uint64_t payload=std::uint64_t(',')|(digits_be<<8)|
+                                            (std::uint64_t('\n')<<(8u*(digit_count+1u)));
+                std::memcpy(output_buffer+out_len,&payload,8);
+                out_len+=digit_count+2;
                 ++count;
                 if(out_len+64>kBufferBytes && !flush()) throw std::runtime_error("output write error");
             }
