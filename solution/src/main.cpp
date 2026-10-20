@@ -96,7 +96,50 @@ static inline double net_correction(const Pin& s,const Pin& t,
 }
 #endif
 
-static inline int estimate(const Pin& s,const Pin& t) {
+struct Prepared {
+    int direction,residue;
+    bool supported;
+    size_t base_index;
+#if TOPOLOGY_FEATURES
+    bool envelope_needed[4];
+#endif
+};
+
+// Resolve the architecture table addresses and issue the prefetches.  estimate()
+// is prepare() + complete(), so a caller streaming many rows can run every
+// prepare() first and give the loads hundreds of nanoseconds of slack instead
+// of the few dozen instructions a single row allows.
+static inline Prepared prepare(const Pin& s,const Pin& t) {
+    Prepared p{};
+    const auto &sp=ports[s.port], &tp=ports[t.port];
+    const int dx=t.x-s.x,dy=t.y-s.y;
+    p.direction=2*(dx<0)+(dy<0);
+    p.residue=mod(dx,10)*12+mod(dy,12);
+    p.supported=sp.source>=0 && tp.target>=0;
+    p.base_index=((size_t(p.direction)*n_sources+sp.source)*120+p.residue)*n_targets+tp.target;
+    if(p.supported) __builtin_prefetch(&architecture_table[p.base_index],0,3);
+#if TOPOLOGY_FEATURES
+    // The envelope only looks at quadrants whose spatial penalty can still
+    // beat the selected one; those addresses are known now, so issue the loads
+    // before the geometry work instead of after it.
+    for(int other=0;other<4;++other) {
+        if(other==p.direction) continue;
+        const int penalty=(slopes[p.direction][0]-slopes[other][0])*dx+
+                          (slopes[p.direction][1]-slopes[other][1])*dy;
+        if(penalty>=envelope_bounds[p.direction][other]) continue;
+        p.envelope_needed[other]=true;
+        const size_t index=((size_t(other)*n_sources+sp.source)*120+p.residue)*n_targets+tp.target;
+        __builtin_prefetch(&architecture_table[index],0,3);
+    }
+#endif
+    return p;
+}
+
+// Deliberately not inlined: the exported single-tree model is one ~22 KB
+// expression, and letting the compiler duplicate it for each buffered row both
+// tripled the code size (+123 KB) and cost about 19% of the run time through
+// instruction-cache misses.  One shared copy keeps the loop in L1i.
+__attribute__((noinline)) static int complete(const Pin& s,const Pin& t,const Prepared& p) {
     if(s.x==t.x && s.y==t.y && s.port==t.port) return 0;
     const auto &sp=ports[s.port], &tp=ports[t.port];
     int dx=t.x-s.x,dy=t.y-s.y,ax=std::abs(dx),ay=std::abs(dy);
@@ -112,26 +155,9 @@ static inline int estimate(const Pin& s,const Pin& t) {
         else gap_y+=g.delay*(ylo<=g.site && g.site<yhi);
     }
 #endif
-    const int direction=2*(dx<0)+(dy<0),residue=mod(dx,10)*12+mod(dy,12);
-    bool supported=sp.source>=0 && tp.target>=0;
-    const size_t base_index=((size_t(direction)*n_sources+sp.source)*120+residue)*n_targets+tp.target;
-    if(supported) __builtin_prefetch(&architecture_table[base_index],0,3);
-#if TOPOLOGY_FEATURES
-    // The envelope only looks at quadrants whose spatial penalty can still
-    // beat the selected one; those addresses are known now, so issue the loads
-    // before the geometry work below instead of after it.
-    const int distance_direction=direction;
-    bool envelope_needed[4]={false,false,false,false};
-    for(int other=0;other<4;++other) {
-        if(other==distance_direction) continue;
-        const int penalty=(slopes[distance_direction][0]-slopes[other][0])*dx+
-                          (slopes[distance_direction][1]-slopes[other][1])*dy;
-        if(penalty>=envelope_bounds[distance_direction][other]) continue;
-        envelope_needed[other]=true;
-        const size_t index=((size_t(other)*n_sources+sp.source)*120+residue)*n_targets+tp.target;
-        __builtin_prefetch(&architecture_table[index],0,3);
-    }
-#endif
+    const int direction=p.direction,residue=p.residue;
+    bool supported=p.supported;
+    const size_t base_index=p.base_index;
     model_real f[n_features]{};
     f[F_sx]=s.x;f[F_sy]=s.y;f[F_tx]=t.x;f[F_ty]=t.y;
     f[F_dx]=dx;f[F_dy]=dy;f[F_ax]=ax;f[F_ay]=ay;
@@ -206,7 +232,7 @@ static inline int estimate(const Pin& s,const Pin& t) {
 #if TOPOLOGY_FEATURES
     double envelope=baseline;
     for(int other=0;other<4;++other) {
-        if(!envelope_needed[other]) continue;
+        if(!p.envelope_needed[other]) continue;
         const size_t index=((size_t(other)*n_sources+sp.source)*120+residue)*n_targets+tp.target;
         int other_value=architecture_table[index];
         if(other_value!=32767) envelope=std::max(envelope,
@@ -221,6 +247,8 @@ static inline int estimate(const Pin& s,const Pin& t) {
 #endif
     return std::max(0,int(std::nearbyint(prediction)));
 }
+
+static inline int estimate(const Pin& s,const Pin& t) {return complete(s,t,prepare(s,t));}
 
 #ifndef ESTIMATE_NO_MAIN
 namespace {
@@ -289,6 +317,40 @@ int main(int argc,char**argv) {
 
     unsigned long long count=0;
     int status=0;
+    // Rows are parsed and prepared (which issues the architecture prefetches)
+    // in batches of eight while the previous batch is still being evaluated, so
+    // every table load has a whole batch of work in front of it.  The row text
+    // is copied out of the input buffer because a refill can memmove it.
+    struct Row {
+        Pin s,t;
+        char text[256];
+        size_t length;
+    };
+    constexpr int kBatch=8;
+    Row rows[2][kBatch];
+    Prepared prepared[2][kBatch];
+    auto fill_batch=[&](int slot) -> int {
+        if(failure) return 0;
+        int n=0;
+        while(n<kBatch) {
+            const char *line=nullptr; size_t length=0;
+            if(!next_line(line,length)) return n;
+            while(length && (line[length-1]=='\r'||line[length-1]=='\n')) --length;
+            if(!length) continue;
+            if(length>=sizeof(rows[slot][n].text)) {failure="line longer than input buffer";return n;}
+            Row& row=rows[slot][n];
+            std::memcpy(row.text,line,length);
+            row.length=length;
+            const std::string_view text(row.text,length);
+            const size_t comma=text.find(',');
+            if(comma==text.npos || text.find(',',comma+1)!=text.npos) {failure="expected two CSV fields";return n;}
+            if((failure=parse_pin(text.substr(0,comma),row.s))) return n;
+            if((failure=parse_pin(text.substr(comma+1),row.t))) return n;
+            prepared[slot][n]=prepare(row.s,row.t);
+            ++n;
+        }
+        return n;
+    };
     try {
         const char *line=nullptr; size_t length=0;
         if(!next_line(line,length)) throw std::runtime_error("missing CSV header");
@@ -298,30 +360,31 @@ int main(int argc,char**argv) {
         if(header!="From,To") throw std::runtime_error("expected From,To header");
         std::memcpy(output_buffer,"From,To,delay\n",14);
         out_len=14;
-        while(next_line(line,length)) {
-            while(length && (line[length-1]=='\r'||line[length-1]=='\n')) --length;
-            if(!length) continue;
-            if(length+40>kBufferBytes) throw std::runtime_error("line longer than input buffer");
-            const std::string_view row(line,length);
-            const size_t comma=row.find(',');
-            if(comma==row.npos || row.find(',',comma+1)!=row.npos) throw std::runtime_error("expected two CSV fields");
-            Pin source{},target{};
-            if((failure=parse_pin(row.substr(0,comma),source))) throw std::runtime_error(failure);
-            if((failure=parse_pin(row.substr(comma+1),target))) throw std::runtime_error(failure);
-            const int delay=estimate(source,target);
-            if(out_len+length+40>kBufferBytes && !flush()) throw std::runtime_error("output write error");
-            std::memcpy(output_buffer+out_len,line,length);
-            out_len+=length;
-            output_buffer[out_len++]=',';
-            char number[16];
-            int digits=0;
-            unsigned magnitude=unsigned(delay);
-            do {number[digits++]=char('0'+magnitude%10u); magnitude/=10u;} while(magnitude);
-            while(digits) output_buffer[out_len++]=number[--digits];
-            output_buffer[out_len++]='\n';
-            ++count;
-            if(out_len+64>kBufferBytes && !flush()) throw std::runtime_error("output write error");
+        int cur=0;
+        int pending=fill_batch(0);
+        while(pending>0) {
+            const int next=cur^1;
+            const int next_pending=fill_batch(next);
+            for(int i=0;i<pending;++i) {
+                const Row& row=rows[cur][i];
+                const int delay=complete(row.s,row.t,prepared[cur][i]);
+                if(out_len+row.length+40>kBufferBytes && !flush()) throw std::runtime_error("output write error");
+                std::memcpy(output_buffer+out_len,row.text,row.length);
+                out_len+=row.length;
+                output_buffer[out_len++]=',';
+                char number[16];
+                int digits=0;
+                unsigned magnitude=unsigned(delay);
+                do {number[digits++]=char('0'+magnitude%10u); magnitude/=10u;} while(magnitude);
+                while(digits) output_buffer[out_len++]=number[--digits];
+                output_buffer[out_len++]='\n';
+                ++count;
+                if(out_len+64>kBufferBytes && !flush()) throw std::runtime_error("output write error");
+            }
+            cur=next;
+            pending=next_pending;
         }
+        if(failure) throw std::runtime_error(failure);
         if(too_long) throw std::runtime_error("line longer than input buffer");
         if(std::ferror(in)) throw std::runtime_error("input read error");
         if(!flush()) throw std::runtime_error("output write error");
