@@ -1,0 +1,111 @@
+{
+  "split": "original_public_rows_rng7_train=order[:300000]+order[400000:]_validation=order[300000:350000]_test=order[350000:400000]",
+  "rows": {
+    "train": 900000,
+    "validation": 50000,
+    "test": 50000
+  },
+  "base_model": {
+    "primary": "s3_topology_lr32_511l_25r",
+    "short_trees": 25,
+    "fast_trees": 18,
+    "short_distance": 100,
+    "cascade": null,
+    "cascade_trees": 0,
+    "cascade_band": null
+  },
+  "feature_names": [
+    "gap_landing_excess",
+    "wall_return_with_door",
+    "wall_return_without_door",
+    "wall_target_across",
+    "wall_target_in_corridor"
+  ],
+  "structure": {
+    "horizontal_crossable_block_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "excluded_block_ids": [
+      0
+    ],
+    "nominal_gap_nonzero_rows": 59466,
+    "landing_gap_nonzero_rows": 60477,
+    "block_landing_skip_rows": 5863,
+    "gap_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      214.0,
+      550.0
+    ],
+    "wall_class_rows": {
+      "wall_return_with_door": 2460,
+      "wall_return_without_door": 237,
+      "wall_target_across": 2825,
+      "wall_target_in_corridor": 341
+    },
+    "formula": "gap(s,landing)+gap(landing,t)-gap(s,t); landing.x += sign(net.dx)*(right-left+1) when nominal landing hits a horizontal-crossable block"
+  },
+  "candidates_training_and_validation_only": [
+    {
+      "name": "baseline",
+      "coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "training_score": 96.26342898052476,
+      "validation_score": 96.06789478444789,
+      "max_extra_1b_cpu_seconds_for_break_even": 0.0,
+      "max_extra_nanoseconds_per_row_for_break_even": 0.0,
+      "validation_total_if_zero_extra_cpu": 83.59425707755831
+    },
+    {
+      "name": "weighted_l1_five_coefficients",
+      "coefficients": [
+        0.3002822134701595,
+        0.8922935289634206,
+        1.1722847364316065,
+        0.1366065438526353,
+        0.8827633276842869
+      ],
+      "fit": {
+        "active_training_rows": 58236,
+        "optimizer": "scipy.optimize.linprog/highs",
+        "weighted_l1": 1629.0243226689956
+      },
+      "training_score": 96.41804027911705,
+      "validation_score": 96.23449612203513,
+      "max_extra_1b_cpu_seconds_for_break_even": 15.993728408374864,
+      "max_extra_nanoseconds_per_row_for_break_even": 15.993728408374864,
+      "validation_total_if_zero_extra_cpu": 83.72753814762811
+    }
+  ],
+  "selected": "weighted_l1_five_coefficients",
+  "coefficients": [
+    0.3002822134701595,
+    0.8922935289634206,
+    1.1722847364316065,
+    0.1366065438526353,
+    0.8827633276842869
+  ],
+  "test_once": {
+    "baseline_accuracy": 96.05286529489025,
+    "selected_accuracy": 96.22572533204784,
+    "accuracy_gain": 0.1728600371575908,
+    "max_extra_1b_cpu_seconds_for_break_even": 16.594563567128716
+  },
+  "cpu_reference_1b_seconds": 1591.20705,
+  "total_score_formula": ".8*accuracy-CPU_seconds/120+20 (consistency=100, CPU<1800)",
+  "runtime_status": "No C++ runtime timing: accuracy gain is actionable only below the reported extra CPU budget.",
+  "prediction_rounding": "numpy.rint(base architecture + primary/cascade residual + net correction), then clamp to zero; same pins forced zero",
+  "seconds": 167.59689349999985,
+  "source_sha256": "1bc43d319fdd1d0a73352b6a757c6d736661b5c5234b14136a1c995552b7bf9c"
+}

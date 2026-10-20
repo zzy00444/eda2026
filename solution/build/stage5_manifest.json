@@ -1,0 +1,110 @@
+{
+  "stage": 5,
+  "date": "2026-10-20",
+  "default": "score",
+  "variants": {
+    "score": {
+      "generated_dir": "generated_s5_score",
+      "binary": "bin\\estimate_stage5_score",
+      "validation_accuracy": 94.96010319773164,
+      "test_accuracy": 94.9711467107907,
+      "average_projected_1b_cpu_seconds": 302.86370000000005,
+      "average_projected_1b_cpu_minutes": 5.0477283333333345,
+      "projected_total_from_validation": 93.44421839151865,
+      "projected_total_from_test": 93.4530532019659,
+      "cpu_10m_range": [
+        2.9680519999999992,
+        3.07152
+      ],
+      "max_process_rss_kib": 44032,
+      "max_container_bytes": 844095488,
+      "benchmark_runs": 5,
+      "max_threads": 1,
+      "output_10m_sha256": "2cb05566105cc53e99d9fd4132bcd03d111458eaeb5bd8835208fcca7f879dc0",
+      "full_public_parity_mismatch": 0,
+      "net_correction": "net_correction_f1_c0/metrics.json",
+      "net_coefficients": [
+        0.9405376344086025,
+        1.6152054794520552,
+        1.9533377522462807,
+        0.3491780821917809,
+        1.3123287671232877
+      ],
+      "primary_model_sha256": "0ee7a37717bd2b96d794df37baaf562d697390e13099be339d4131dc22e024d8",
+      "generated_header_sha256": "e31130ea71fc7e0f06e3d05fe763e8aafb89e5ab0abfba7d15216a1638e085e7",
+      "packed_ports": true,
+      "package": {
+        "binary_bytes": 57726920,
+        "zip_bytes": 41688436,
+        "binary_sha256": "81f9073a3ad0f1eafeb384612172e973871cec87c12152d73654bda3474b0154",
+        "zip_sha256": "e6503167549cdd41aa3c7a1e4b0cfc2dd5e3ec7814b329ce885d54a219971785",
+        "contents": [
+          "bin/estimate"
+        ],
+        "unix_mode": "100755"
+      },
+      "submission": "stage5_score_submission.zip"
+    },
+    "accuracy": {
+      "generated_dir": "generated_s5_accuracy",
+      "binary": "bin\\estimate_stage5_accuracy",
+      "validation_accuracy": 96.23449612203513,
+      "test_accuracy": 96.22572533204784,
+      "average_projected_1b_cpu_seconds": 1318.91976,
+      "average_projected_1b_cpu_minutes": 21.981996,
+      "projected_total_from_validation": 85.9965988976281,
+      "projected_total_from_test": 85.98958226563828,
+      "cpu_10m_range": [
+        12.935337000000002,
+        13.433629
+      ],
+      "max_process_rss_kib": 44800,
+      "max_container_bytes": 843706368,
+      "benchmark_runs": 5,
+      "max_threads": 1,
+      "output_10m_sha256": "71cae0851e52ef0f41d0d40b964f6a788a8c9250241ce312eae7895d4378a13b",
+      "full_public_parity_mismatch": 0,
+      "net_correction": "net_correction_f18_c0/metrics.json",
+      "net_coefficients": [
+        0.3002822134701595,
+        0.8922935289634206,
+        1.1722847364316065,
+        0.1366065438526353,
+        0.8827633276842869
+      ],
+      "primary_model_sha256": "0ee7a37717bd2b96d794df37baaf562d697390e13099be339d4131dc22e024d8",
+      "generated_header_sha256": "1c465b04461c2edad1e4d234dc21bdd1f6e1452af16e09f9a3757f5e65088d9e",
+      "packed_ports": true,
+      "package": {
+        "binary_bytes": 58437424,
+        "zip_bytes": 42016719,
+        "binary_sha256": "52aff6c10ba5f63899fead002e69c504374a77d3a0301007d0cbf327cd3433b8",
+        "zip_sha256": "e751aa3d8a74090fce6ce76813686d9739a39a924abfe9ee93296610b90ce4a4",
+        "contents": [
+          "bin/estimate"
+        ],
+        "unix_mode": "100755"
+      },
+      "submission": "stage5_accuracy_submission.zip"
+    }
+  },
+  "same_session_stage4_control": {
+    "test_accuracy": 96.07848926611115,
+    "runs": 3,
+    "average_projected_1b_cpu_seconds": 1570.6811,
+    "projected_total_from_test": 83.77378224622225
+  },
+  "compiler": "GCC 11.4.0",
+  "docker_image": "fpga-ziguang:latest",
+  "compiler_flags": "-O3 -march=x86-64 -ffp-contract=off -fprofile-use=profile -fprofile-correction -DNDEBUG -std=c++17",
+  "full_1b_run_completed": false,
+  "score_caveat": "Local held-out accuracy plus 10M timing extrapolation, not an official hidden-set score.",
+  "source_hashes": {
+    "src\\main.cpp": "b78d8104e5e9b7ee51437784338d39c6896a82e0d97521730026b6d2185075cd",
+    "tools\\export_cpp.py": "0f71ed3fe4768c4fb98ba48f7e9b9caf9de17fcd3f7dd898156ff2a1fa1688d2",
+    "tools\\verify_cpp.py": "03cbcf28e2ae07a872be539f45271666d3c1f8d1218db15a8ddba0000d29957f",
+    "tools\\net_correction_experiment.py": "401792b15f3f630e535bc6c681e171b6a3de1534bf41f9f718f467832856e368",
+    "tools\\build_candidate_wsl.sh": "9f3a903473090ba717e8a68d3f123db2843a6bb8bb07db48c4ac0bb051fe05bc",
+    "tools\\validate_stage5_wsl.sh": "8877801995747be395eb54afaafc6fde11ba04738684439691ad36f579318c6d"
+  }
+}

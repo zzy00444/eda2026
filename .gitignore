@@ -218,3 +218,55 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local training, build and package outputs. Keep only the reproducible stage-5
+# model inputs, generated source data and compact validation evidence below.
+/solution/bin/
+/solution/*.zip
+!/solution/build/
+/solution/build/*
+!/solution/build/s3_topology_lr32_511l_25r.txt
+!/solution/build/s3_topology_lr32_511l_25r_metrics.json
+!/solution/build/generated_s5_score/
+!/solution/build/generated_s5_accuracy/
+/solution/build/generated_s5_score/*
+!/solution/build/generated_s5_score/architecture.S
+!/solution/build/generated_s5_score/export.json
+!/solution/build/generated_s5_score/model.hpp
+/solution/build/generated_s5_accuracy/*
+!/solution/build/generated_s5_accuracy/architecture.S
+!/solution/build/generated_s5_accuracy/export.json
+!/solution/build/generated_s5_accuracy/model.hpp
+!/solution/build/stage5_manifest.json
+!/solution/build/stage5_score_metrics.json
+!/solution/build/stage5_accuracy_metrics.json
+!/solution/build/stage5_score_standalone.json
+!/solution/build/stage5_accuracy_standalone.json
+!/solution/build/stage5_generated_s5_score_benchmark_10m.json
+!/solution/build/stage5_generated_s5_accuracy_benchmark_10m.json
+!/solution/build/stage5_generated_s5_score_integration.json
+!/solution/build/stage5_generated_s5_accuracy_integration.json
+/solution/build/net_correction_f1_c0/
+!/solution/build/net_correction_f1_c0/
+!/solution/build/net_correction_f1_c0/metrics.json
+/solution/build/net_correction_f18_c0/
+!/solution/build/net_correction_f18_c0/
+!/solution/build/net_correction_f18_c0/metrics.json
+/solution/build/**/__pycache__/
+/solution/build/**/*.pyc
+/solution/build/**/profile/
+/solution/build/**/estimate
+/solution/build/**/*.csv
+/solution/build/**/*.npy
+/solution/build/**/*.npz
+/solution/build/**/*.pkl
+/solution/build/**/*.gcda
+/solution/build/**/*.gcno
+/solution/build/**/*.o
+/solution/build/**/*.a
+/solution/build/**/*.so
+/solution/build/**/*.log
+/solution/build/**/*.json.tmp
+/solution/stage*_source_archive.zip
+/solution/stage*_submission.zip
+/solution/submission.zip

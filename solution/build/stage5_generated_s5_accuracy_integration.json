@@ -1,0 +1,60 @@
+{
+  "interface_checks": [
+    "LF",
+    "CRLF",
+    "UTF8_BOM",
+    "no_trailing_newline",
+    "blank_lines",
+    "order_and_names",
+    "identical_pin_zero",
+    "header_only",
+    "invalid_port_rejected",
+    "invalid_fields_rejected",
+    "invalid_header_rejected"
+  ],
+  "eight_path_examples": {
+    "score": 91.34929561438683,
+    "details": [
+      {
+        "actual": 973,
+        "prediction": 951,
+        "score": 90.98038609097681
+      },
+      {
+        "actual": 843,
+        "prediction": 831,
+        "score": 94.31219531742894
+      },
+      {
+        "actual": 786,
+        "prediction": 772,
+        "score": 92.88734886022485
+      },
+      {
+        "actual": 997,
+        "prediction": 999,
+        "score": 99.19760999908439
+      },
+      {
+        "actual": 929,
+        "prediction": 892,
+        "score": 84.20231423271427
+      },
+      {
+        "actual": 562,
+        "prediction": 552,
+        "score": 92.89455646044689
+      },
+      {
+        "actual": 692,
+        "prediction": 678,
+        "score": 91.92513374140677
+      },
+      {
+        "actual": 661,
+        "prediction": 687,
+        "score": 84.39482021281172
+      }
+    ]
+  }
+}

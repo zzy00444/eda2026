@@ -1,0 +1,17 @@
+{
+  "model": "s3_topology_lr32_511l_25r",
+  "leaves": 511,
+  "rounds": 25,
+  "envelope_baseline": false,
+  "train_size": 900000,
+  "learning_rate": 0.32,
+  "valid": {
+    "score": 96.1412117451331,
+    "mae": 22.10132
+  },
+  "test": {
+    "score": 96.12393156411433,
+    "mae": 22.3475
+  },
+  "training_seconds": 13.853373200000078
+}
