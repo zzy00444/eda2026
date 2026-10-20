@@ -1,0 +1,36 @@
+{
+  "folded": true,
+  "model": "foldable_lr08_300r",
+  "trees": 300,
+  "net_coefficients": [
+    0.5984820259058696,
+    1.346749335669439,
+    1.7159562323016062,
+    0.34354356856305435,
+    1.283418154060008
+  ],
+  "features": [
+    "source_port",
+    "source_family",
+    "source_bit",
+    "target_port",
+    "target_family",
+    "target_bit",
+    "first_dx",
+    "first_dy",
+    "dx_mod",
+    "dy_mod",
+    "ax_mod",
+    "ay_mod",
+    "remaining_x_mod",
+    "remaining_y_mod",
+    "port_pair",
+    "family_pair",
+    "bit_pair",
+    "direction",
+    "table_scaled",
+    "envelope_proxy"
+  ],
+  "entries": 28753920,
+  "predicted_rows": 28753920
+}

@@ -1,0 +1,53 @@
+{
+  "base_model": {
+    "primary": "foldable_lr08_300r",
+    "trees": 300
+  },
+  "coefficients": [
+    0.5984820259058696,
+    1.346749335669439,
+    1.7159562323016062,
+    0.34354356856305435,
+    1.283418154060008
+  ],
+  "fit": {
+    "active_training_rows": 58236,
+    "optimizer": "scipy.optimize.linprog/highs",
+    "weighted_l1": 1984.3273652181392
+  },
+  "base_validation": 94.22090247123869,
+  "corrected_validation": 94.62137350365657,
+  "base_test": 94.18161578020552,
+  "corrected_test": 94.60743487363635,
+  "structure": {
+    "horizontal_crossable_block_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "excluded_block_ids": [
+      0
+    ],
+    "nominal_gap_nonzero_rows": 59466,
+    "landing_gap_nonzero_rows": 60477,
+    "block_landing_skip_rows": 5863,
+    "gap_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      214.0,
+      550.0
+    ],
+    "wall_class_rows": {
+      "wall_return_with_door": 2460,
+      "wall_return_without_door": 237,
+      "wall_target_across": 2825,
+      "wall_target_in_corridor": 341
+    },
+    "formula": "gap(s,landing)+gap(landing,t)-gap(s,t); landing.x += sign(net.dx)*(right-left+1) when nominal landing hits a horizontal-crossable block"
+  },
+  "selected": "weighted_l1_five_coefficients"
+}

@@ -1,0 +1,52 @@
+{
+  "candidate": "stage7_fold",
+  "model": "foldable_lr08_300r",
+  "trees": 300,
+  "folded": true,
+  "net_coefficients": [
+    0.5984820259058696,
+    1.346749335669439,
+    1.7159562323016062,
+    0.34354356856305435,
+    1.283418154060008
+  ],
+  "net_correction_base_validation": 94.22090247123869,
+  "net_correction_base_test": 94.18161578020552,
+  "net_correction_gain_validation": 0.40047103241788307,
+  "net_correction_gain_test": 0.4258190934308317,
+  "output_rows": 1000000,
+  "full_score": 95.13382712222403,
+  "valid": {
+    "score": 94.62124789050306
+  },
+  "test": {
+    "score": 94.6074016157127
+  },
+  "mae": 28.370586,
+  "zero_samples": {
+    "count": 1,
+    "all_correct": true
+  },
+  "groups": {
+    "distance_0_10": {
+      "count": 152,
+      "score": 56.439888571280456
+    },
+    "distance_10_30": {
+      "count": 1073,
+      "score": 75.77764077501789
+    },
+    "distance_30_100": {
+      "count": 9038,
+      "score": 89.85942601444803
+    },
+    "distance_100_300": {
+      "count": 26285,
+      "score": 95.85908371097557
+    },
+    "distance_300_1000": {
+      "count": 13452,
+      "score": 97.28488711787328
+    }
+  }
+}

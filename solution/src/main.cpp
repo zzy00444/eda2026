@@ -135,6 +135,30 @@ static inline Prepared prepare(const Pin& s,const Pin& t) {
     return p;
 }
 
+#if FOLDED_MODEL
+// Stage 7: the residual model is folded into the architecture table offline, so
+// the per-query work is one table lookup plus the analytic linear and gap terms
+// and the fitted five-term net correction.  No feature arithmetic, no tree.
+__attribute__((noinline)) static int complete(const Pin& s,const Pin& t,const Prepared& p) {
+    if(s.x==t.x && s.y==t.y && s.port==t.port) return 0;
+    const int dx=t.x-s.x,dy=t.y-s.y;
+    const int xlo=std::min(s.x,t.x),xhi=std::max(s.x,t.x);
+    const int ylo=std::min(s.y,t.y),yhi=std::max(s.y,t.y);
+    const int gap_x=gap_x_prefix[std::min(xhi,gap_x_limit)]-gap_x_prefix[std::min(xlo,gap_x_limit)];
+    const int gap_y=gap_y_prefix[std::min(yhi,gap_y_limit)]-gap_y_prefix[std::min(ylo,gap_y_limit)];
+    double prediction;
+    if(p.supported) {
+        const int value=architecture_table[p.base_index];
+        if(value!=32767) {
+            prediction=(slopes[p.direction][0]*dx+slopes[p.direction][1]*dy+value)/12.0+gap_x+gap_y;
+            prediction+=net_correction(s,t,xlo,xhi,ylo,yhi);
+            return std::max(0,int(std::nearbyint(prediction)));
+        }
+    }
+    prediction=309+12.7*std::abs(dx)+10.6*std::abs(dy)+0.93*(gap_x+gap_y);
+    return std::max(0,int(std::nearbyint(prediction)));
+}
+#else
 // Deliberately not inlined: the exported single-tree model is one ~22 KB
 // expression, and letting the compiler duplicate it for each buffered row both
 // tripled the code size (+123 KB) and cost about 19% of the run time through
@@ -247,6 +271,7 @@ __attribute__((noinline)) static int complete(const Pin& s,const Pin& t,const Pr
 #endif
     return std::max(0,int(std::nearbyint(prediction)));
 }
+#endif  // FOLDED_MODEL
 
 static inline int estimate(const Pin& s,const Pin& t) {return complete(s,t,prepare(s,t));}
 
