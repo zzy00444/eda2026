@@ -136,26 +136,70 @@ if args.packed_ports:
     if max(map(len, names)) > 8:
         parser.error("--packed-ports requires names no longer than eight bytes")
     packed = [int.from_bytes(name.encode("ascii"), "little") for name in names]
+    # Open addressing into a table that stays in L1.  The previous layout used a
+    # 65536-slot displacement array (128 KB), which the 57 MB architecture table
+    # evicts from cache, so every pin paid a cold miss on that array as well.
+    # Exact 64-bit key comparison is kept, so behaviour is unchanged.
+    slot_count = 1024
+    while slot_count < 4 * len(names):
+        slot_count *= 2
+    slot_bits = slot_count.bit_length() - 1
+    slot_mask = slot_count - 1
+    empty = (1 << 64) - 1
+
+    def build(seed):
+        keys_map = {}
+        total_probe = 0
+        for value in packed:
+            slot = ((value * seed) & empty) >> (64 - slot_bits)
+            probe = 0
+            while slot in keys_map:
+                slot = (slot + 1) & slot_mask
+                probe += 1
+                if probe > 8:
+                    return None, None
+            keys_map[slot] = value
+            total_probe += probe
+        keys = [empty] * slot_count
+        ids = [-1] * slot_count
+        for index, value in enumerate(packed):
+            slot = ((value * seed) & empty) >> (64 - slot_bits)
+            while keys[slot] != empty and keys[slot] != value:
+                slot = (slot + 1) & slot_mask
+            keys[slot] = value
+            ids[slot] = index
+        return (keys, ids), total_probe
+
     seed = 0x9E3779B97F4A7C15
+    best = None
     for attempt in range(4096):
-        slots = [((v * seed) & ((1 << 64) - 1)) >> 48 for v in packed]
-        if len(set(slots)) == len(slots):
-            break
-        seed = (seed * 0x2545F4914F6CDD1D + 0x9E3779B97F4A7C15) & ((1 << 64) - 1)
-    else:
-        raise ValueError("Cannot find a port perfect hash")
-    mapping = [-1] * 65536
-    for i, slot in enumerate(slots):
-        mapping[slot] = i
-    lines.append("static const short port_hash[]={" + ",".join(map(str, mapping)) + "};")
+        built, probe = build(seed)
+        if built is not None and (best is None or probe < best[0]):
+            best = (probe, seed, built)
+            if probe == 0:
+                break
+        seed = (seed * 0x2545F4914F6CDD1D + 0x9E3779B97F4A7C15) & empty
+    if best is None:
+        raise ValueError("Cannot find a port hash with bounded probes")
+    probe, seed, (slot_keys, slot_ids) = best
+    print("port hash slots", slot_count, "seed", hex(seed), "extra probes", probe, flush=True)
+    lines.append("static const std::uint64_t port_slot_keys[]={" +
+                 ",".join(("~0ULL" if v == empty else f"{v}ULL") for v in slot_keys) + "};")
+    lines.append("static const short port_slot_ids[]={" + ",".join(map(str, slot_ids)) + "};")
     lines.append("static const std::uint64_t port_packed[]={" + ",".join(f"{v}ULL" for v in packed) + "};")
     lines.append("static const unsigned char port_lengths[]={" + ",".join(map(str, map(len, names))) + "};")
     lines.append("static inline int lookup_port(std::string_view text) { std::uint64_t key=0; switch(text.size()) {")
     for length in sorted(set(map(len, names))):
         lines.append(f"case {length}: std::memcpy(&key,text.data(),{length}); break;")
     lines += ["default: return -1; }",
-              f"int id=port_hash[(key*{seed}ULL)>>48];",
-              "return id>=0 && port_lengths[id]==text.size() && port_packed[id]==key ? id : -1; }"]
+              f"unsigned slot=unsigned((key*{seed}ULL)>>{64 - slot_bits}u);",
+              "for(;;) {",
+              "    const std::uint64_t stored=port_slot_keys[slot];",
+              "    if(stored==key) { const int id=port_slot_ids[slot];",
+              "        return port_lengths[id]==text.size() && port_packed[id]==key ? id : -1; }",
+              "    if(stored==~0ULL) return -1;",
+              f"    slot=(slot+1u)&{slot_mask}u;",
+              "} }"]
 else:
     lines += ["static inline std::uint64_t port_key(std::string_view text) { std::uint64_t k=text.size(); for(unsigned char c:text) k=k*257+c; return k; }",
               "static inline int lookup_port(std::string_view text) { switch(port_key(text)) {"]

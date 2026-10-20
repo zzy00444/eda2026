@@ -1,0 +1,12 @@
+{
+  "method": "three interleaved 10M runs per binary on the same host, alternating a/b, same container flags",
+  "a": "stage5_score (stage-5 artefact)",
+  "b": "fast_v7 (stage-6 candidate)",
+  "a_cpu_seconds": [3.4074, 3.0066, 3.0547],
+  "b_cpu_seconds": [2.2368, 2.1707, 2.1895],
+  "a_mean": 3.1562333333333335,
+  "b_mean": 2.199,
+  "speedup": 1.4353,
+  "cpu_reduction_fraction": 0.3033,
+  "output_sha256": "2cb05566105cc53e99d9fd4132bcd03d111458eaeb5bd8835208fcca7f879dc0"
+}

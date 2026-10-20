@@ -1,0 +1,85 @@
+{
+  "stage": 6,
+  "date": "2026-10-20",
+  "default": "score",
+  "candidate": "stage6_score",
+  "generated_dir": "generated_s6_score",
+  "binary": "bin/estimate_stage6_score",
+  "model": "s3_topology_lr32_511l_25r",
+  "trees": 1,
+  "net_correction": "net_correction_f1_c0/metrics.json",
+  "net_coefficients": [
+    0.9405376344086025,
+    1.6152054794520552,
+    1.9533377522462807,
+    0.3491780821917809,
+    1.3123287671232877
+  ],
+  "port_hash": "open-addressed 2048-slot table with exact 64-bit key check",
+  "validation_accuracy": 94.96010319773164,
+  "test_accuracy": 94.9711467107907,
+  "accuracy_note": "identical to stage 5: the 1M and 10M outputs are byte-identical",
+  "average_10m_cpu_seconds": 2.2244016,
+  "average_projected_1b_cpu_seconds": 222.44016000000002,
+  "average_projected_1b_cpu_minutes": 3.707336,
+  "cpu_10m_range": [
+    2.185229,
+    2.263113
+  ],
+  "time_score": 13.146332,
+  "projected_total_from_validation": 94.11441455818532,
+  "projected_total_from_test": 94.12324936863257,
+  "stage5_projected_1b_cpu_seconds": 302.86370000000005,
+  "cpu_reduction_fraction": 0.2655436752572198,
+  "max_process_rss_kib": 50944,
+  "max_container_bytes": 806952960,
+  "benchmark_runs": 5,
+  "max_threads": 1,
+  "output_10m_sha256": "2cb05566105cc53e99d9fd4132bcd03d111458eaeb5bd8835208fcca7f879dc0",
+  "primary_model_sha256": "0ee7a37717bd2b96d794df37baaf562d697390e13099be339d4131dc22e024d8",
+  "generated_header_sha256": "d7818c561f9874dccbbddb5b7b204b316f9be261065ab3b3f8725b4f39261322",
+  "package": {
+    "binary_bytes": 57624656,
+    "zip_bytes": 41692644,
+    "binary_sha256": "9af9eec32f8259ce02678aa34828e8f44d687303a933f9e8544e47749eea8d77",
+    "zip_sha256": "1e1d81bb6880ebf709663def78850ff2c62f91ff8d22160a8236badcfbf4db72",
+    "contents": [
+      "bin/estimate"
+    ],
+    "unix_mode": "100755"
+  },
+  "submission": "stage6_score_submission.zip",
+  "compiler": "GCC 11.4.0",
+  "docker_image": "fpga-ziguang:latest",
+  "compiler_flags": "-O3 -march=x86-64 -ffp-contract=off -fprofile-use=profile -fprofile-correction -DNDEBUG -std=c++17",
+  "full_1b_run_completed": false,
+  "score_caveat": "Local held-out accuracy plus 10M timing extrapolation, not an official hidden-set score.",
+  "source_hashes": {
+    "src\\main.cpp": "f21bcbc7340f962d9c81dd9209fd2e2623907c03d395875d3c7153cc3d1c2f10",
+    "tools\\export_cpp.py": "04f66c08bb486e2789b164b3815f15d112c55799b71ad4b26e407d92ac8d61d8",
+    "tools\\pareto.py": "9c18e0240763384d4438070d68953b299224eb0ada38c88d848fcb14c693e51a",
+    "tools\\build_candidate_wsl.sh": "262c95f68df87bb06fcfabae2bfe3c1c755d76fefd32bd63e3c1d23cf725aa09",
+    "tools\\validate_stage5_wsl.sh": "2429b607a0ea88e20ce067d57cfc64dcc19b2f31f43373f5476f846124466fe1",
+    "tools\\ensure_request_header.sh": "f02db9e79d0a1cd6d854a35bcf7ec25f6b7ff22e86d7d69b3fccbf68a61059e3"
+  },
+  "same_session_interleaved": {
+    "method": "three interleaved 10M runs per binary on the same host, alternating a/b, same container flags",
+    "a": "stage5_score (stage-5 artefact)",
+    "b": "fast_v7 (stage-6 candidate)",
+    "a_cpu_seconds": [
+      3.4074,
+      3.0066,
+      3.0547
+    ],
+    "b_cpu_seconds": [
+      2.2368,
+      2.1707,
+      2.1895
+    ],
+    "a_mean": 3.1562333333333337,
+    "b_mean": 2.199,
+    "speedup": 1.4353,
+    "cpu_reduction_fraction": 0.3033,
+    "output_sha256": "2cb05566105cc53e99d9fd4132bcd03d111458eaeb5bd8835208fcca7f879dc0"
+  }
+}

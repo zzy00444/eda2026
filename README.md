@@ -1,6 +1,6 @@
 # EDA 2026 FPGA 延时估算
 
-本仓库管理“面向超大规模 FPGA 的布局布线延时估算算法”赛题实现、实验报告和本机复测流程。当前推荐候选是第五阶段总分优先版本，C++ 源码位于 [`solution/src`](solution/src)，训练和验证脚本位于 [`solution/tools`](solution/tools)，阶段报告位于 [`solution`](solution)。
+本仓库管理“面向超大规模 FPGA 的布局布线延时估算算法”赛题实现、实验报告和本机复测流程。当前推荐候选是第六阶段默认版本（第五阶段模型 + 大幅优化的运行时），C++ 源码位于 [`solution/src`](solution/src)，训练和验证脚本位于 [`solution/tools`](solution/tools)，阶段报告位于 [`solution`](solution)。
 
 ## 仓库内容
 
@@ -12,6 +12,12 @@
 - [`HANDOFF.md`](HANDOFF.md)：交接入口，列出当前基线、复测步骤、未完成验证和后续优化方向。
 
 官方架构 JSON 和公开数据集由竞赛资料单独提供，不复制进此仓库。默认期望其位于 `F:\EDA\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay`，即从仓库根目录的 `..\..\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay`；也可用 `EDA_DATA_DIR` 指定该目录。需要端到端压测时，还需准备只有 `From,To` 两列的请求 CSV，并在 WSL 构建命令中通过 `EDA_REQUEST_CSV_WSL` 指定其 `/mnt/...` 路径。这些外部数据和本地路径不应提交到 Git。
+
+## 当前第六阶段结果
+
+第六阶段只改运行时与端口解析，模型、Net 结构校正和架构表不变，1M 与 10M 输出与第五阶段逐字节相同，因此准确度不变而 CPU 明显下降。同机交错 10M 对照：第五阶段产物 3.1562 秒、第六阶段 2.1990 秒，**CPU 降低 30.3%**；第六阶段单独 10M 五次均值 2.2244 秒，1B 外推约 3.71 分钟，时间分 87.6，预计总分 **94.12**（第五阶段同机复测约 93.35，记录值 93.45）。
+
+第六阶段同时确认了两个方向性结论：继续加树不划算（2 棵树需买回 0.32 分准确度才抵平，实测第 2 棵树约 0.30 且递减），而低成本的确定性结构校正性价比约为加树的 10 倍（5 项 Net 校正花 11 ns 换回 1.19 分准确度）。详见 [`FPGA延时估算第六阶段结果.md`](solution/FPGA延时估算第六阶段结果.md) 与 `build/stage6_manifest.json`。
 
 ## 当前第五阶段结果
 
@@ -79,29 +85,34 @@ python -m venv .venv
   --output-dir net_correction_f1_c0
 .\.venv\Scripts\python.exe -u solution\tools\export_cpp.py `
   --model s3_topology_lr32_511l_25r --trees 1 --fast-categories --packed-ports `
-  --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s5_score
-wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s5_score pgo x86-64 stage5_score'
+  --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s6_score
+wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s6_score pgo x86-64 stage6_score'
 ```
 
 训练输出和导出目录均位于 `solution/build`。镜像构建脚本从仓库内读取 C++ 和生成文件，使用 `EDA_REQUEST_CSV_WSL` 提供 PGO 训练及基准请求；该变量须是 WSL 可见的 `/mnt/...` 路径。脚本只构建到隔离候选目录，不覆盖提交包。上面的请求文件路径是这台工作机目前已有的本地请求样例，换机器时请改为对应文件。
 
-全公开集 C++/Python 一致性验证：
+全公开集 C++/Python 一致性验证（`stage6_score` 与 `stage5_score` 预测相同，参数换成对应目录即可）：
 
 ```powershell
 .\.venv\Scripts\python.exe -u solution\tools\verify_cpp.py `
-  --result solution\build\local_runs\stage5_score_result.csv `
-  --generated-dir generated_s5_score --name stage5_score --all-rows
+  --result solution\build\local_runs\generated_s6_score_result.csv `
+  --generated-dir generated_s6_score --name stage6_score --all-rows
 ```
 
-`verify_cpp.py` 需要先用公开请求运行候选 ELF，生成预测 CSV。两个候选构建完成后，可依次打包、执行镜像内接口与 10M 五次压测，再验证 ZIP 解压后的独立运行：
+`verify_cpp.py` 需要先用公开请求运行候选 ELF，生成预测 CSV。构建完成后，接口与 10M 五次压测按候选名执行（脚本可一次传多个名字）：
 
 ```powershell
-.\.venv\Scripts\python.exe solution\tools\package.py --binary solution\bin\estimate_stage5_score --output solution\stage5_score_submission.zip
-.\.venv\Scripts\python.exe solution\tools\package.py --binary solution\bin\estimate_stage5_accuracy --output solution\stage5_accuracy_submission.zip
-$env:EDA_REQUEST_CSV_WSL = "/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv"
-wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/validate_stage5_wsl.sh'
-wsl -d Ubuntu-20.04 -- bash /mnt/f/EDA/solution/eda2026/solution/tools/check_stage5_packages_wsl.sh
+$env:EDA_REQUEST_CSV_WSL = "/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv"
+wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/validate_stage5_wsl.sh stage6_score'
 ```
+
+打包、SHA256 记录、提交包写入与 `build/stage6_manifest.json` 由 `release_stage6.py` 统一完成，它会拒绝五次输出不一致或与第五阶段预测不等价的证据：
+
+```powershell
+.\.venv\Scripts\python.exe -u solution\tools\release_stage6.py
+```
+
+`tools/pareto.py` 生成准确度/时间 Pareto 表，`tools/release_stage5.py` 仍可用于重新发布第五阶段的两个候选。
 
 压测报告保存在 `solution/build/local_runs`。上述流程验证接口、资源和重复输出；它不执行完整 1B 官方隐藏集评测。
 

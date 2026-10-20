@@ -237,6 +237,16 @@ __marimo__/
 !/solution/build/generated_s5_accuracy/architecture.S
 !/solution/build/generated_s5_accuracy/export.json
 !/solution/build/generated_s5_accuracy/model.hpp
+!/solution/build/generated_s6_score/
+/solution/build/generated_s6_score/*
+!/solution/build/generated_s6_score/architecture.S
+!/solution/build/generated_s6_score/export.json
+!/solution/build/generated_s6_score/model.hpp
+!/solution/build/stage6_manifest.json
+!/solution/build/stage6_ab10m.json
+!/solution/build/stage6_pareto_trees.json
+!/solution/build/stage6_v7_benchmark_10m.json
+!/solution/build/stage6_v7_integration.json
 !/solution/build/stage5_manifest.json
 !/solution/build/stage5_score_metrics.json
 !/solution/build/stage5_accuracy_metrics.json

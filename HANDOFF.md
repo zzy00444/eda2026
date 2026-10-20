@@ -16,16 +16,19 @@ Git 有意不保存公开赛题数据、架构表缓存、临时 CSV、ELF、提
 
 ## 当前基线
 
-第五阶段保留两个候选，优化目标是官方总分而非单独追求准确度。公开集固定切分、指标解释和验证细节以第五阶段报告及 `solution/build/stage5_manifest.json` 为准。
+第六阶段的默认候选与第五阶段相比只有运行时和端口解析不同，1M/10M 输出逐字节相同，准确度不变而 CPU 降低约 30%。指标解释与验证细节以[第六阶段报告](solution/FPGA延时估算第六阶段结果.md)、[第五阶段报告](solution/FPGA延时估算第五阶段结果.md)和 `solution/build/stage6_manifest.json`、`stage5_manifest.json` 为准。
 
 | 候选 | 固定验证准确度 | 固定测试准确度 | 10M CPU 均值 | 1B CPU 外推 | 预计总分 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `stage5_score`，默认 | 94.9601 | 94.9711 | 3.0286 秒 | 5.0477 分钟 | 93.4531 |
+| `stage6_score`，默认 | 94.9601 | 94.9711 | 2.2244 秒 | 3.71 分钟 | **94.1233** |
+| `stage5_score`（同机交错复测） | 94.9601 | 94.9711 | 3.1562 秒 | 5.26 分钟 | 93.3471 |
 | `stage5_accuracy` | 96.2345 | 96.2257 | 13.1892 秒 | 21.9820 分钟 | 85.9896 |
 
-默认候选使用主 LightGBM 模型 1 棵树；高准确度候选按距离门控使用最多 25 棵。二者都叠加由训练数据拟合的 5 项源端 Net 结构校正，并使用架构下界和打包端口解析。模型推理不依赖运行时 Python、JSON 或外部模型文件。更多方法细节和哈希见第五阶段报告。
+默认候选使用主 LightGBM 模型 1 棵树；高准确度候选按距离门控使用最多 25 棵。二者都叠加由训练数据拟合的 5 项源端 Net 结构校正，并使用架构下界和打包端口解析。模型推理不依赖运行时 Python、JSON 或外部模型文件。更多方法细节和哈希见第六、第五阶段报告。
 
-上述分数来自本地固定公开集及本机镜像压测的外推，不是官方成绩。已经有迁移前的公开 1M C++/Python 全量一致性、接口测试、10M 五次确定性压测和 ZIP 独立运行记录；完整 1B 官方规模终测和隐藏集评测仍未完成。固定测试切分在开发过程中已多次查看，应作为回归集，不应宣称为未触碰的泛化集。
+第六阶段的两条决策依据：一棵 511 叶树约 31 ns（1B 约 0.26 分），要划算必须买回 0.32 分准确度，实测第 2 棵树只有约 0.30 且继续递减；而 5 项 Net 结构校正只花 11 ns 换回 1.19 分准确度。因此**优先做低成本确定性结构项，而不是加树**。
+
+上述分数来自本地固定公开集及本机镜像压测的外推，不是官方成绩。已经有公开 1M C++/Python 全量一致性、接口测试、10M 五次确定性压测和 ZIP 独立运行记录；完整 1B 官方规模终测和隐藏集评测仍未完成。固定测试切分在开发过程中已多次查看，应作为回归集，不应宣称为未触碰的泛化集。
 
 ## 本机前置条件
 
@@ -60,21 +63,24 @@ Git 不保存 `solution/build/architecture_meta.json`、`architecture_table.npy`
   --output-dir net_correction_f1_c0
 .\.venv\Scripts\python.exe -u solution\tools\export_cpp.py `
   --model s3_topology_lr32_511l_25r --trees 1 --fast-categories --packed-ports `
-  --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s5_score
-wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s5_score pgo x86-64 stage5_score'
+  --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s6_score
+wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s6_score pgo x86-64 stage6_score'
+.\.venv\Scripts\python.exe -u solution\tools\release_stage6.py
 ```
 
-请求 CSV 首行不是 `From,To` 时，`build_candidate_wsl.sh` 与 `validate_stage5_wsl.sh` 会通过 `tools/ensure_request_header.sh` 自动补表头；官方输入本身带表头，本地从 `delay_estimate_ans.csv` 裁出的 `From,To` 文件通常不带。`F:\EDA\pango_delay_handover_v3\local_build\request.csv` 就是这种无表头文件，不要直接把它当作已可用样本。
+请求 CSV 首行不是 `From,To` 时，`build_candidate_wsl.sh` 与 `validate_stage5_wsl.sh` 会通过 `tools/ensure_request_header.sh` 自动补表头；官方输入本身带表头，本地从 `delay_estimate_ans.csv` 裁出的 `From,To` 文件通常不带。`F:\EDA\pango_delay_handover_v3\local_build\request.csv` 就是这种无表头文件，脚本会补表头，但更推荐直接用带表头的 `solution/build/local_runs/request_1m.csv`。
 
-候选 ELF 写入 `solution/bin/estimate_stage5_score`，构建期基准输出写入 `solution/build/local_runs/`。如果重建了模型或 C++，重新运行公开集一致性检查、接口/10M 压测和 ZIP 独立运行检查，不可将旧证据或旧哈希当作新二进制的验证结果。相应命令见根目录 README。
+候选 ELF 写入 `solution/bin/estimate_stage6_score`，构建期基准输出写入 `solution/build/local_runs/`。如果重建了模型或 C++，重新运行公开集一致性检查、接口/10M 压测和 `release_stage6.py`，不可将旧证据或旧哈希当作新二进制的验证结果。相应命令见根目录 README。
+
+`release_stage6.py` 会强制校验：五次 10M 输出哈希一致、线程数为 1、容器峰值内存低于 2 GB、1M/10M 预测与第五阶段逐字节等价，然后才打包 `stage6_score_submission.zip`、更新 `bin/estimate` 与 `submission.zip`、写出 `build/stage6_manifest.json`。
 
 高准确度候选的结构校正和导出参数见第五阶段报告“复现高准确度候选”小节；构建脚本命令将候选目录改为 `generated_s5_accuracy`，产物标识改为 `stage5_accuracy`。
 
 ## 已知边界与优化顺序
 
 1. 先在接手机器确认 WSL 发行版、Docker Desktop 集成和镜像标签可用；检查数据 JSON/CSV 与请求样例在 Windows 和 WSL 两侧都可读。未准备这些外部文件时，仓库本身仍可供代码阅读，但训练和端到端验证无法启动。
-2. 先按当前参数重建 `stage5_score`，比较新旧导出文件和公开集指标，验证 README 命令与迁移后的目录结构可复现。当前迁移后已做 Python `compileall`、三个 shell 脚本 `bash -n` 和 `git diff --check`；WSL 启动异常导致迁移后的 Docker 编译/压测没有重跑。
-3. 以官方总分公式建立候选 Pareto 表，分别记录准确度、单线程 CPU 时间、峰值内存、可执行大小、确定性和验证集/固定测试集指标。默认总分优先候选是性能基准，高准确度候选是精度对照。
+2. 先按当前参数重建 `stage6_score`，比较新旧导出文件和公开集指标，验证 README 命令与迁移后的目录结构可复现。迁移后已做 Python `compileall`、shell 脚本 `bash -n` 和 `git diff --check`，并在本机完整跑通“架构表 → 训练 → 校正 → 导出 → 镜像内 PGO 构建 → 接口与 10M 压测 → 打包”整条链路，产出的 ELF 与记录哈希一致。
+3. 用 `tools/pareto.py` 维护候选 Pareto 表（准确度、单线程 CPU、1B 外推、预计总分）。当前结论：默认候选在 Pareto 前沿上，纯架构下界更快但准确度低 3.6 分；3 棵树与 6 棵树都被默认候选支配。
 4. 优先做可解释的小步实验：主模型树数/距离门控、Net 校正特征与系数、C++ 热路径与端口解析。每次只改变一类因素，系数只用训练集拟合，验证集用于选型；固定测试集用于回归比较并注明已有反复查看。
 5. 性能改进达到稳定收益后，再在受限镜像中做多轮大规模压力验证。最终需要官方 1B 规模及隐藏集评测结果才能确认真实排名；10M 线性外推只能用于筛选候选。
 
