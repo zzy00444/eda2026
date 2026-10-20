@@ -1,0 +1,20 @@
+# The repository is edited on Windows and executed through WSL/Docker, so the
+# stored content must keep LF for anything a shell or compiler reads.  With
+# core.autocrlf=true and no attributes, a fresh checkout would deliver CRLF
+# shell scripts and fail with "$'\r': command not found".
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.S text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.bin binary
+*.npy binary
+*.npz binary
+*.pkl binary
+*.zip binary
+*.tar binary

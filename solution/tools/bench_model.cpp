@@ -10,8 +10,9 @@ int main(int argc,char** argv) {
     while(std::getline(in,line)) {
         if(!line.empty() && line.back()=='\r') line.pop_back();
         auto comma=line.find(','); if(comma==std::string::npos) continue;
-        Pin source=parse_pin(std::string_view(line.data(),comma));
-        Pin target=parse_pin(std::string_view(line.data()+comma+1,line.size()-comma-1));
+        Pin source{},target{};
+        if(parse_pin(std::string_view(line.data(),comma),source)) continue;
+        if(parse_pin(std::string_view(line.data()+comma+1,line.size()-comma-1),target)) continue;
         checksum += estimate(source,target);
     }
     std::fprintf(stderr,"checksum %lld\n",checksum);

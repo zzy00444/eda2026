@@ -246,6 +246,9 @@ __marimo__/
 !/solution/build/stage5_generated_s5_accuracy_benchmark_10m.json
 !/solution/build/stage5_generated_s5_score_integration.json
 !/solution/build/stage5_generated_s5_accuracy_integration.json
+!/solution/build/stage6_fast_v1_benchmark_10m.json
+!/solution/build/stage6_fast_v1_integration.json
+!/solution/build/stage6_pareto_trees.json
 /solution/build/net_correction_f1_c0/
 !/solution/build/net_correction_f1_c0/
 !/solution/build/net_correction_f1_c0/metrics.json
