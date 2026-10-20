@@ -37,7 +37,7 @@
   "max_threads": 1,
   "output_10m_sha256": "2cb05566105cc53e99d9fd4132bcd03d111458eaeb5bd8835208fcca7f879dc0",
   "primary_model_sha256": "0ee7a37717bd2b96d794df37baaf562d697390e13099be339d4131dc22e024d8",
-  "generated_header_sha256": "d7818c561f9874dccbbddb5b7b204b316f9be261065ab3b3f8725b4f39261322",
+  "generated_header_sha256": "87f588f41b2a8e57ff4aedf533e8e9761a7bd7df65cd901a778f2151f992bb5f",
   "package": {
     "binary_bytes": 57624656,
     "zip_bytes": 41692644,
@@ -56,7 +56,7 @@
   "score_caveat": "Local held-out accuracy plus 10M timing extrapolation, not an official hidden-set score.",
   "source_hashes": {
     "src\\main.cpp": "f21bcbc7340f962d9c81dd9209fd2e2623907c03d395875d3c7153cc3d1c2f10",
-    "tools\\export_cpp.py": "04f66c08bb486e2789b164b3815f15d112c55799b71ad4b26e407d92ac8d61d8",
+    "tools\\export_cpp.py": "9858aa41aaa005095e1fbef0524bc69cd53427a856c9d9f147791b437e8337bf",
     "tools\\pareto.py": "9c18e0240763384d4438070d68953b299224eb0ada38c88d848fcb14c693e51a",
     "tools\\build_candidate_wsl.sh": "262c95f68df87bb06fcfabae2bfe3c1c755d76fefd32bd63e3c1d23cf725aa09",
     "tools\\validate_stage5_wsl.sh": "2429b607a0ea88e20ce067d57cfc64dcc19b2f31f43373f5476f846124466fe1",

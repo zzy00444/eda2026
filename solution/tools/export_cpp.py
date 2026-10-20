@@ -411,7 +411,7 @@ else:
                 lines.append("if(f[F_manhattan]>=100 && std::abs(f[F_first_dx])!=10) return s;")
             lines.append(f"s+=eval_tree(roots[{i}],f);")
     lines += ["return s;}"]
-(out / "model.hpp").write_text("\n".join(lines)+"\n", encoding="utf-8")
+(out / "model.hpp").write_text("\n".join(lines)+"\n", encoding="utf-8", newline="\n")
 np.load(BUILD / "architecture_table.npy").astype("<i2").tofile(out / "architecture.bin")
 (out / "architecture.S").write_text('''// Link the table into the executable; no runtime file dependency.
 .section .rodata
@@ -420,7 +420,7 @@ np.load(BUILD / "architecture_table.npy").astype("<i2").tofile(out / "architectu
 architecture_table:
 .incbin "architecture.bin"
 .section .note.GNU-stack,"",@progbits
-''', encoding="utf-8")
+''', encoding="utf-8", newline="\n")
 (out / "export.json").write_text(json.dumps({"model":args.model, "trees":len(roots),
     "cascade_model":args.cascade_model, "cascade_trees":len(cascade_roots),
     "cascade_min_distance":args.cascade_min_distance, "cascade_max_distance":args.cascade_max_distance,
@@ -435,5 +435,5 @@ architecture_table:
     "net_correction":args.net_correction,
     "net_coefficients":net_config["coefficients"] if net_config is not None else [],
     "nodes":len(nodes), "feature_names":model.feature_name(),
-    "categorical_maps":category_maps},indent=2), encoding="utf-8")
+    "categorical_maps":category_maps},indent=2), encoding="utf-8", newline="\n")
 print("exported", args.model, len(roots), "trees", "cascade", len(cascade_roots), "trees", len(nodes), "nodes", flush=True)
