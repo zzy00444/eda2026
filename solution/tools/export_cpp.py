@@ -28,6 +28,8 @@ parser.add_argument("--cascade-model", default="",
 parser.add_argument("--cascade-trees", type=int, default=0)
 parser.add_argument("--cascade-min-distance", type=int, default=100)
 parser.add_argument("--cascade-max-distance", type=int, default=300)
+parser.add_argument("--table", default="architecture_table.npy",
+                    help="table file below build to embed, e.g. a stage-7 folded table")
 parser.add_argument("--net-correction", default="",
                     help="Training-only fitted net-correction metrics JSON below build")
 args = parser.parse_args()
@@ -302,7 +304,7 @@ if args.fast_categories:
 if "architecture_envelope" in model.feature_name():
     # An alternative potential cannot improve the selected quadrant once the
     # spatial penalty exceeds this exact, topology-only maximum table delta.
-    table = np.load(BUILD / "architecture_table.npy", mmap_mode="r")
+    table = np.load(BUILD / args.table, mmap_mode="r")
     bounds = []
     for direction in range(4):
         row = []
@@ -412,7 +414,7 @@ else:
             lines.append(f"s+=eval_tree(roots[{i}],f);")
     lines += ["return s;}"]
 (out / "model.hpp").write_text("\n".join(lines)+"\n", encoding="utf-8", newline="\n")
-np.load(BUILD / "architecture_table.npy").astype("<i2").tofile(out / "architecture.bin")
+np.load(BUILD / args.table).astype("<i2").tofile(out / "architecture.bin")
 (out / "architecture.S").write_text('''// Link the table into the executable; no runtime file dependency.
 .section .rodata
 .balign 64
