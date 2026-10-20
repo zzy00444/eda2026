@@ -42,7 +42,8 @@ FOLDABLE = [
 ]
 ROUNDS = int(sys.argv[1]) if len(sys.argv) > 1 else 300
 RATE = float(sys.argv[2]) if len(sys.argv) > 2 else 0.08
-NAME = sys.argv[3] if len(sys.argv) > 3 else "foldable_lr08_300r"
+LEAVES = int(sys.argv[3]) if len(sys.argv) > 3 else 511
+NAME = sys.argv[4] if len(sys.argv) > 4 else "foldable_lr08_300r"
 
 x, y = load_features()
 x, _ = topology_features(x)
@@ -75,7 +76,7 @@ valid = lgb.Dataset(x.iloc[va], label=y[va] - base[va],
                     reference=data)
 started = time.perf_counter()
 model = lgb.train({"objective": "regression_l1", "metric": "l1",
-                   "learning_rate": RATE, "num_leaves": 511, "min_data_in_leaf": 40,
+                   "learning_rate": RATE, "num_leaves": LEAVES, "min_data_in_leaf": 40,
                    "feature_fraction": .95, "verbosity": -1, "num_threads": 8,
                    "force_col_wise": True, "seed": 7},
                   data, num_boost_round=ROUNDS, valid_sets=[valid],
@@ -90,5 +91,5 @@ for trees in (25, 50, 100, 150, 200, ROUNDS):
         scores[name] = competition_score(y[ix], p)
     results[str(trees)] = scores
     print(f"trees={trees:3d} valid={scores['valid']:.4f} test={scores['test']:.4f}", flush=True)
-(BUILD / f"{NAME}_metrics.json").write_text(json.dumps({"rounds": ROUNDS, "rate": RATE,
+(BUILD / f"{NAME}_metrics.json").write_text(json.dumps({"rounds": ROUNDS, "rate": RATE, "leaves": LEAVES,
     "features": FOLDABLE, "scores": results}, indent=2), encoding="utf-8")

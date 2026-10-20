@@ -40,7 +40,7 @@
 
 ## 实现
 
-1. `tools/train_foldable.py` 用可折叠特征集训练 L1 残差模型（511 叶、300 轮、学习率 0.08、训练集权重 `1/max(y,200)`），只保存模型。
+1. `tools/train_foldable.py` 用可折叠特征集训练 L1 残差模型（参数依次为轮数、学习率、叶数、模型名；默认配置 300 轮 / 0.08 / 511 叶、训练集权重 `1/max(y,200)`），只保存模型。叶数从 511 提到 1023 后测试集只从 94.1816 变化到 94.1855（+0.004），说明容量已经饱和，瓶颈不在叶子数量。
 2. `tools/fit_netcorr_folded.py` 用同一套结构特征、以加权 L1 线性规划重拟合 5 个系数；系数只用训练集拟合，验证集用于确认。
 3. `tools/fold_model.py` 枚举全部 28,753,920 个键（4 × 208 源 × 120 余数 × 288 目标），构造可折叠特征、预测修正、以 `table_scaled + round(12 × 修正)` 写回 int16 表，并生成不含任何树代码的 `model.hpp`。`32767` 的"不可达"哨兵保留。
 4. `src/main.cpp` 增加 `FOLDED_MODEL` 分支：同引脚 0 → 两个 Gap 前缀 → 一次查表 → 线性项 + 校正 → Net 结构校正 → 舍入。第六阶段的实现完整保留在 `#else` 分支里，两个模型共用同一份源码。
@@ -125,7 +125,7 @@ $env:EDA_DATA_DIR = (Resolve-Path F:\EDA\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-
   --leaves 511 --rounds 25 --learning-rate 0.32 --prefix s3_topology_lr32
 
 # 可折叠模型 → 重拟合 Net 校正 → 折叠成表
-.\.venv\Scripts\python.exe -u solution\tools\train_foldable.py 300 0.08 foldable_lr08_300r
+.\.venv\Scripts\python.exe -u solution\tools\train_foldable.py 300 0.08 511 foldable_lr08_300r
 .\.venv\Scripts\python.exe -u solution\tools\fit_netcorr_folded.py foldable_lr08_300r 300 net_correction_folded.json
 .\.venv\Scripts\python.exe -u solution\tools\fold_model.py --model foldable_lr08_300r --trees 300 `
   --out generated_s7_fold --net-coefficients solution\build\net_correction_folded.json
