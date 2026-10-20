@@ -47,9 +47,12 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r solution\requirements.txt
 ```
 
-若已有虚拟环境，无需重复创建；换机器时按实际位置设置 `EDA_DATA_DIR` 和请求文件路径。默认总分优先候选的 Python 导出和 WSL 镜像构建命令：
+若已有虚拟环境，无需重复创建；换机器时按实际位置设置 `EDA_DATA_DIR` 和请求文件路径。迁移时 `F:\EDA\solution\.venv` 已存在且版本与本仓库 `solution/requirements.txt` 一致，可直接用 `F:\EDA\solution\.venv\Scripts\python.exe` 代替 `.\\.venv\\Scripts\\python.exe`。
+
+Git 不保存 `solution/build/architecture_meta.json`、`architecture_table.npy`、`architecture_prediction.npy` 和 `stage3_features.pkl`，因此克隆后第一次重建必须先生成周期架构表；跳过这一步会让 `topology_experiment.py`、`export_cpp.py`、`verify_cpp.py` 因缺少架构表而报错。默认总分优先候选的最小重建序列：
 
 ```powershell
+.\.venv\Scripts\python.exe -u solution\tools\architecture.py
 .\.venv\Scripts\python.exe -u solution\tools\topology_experiment.py `
   --leaves 511 --rounds 25 --learning-rate 0.32 --prefix s3_topology_lr32
 .\.venv\Scripts\python.exe -u solution\tools\net_correction_experiment.py `
@@ -58,8 +61,10 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -u solution\tools\export_cpp.py `
   --model s3_topology_lr32_511l_25r --trees 1 --fast-categories --packed-ports `
   --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s5_score
-wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s5_score pgo x86-64 stage5_score'
+wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s5_score pgo x86-64 stage5_score'
 ```
+
+请求 CSV 首行不是 `From,To` 时，`build_candidate_wsl.sh` 与 `validate_stage5_wsl.sh` 会通过 `tools/ensure_request_header.sh` 自动补表头；官方输入本身带表头，本地从 `delay_estimate_ans.csv` 裁出的 `From,To` 文件通常不带。`F:\EDA\pango_delay_handover_v3\local_build\request.csv` 就是这种无表头文件，不要直接把它当作已可用样本。
 
 候选 ELF 写入 `solution/bin/estimate_stage5_score`，构建期基准输出写入 `solution/build/local_runs/`。如果重建了模型或 C++，重新运行公开集一致性检查、接口/10M 压测和 ZIP 独立运行检查，不可将旧证据或旧哈希当作新二进制的验证结果。相应命令见根目录 README。
 

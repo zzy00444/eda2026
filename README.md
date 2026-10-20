@@ -63,7 +63,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r solution\requirements.txt
 ```
 
-镜像构建脚本需要 Linux 可见的请求文件路径。当前请求样例在 WSL 中为 `/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv`；构建命令通过 `EDA_REQUEST_CSV_WSL` 显式传给脚本。
+镜像构建脚本需要 Linux 可见的请求文件路径。当前请求样例在 WSL 中为 `/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv`；构建命令通过 `EDA_REQUEST_CSV_WSL` 显式传给脚本。该样例没有 `From,To` 表头（从答案 CSV 裁列时被去掉），`build_candidate_wsl.sh` 和 `validate_stage5_wsl.sh` 会用 `solution/tools/ensure_request_header.sh` 自动补齐；带表头的文件不会被改动。也可以改用 `solution/build/local_runs/request_1m.csv`，该文件由 `delay_estimate_ans.csv` 重新生成并保留表头。
 
 ### 重建当前候选
 

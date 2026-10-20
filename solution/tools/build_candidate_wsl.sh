@@ -10,6 +10,7 @@ artifact=${4:-$candidate}
 [[ "$artifact" =~ ^[a-zA-Z0-9_]+$ ]] || exit 2
 
 repo=$(cd "$(dirname "$0")/../.." && pwd)
+source "$(dirname "$0")/ensure_request_header.sh"
 request=${EDA_REQUEST_CSV_WSL:-}
 if [[ -z "$request" || ! -f "$request" ]]; then
   echo "Set EDA_REQUEST_CSV_WSL to a WSL-visible From,To CSV" >&2
@@ -26,6 +27,7 @@ cp "$repo/solution/src/main.cpp" "$work/src/"
 cp "$candidate_dir"/{model.hpp,architecture.S,architecture.bin,export.json} "$work/generated/"
 cp "$repo/solution/tools/benchmark.py" "$work/tools/"
 cp "$request" "$work/request.csv"
+ensure_request_header "$work/request.csv"
 cd "$work"
 
 docker_args=(--rm --user "$(id -u):$(id -g)" --memory=2g --memory-swap=2g \
