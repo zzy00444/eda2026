@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import lzma
 import os
 from pathlib import Path
 import shutil
@@ -42,6 +43,7 @@ def main():
     build.add_argument('--residual-header', type=Path)
     build.add_argument('--bound-file', type=Path)
     build.add_argument('--local-file', type=Path)
+    build.add_argument('--local-xz',type=Path)
     build.add_argument('--wall-header', type=Path)
     run = sub.add_parser('run')
     run.add_argument('names', nargs='+')
@@ -81,6 +83,9 @@ def main():
                 raise ValueError('Local and envelope descriptors cannot share the same slot')
             shutil.copy2(REPO / 'solution/src/displacement_local_runtime.hpp', WORK / 'displacement_local_runtime.hpp')
             flags += ['-DEST_LOCAL']
+            if args.local_xz:
+                assert lzma.decompress(args.local_xz.read_bytes())==args.local_file.read_bytes()
+                flags += ['-DEST_LOCAL_XZ'];libraries += ['-l:liblzma.so.5']
         if args.residual_header:
             if not args.bound_file:
                 raise ValueError('Residual build requires --bound-file')
@@ -92,9 +97,9 @@ def main():
         if args.local_file:
             with raw.open('ab') as target:
                 begin = target.tell()
-                local = args.local_file.read_bytes()
+                local = (args.local_xz or args.local_file).read_bytes()
                 target.write(local)
-                target.write(b'PGLCF001'+struct.pack('<3Q', begin, len(local), 0))
+                target.write((b'PGLCZ001' if args.local_xz else b'PGLCF001')+struct.pack('<3Q', begin, len(local),args.local_file.stat().st_size if args.local_xz else 0))
         if args.residual_header:
             with raw.open('ab') as target:
                 begin = target.tell()
@@ -112,6 +117,7 @@ def main():
         if args.local_file:
             record.update(local_asset_sha256=sha(args.local_file),
                           local_runtime_sha256=sha(REPO / 'solution/src/displacement_local_runtime.hpp'))
+            if args.local_xz:record.update(local_compressed_sha256=sha(args.local_xz),local_compressed_bytes=args.local_xz.stat().st_size,libraries=libraries)
         if args.residual_header:
             record.update(residual_header_sha256=sha(args.residual_header), bound_sha256=sha(args.bound_file),
                           residual_runtime_sha256=sha(REPO / 'solution/src/displacement_residual_runtime.hpp'), libraries=libraries)

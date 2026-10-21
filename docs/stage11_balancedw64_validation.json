@@ -1,0 +1,13 @@
+{
+  "candidate": "stage11_balancedw64",
+  "binary_sha256": "29dd4213926a94e098d9b6cb69eb65cd0a49252b6fca5698bf46b42a329f09a5",
+  "zip_sha256": "48a222160865cc0f49b543a52acb4ca1792448fe3f0f370c74e396ef82737115",
+  "reports": {
+    "integration": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "contract": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "standalone": "d322cd6c278c7272986bcc52f12d6d2c2c39a0e9725d257950926340be9aacc1"
+  },
+  "image": "fpga-ziguang:latest",
+  "memory_limit_bytes": 2000000000,
+  "all_passed": true
+}

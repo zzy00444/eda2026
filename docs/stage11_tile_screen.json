@@ -1,0 +1,1737 @@
+{
+  "selected_branch_proxy": true,
+  "test_labels_used": false,
+  "wall_outputs_fixed": true,
+  "baseline_valid_accuracy": 97.77970197120274,
+  "curves": [
+    [
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.008159710576383239,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.41856
+      },
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.011307246951608367,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.62784
+      },
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.013782191544601488,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.83712
+      },
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.017479782316936154,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.25568
+      },
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.020995440975919336,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.67424
+      },
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02411285122976545,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.0928
+      },
+      {
+        "factors": "stage11_tile_residual_00",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.026328510572107253,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.51136
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.008218028316008234,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.41856
+      },
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 1.2976756408597225e-05,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.62784
+      },
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.0029994682772778716,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.83712
+      },
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.009771539912397414,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.25568
+      },
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.013315678312833845,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.67424
+      },
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.016374907501666636,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.0928
+      },
+      {
+        "factors": "stage11_tile_direct_00",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.01837565824468367,
+        "coverage": 0.02616,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.51136
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.01588106250867739,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 649744,
+        "expected_extra_dot_dimensions": 0.2144
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02039393812220437,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 854808,
+        "expected_extra_dot_dimensions": 0.3216
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.021043836242135943,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 1059872,
+        "expected_extra_dot_dimensions": 0.4288
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.026715448284428185,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 1470000,
+        "expected_extra_dot_dimensions": 0.6432
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.031174782721389592,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 1880128,
+        "expected_extra_dot_dimensions": 0.8576
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.034519824636518294,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 2290256,
+        "expected_extra_dot_dimensions": 1.072
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03697559186368807,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 2700384,
+        "expected_extra_dot_dimensions": 1.2864
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.0020376110928116346,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 649744,
+        "expected_extra_dot_dimensions": 0.2144
+      },
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.008705852135464124,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 854808,
+        "expected_extra_dot_dimensions": 0.3216
+      },
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.015651960784910983,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 1059872,
+        "expected_extra_dot_dimensions": 0.4288
+      },
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.022218536067459018,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 1470000,
+        "expected_extra_dot_dimensions": 0.6432
+      },
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.027477969214524823,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 1880128,
+        "expected_extra_dot_dimensions": 0.8576
+      },
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03036601843100967,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 2290256,
+        "expected_extra_dot_dimensions": 1.072
+      },
+      {
+        "factors": "stage11_tile_direct_01",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.032540639644262195,
+        "coverage": 0.0134,
+        "asset_bytes_excluding_map": 2700384,
+        "expected_extra_dot_dimensions": 1.2864
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.016836294569537467,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 650512,
+        "expected_extra_dot_dimensions": 0.2464
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.020844402949830323,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 855960,
+        "expected_extra_dot_dimensions": 0.3696
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02516484273187566,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 1061408,
+        "expected_extra_dot_dimensions": 0.4928
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.028649678129042098,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 1472304,
+        "expected_extra_dot_dimensions": 0.7392
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03106817524974229,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 1883200,
+        "expected_extra_dot_dimensions": 0.9856
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.034146167974953824,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 2294096,
+        "expected_extra_dot_dimensions": 1.232
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03693729565643356,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 2704992,
+        "expected_extra_dot_dimensions": 1.4784
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.0018851180421760073,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 650512,
+        "expected_extra_dot_dimensions": 0.2464
+      },
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.007886246253490882,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 855960,
+        "expected_extra_dot_dimensions": 0.3696
+      },
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.014122937046258974,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 1061408,
+        "expected_extra_dot_dimensions": 0.4928
+      },
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.021469580109072427,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 1472304,
+        "expected_extra_dot_dimensions": 0.7392
+      },
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.026993847563883875,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 1883200,
+        "expected_extra_dot_dimensions": 0.9856
+      },
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03122455459078068,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 2294096,
+        "expected_extra_dot_dimensions": 1.232
+      },
+      {
+        "factors": "stage11_tile_direct_02",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03419958424305136,
+        "coverage": 0.0154,
+        "asset_bytes_excluding_map": 2704992,
+        "expected_extra_dot_dimensions": 1.4784
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.008974692005234647,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.43296
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.012182215321396826,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.64944
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.015848338365388435,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.86592
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.01878585112623741,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.29888
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.021560863013181452,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.73184
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.024942586371862998,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.1648
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02741673912512708,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.59776
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.01146097399794226,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.43296
+      },
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.0023814673737064043,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.64944
+      },
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.002301324506862508,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.86592
+      },
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.008950930612214851,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.29888
+      },
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.013391450530190351,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.73184
+      },
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.01615999317559025,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.1648
+      },
+      {
+        "factors": "stage11_tile_direct_03",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.018395966613763342,
+        "coverage": 0.02706,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.59776
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02220089724845556,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 673808,
+        "expected_extra_dot_dimensions": 0.38368
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.027740450787791256,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 890904,
+        "expected_extra_dot_dimensions": 0.57552
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.030199458667364534,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 1108000,
+        "expected_extra_dot_dimensions": 0.76736
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03502716614962237,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 1542192,
+        "expected_extra_dot_dimensions": 1.15104
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.0403571384684033,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 1976384,
+        "expected_extra_dot_dimensions": 1.53472
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.044321983470715594,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 2410576,
+        "expected_extra_dot_dimensions": 1.9184
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.046408388613866175,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 2844768,
+        "expected_extra_dot_dimensions": 2.30208
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.0007376577701955046,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 673808,
+        "expected_extra_dot_dimensions": 0.38368
+      },
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.012574991213845832,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 890904,
+        "expected_extra_dot_dimensions": 0.57552
+      },
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.01925265786614845,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 1108000,
+        "expected_extra_dot_dimensions": 0.76736
+      },
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.02753062606032177,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 1542192,
+        "expected_extra_dot_dimensions": 1.15104
+      },
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03277746405088613,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 1976384,
+        "expected_extra_dot_dimensions": 1.53472
+      },
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03651994642239927,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 2410576,
+        "expected_extra_dot_dimensions": 1.9184
+      },
+      {
+        "factors": "stage11_tile_direct_10",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.040075816861546695,
+        "coverage": 0.02398,
+        "asset_bytes_excluding_map": 2844768,
+        "expected_extra_dot_dimensions": 2.30208
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03909305208190302,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 638992,
+        "expected_extra_dot_dimensions": 0.20736
+      },
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.04786928308844108,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 838680,
+        "expected_extra_dot_dimensions": 0.31104
+      },
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.05395352214391364,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 1038368,
+        "expected_extra_dot_dimensions": 0.41472
+      },
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.06341820391254123,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 1437744,
+        "expected_extra_dot_dimensions": 0.62208
+      },
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.0685979356173416,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 1837120,
+        "expected_extra_dot_dimensions": 0.82944
+      },
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.07522026173889955,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 2236496,
+        "expected_extra_dot_dimensions": 1.0368
+      },
+      {
+        "factors": "stage11_tile_residual_11",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.0793216591530512,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 2635872,
+        "expected_extra_dot_dimensions": 1.24416
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.007493187131420444,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 638992,
+        "expected_extra_dot_dimensions": 0.20736
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.025927879684150813,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 838680,
+        "expected_extra_dot_dimensions": 0.31104
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03919638436419143,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 1038368,
+        "expected_extra_dot_dimensions": 0.41472
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.05299831850211403,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 1437744,
+        "expected_extra_dot_dimensions": 0.62208
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.0639256999374554,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 1837120,
+        "expected_extra_dot_dimensions": 0.82944
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.07093176098140594,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 2236496,
+        "expected_extra_dot_dimensions": 1.0368
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.07774751082435967,
+        "coverage": 0.01296,
+        "asset_bytes_excluding_map": 2635872,
+        "expected_extra_dot_dimensions": 1.24416
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.030702877521393626,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 639536,
+        "expected_extra_dot_dimensions": 0.20192
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.039519057078335564,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 839496,
+        "expected_extra_dot_dimensions": 0.30288
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.045902861647111624,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 1039456,
+        "expected_extra_dot_dimensions": 0.40384
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.055245161800320026,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 1439376,
+        "expected_extra_dot_dimensions": 0.60576
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.0636227373505419,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 1839296,
+        "expected_extra_dot_dimensions": 0.80768
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.06902372011959287,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 2239216,
+        "expected_extra_dot_dimensions": 1.0096
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.07486110435414911,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 2639136,
+        "expected_extra_dot_dimensions": 1.21152
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.014354706767030934,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 639536,
+        "expected_extra_dot_dimensions": 0.20192
+      },
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.026009676560961124,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 839496,
+        "expected_extra_dot_dimensions": 0.30288
+      },
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03527460998004741,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 1039456,
+        "expected_extra_dot_dimensions": 0.40384
+      },
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.048953248586601945,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 1439376,
+        "expected_extra_dot_dimensions": 0.60576
+      },
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.05823051620270608,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 1839296,
+        "expected_extra_dot_dimensions": 0.80768
+      },
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.06563748672891755,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 2239216,
+        "expected_extra_dot_dimensions": 1.0096
+      },
+      {
+        "factors": "stage11_tile_direct_12",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.07113472003489603,
+        "coverage": 0.01262,
+        "asset_bytes_excluding_map": 2639136,
+        "expected_extra_dot_dimensions": 1.21152
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.019137501018725758,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 673808,
+        "expected_extra_dot_dimensions": 0.3664
+      },
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02440762203667915,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 890904,
+        "expected_extra_dot_dimensions": 0.5496
+      },
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02823071268560544,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 1108000,
+        "expected_extra_dot_dimensions": 0.7328
+      },
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03453120777774925,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 1542192,
+        "expected_extra_dot_dimensions": 1.0992
+      },
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.038484210837871735,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 1976384,
+        "expected_extra_dot_dimensions": 1.4656
+      },
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.042380629003881946,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 2410576,
+        "expected_extra_dot_dimensions": 1.832
+      },
+      {
+        "factors": "stage11_tile_residual_13",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.046350440258871486,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 2844768,
+        "expected_extra_dot_dimensions": 2.1984
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.0003470492621609549,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 673808,
+        "expected_extra_dot_dimensions": 0.3664
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.01139053173598419,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 890904,
+        "expected_extra_dot_dimensions": 0.5496
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.019248616047220217,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 1108000,
+        "expected_extra_dot_dimensions": 0.7328
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.02736669093686424,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 1542192,
+        "expected_extra_dot_dimensions": 1.0992
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03313039814206512,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 1976384,
+        "expected_extra_dot_dimensions": 1.4656
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03560642308913266,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 2410576,
+        "expected_extra_dot_dimensions": 1.832
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.03912135186879722,
+        "coverage": 0.0229,
+        "asset_bytes_excluding_map": 2844768,
+        "expected_extra_dot_dimensions": 2.1984
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.011713157802979006,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.4544
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.014930940103852144,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.6816
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.017661072851296616,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.9088
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.023262943373958338,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.3632
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.026895801614892335,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.8176
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02909040846732085,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.272
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03107735239598833,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.7264
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.010040996993877855,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.4544
+      },
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -1.8297813166004744e-05,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.6816
+      },
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.003615740409080962,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.9088
+      },
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.011945893442994333,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.3632
+      },
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.01639340424258353,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.8176
+      },
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.01951972519155134,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.272
+      },
+      {
+        "factors": "stage11_tile_direct_20",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.02221503240497776,
+        "coverage": 0.0284,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.7264
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.012965735517458268,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 649744,
+        "expected_extra_dot_dimensions": 0.23072
+      },
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.017426598551974433,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 854808,
+        "expected_extra_dot_dimensions": 0.34608
+      },
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.01901229856938599,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 1059872,
+        "expected_extra_dot_dimensions": 0.46144
+      },
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.023816161085863954,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 1470000,
+        "expected_extra_dot_dimensions": 0.69216
+      },
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02659899036299211,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 1880128,
+        "expected_extra_dot_dimensions": 0.92288
+      },
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.030650362707832595,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 2290256,
+        "expected_extra_dot_dimensions": 1.1536
+      },
+      {
+        "factors": "stage11_tile_residual_21",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.033889371925633426,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 2700384,
+        "expected_extra_dot_dimensions": 1.38432
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.0053218384641274975,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 649744,
+        "expected_extra_dot_dimensions": 0.23072
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.005843452308734801,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 854808,
+        "expected_extra_dot_dimensions": 0.34608
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.011600435847788321,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 1059872,
+        "expected_extra_dot_dimensions": 0.46144
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.019255080428417178,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 1470000,
+        "expected_extra_dot_dimensions": 0.69216
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.02356521225660889,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 1880128,
+        "expected_extra_dot_dimensions": 0.92288
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.027635495014773952,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 2290256,
+        "expected_extra_dot_dimensions": 1.1536
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.030190516026476284,
+        "coverage": 0.01442,
+        "asset_bytes_excluding_map": 2700384,
+        "expected_extra_dot_dimensions": 1.38432
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.017733749983452413,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 650512,
+        "expected_extra_dot_dimensions": 0.23232
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.0216078705948634,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 855960,
+        "expected_extra_dot_dimensions": 0.34848
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02368500443110267,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 1061408,
+        "expected_extra_dot_dimensions": 0.46464
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.029561551329463632,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 1472304,
+        "expected_extra_dot_dimensions": 0.69696
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03455189324196331,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 1883200,
+        "expected_extra_dot_dimensions": 0.92928
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03774834962919017,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 2294096,
+        "expected_extra_dot_dimensions": 1.1616
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.03933771175033578,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 2704992,
+        "expected_extra_dot_dimensions": 1.39392
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 1.641404994454575e-05,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 650512,
+        "expected_extra_dot_dimensions": 0.23232
+      },
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.011319169575664808,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 855960,
+        "expected_extra_dot_dimensions": 0.34848
+      },
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.018322935830171173,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 1061408,
+        "expected_extra_dot_dimensions": 0.46464
+      },
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.02553215144026455,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 1472304,
+        "expected_extra_dot_dimensions": 0.69696
+      },
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.028990401299514006,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 1883200,
+        "expected_extra_dot_dimensions": 0.92928
+      },
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.032377144981833805,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 2294096,
+        "expected_extra_dot_dimensions": 1.1616
+      },
+      {
+        "factors": "stage11_tile_direct_22",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.035641725862455544,
+        "coverage": 0.01452,
+        "asset_bytes_excluding_map": 2704992,
+        "expected_extra_dot_dimensions": 1.39392
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 16,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.008381260390626467,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.42176
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 24,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.011237658281794266,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.63264
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 32,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.013824333846595547,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.84352
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 48,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.01875955907961415,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.26528
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 64,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.022185613021740578,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.68704
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 80,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.02537230390675563,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.1088
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "rank": 96,
+        "bits": 8,
+        "direct": false,
+        "valid_proxy_gain": 0.027400699644468854,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.53056
+      }
+    ],
+    [
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 16,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.006358177624476221,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 698896,
+        "expected_extra_dot_dimensions": 0.42176
+      },
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 24,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.0019372505144016464,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 928536,
+        "expected_extra_dot_dimensions": 0.63264
+      },
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 32,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.002047123836932711,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 1158176,
+        "expected_extra_dot_dimensions": 0.84352
+      },
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 48,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.008600416584646237,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 1617456,
+        "expected_extra_dot_dimensions": 1.26528
+      },
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.012610784579390293,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 2076736,
+        "expected_extra_dot_dimensions": 1.68704
+      },
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.016115170424543225,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 2536016,
+        "expected_extra_dot_dimensions": 2.1088
+      },
+      {
+        "factors": "stage11_tile_direct_23",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.018047792685819013,
+        "coverage": 0.02636,
+        "asset_bytes_excluding_map": 2995296,
+        "expected_extra_dot_dimensions": 2.53056
+      }
+    ]
+  ],
+  "combinations": []
+}

@@ -1,0 +1,33 @@
+{
+  "name": "stage11_tile",
+  "models": [
+    "stage11_tile_residual_00",
+    "stage11_tile_direct_00",
+    "stage11_tile_residual_01",
+    "stage11_tile_direct_01",
+    "stage11_tile_residual_02",
+    "stage11_tile_direct_02",
+    "stage11_tile_residual_03",
+    "stage11_tile_direct_03",
+    "stage11_tile_residual_10",
+    "stage11_tile_direct_10",
+    "stage11_tile_residual_11",
+    "stage11_tile_direct_11",
+    "stage11_tile_residual_12",
+    "stage11_tile_direct_12",
+    "stage11_tile_residual_13",
+    "stage11_tile_direct_13",
+    "stage11_tile_residual_20",
+    "stage11_tile_direct_20",
+    "stage11_tile_residual_21",
+    "stage11_tile_direct_21",
+    "stage11_tile_residual_22",
+    "stage11_tile_direct_22",
+    "stage11_tile_residual_23",
+    "stage11_tile_direct_23"
+  ],
+  "elapsed_seconds": 171.4207551999998,
+  "fit_pairs": 23321,
+  "public_delay_labels_used": false,
+  "scratch_removed": true
+}

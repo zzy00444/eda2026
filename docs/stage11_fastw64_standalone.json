@@ -1,0 +1,6 @@
+{
+  "standalone_zip_test": "passed",
+  "rows": 2,
+  "expected_output_verified": true,
+  "binary_sha256": "3f415a2467d1746313416ba93583e3e35f68a740add3257d826c8f4eaf8afe9f"
+}

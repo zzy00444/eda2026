@@ -1,0 +1,121 @@
+{
+  "candidate": "stage11_fast",
+  "format": "PGLOC005",
+  "parts": [
+    {
+      "factors": "stage11_tile_direct_00",
+      "factors_sha256": "558b40aab4674d7b80614c21c2cf8614b956fc76c13300e6f1e2b991259b47f8",
+      "rank": 24,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_01",
+      "factors_sha256": "d09e8c726a634e4154460d10a2b40d5ccdd190815962d136fad78192d68f1de8",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1152,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_02",
+      "factors_sha256": "c80a17c2689d32b34251f2664fbb8080362f25f429b7d06347bf6bc69c2f96a2",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1176,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_03",
+      "factors_sha256": "452ebba2c999eb236efcbd9d4f255e4153596f8d7e287844a3aa579daef20171",
+      "rank": 32,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_10",
+      "factors_sha256": "8808187f5e0d90b18fcfeb499ed4519e44b3600773acbd7a292eec9ede325722",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1904,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_11",
+      "factors_sha256": "3d567d8d4763ad5bbfa83391ee99056bed601fb52c122f0c2fed3920b8e2dd12",
+      "rank": 96,
+      "bits": 8,
+      "columns": 816,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_12",
+      "factors_sha256": "ab75a8e6da6a4caa137ddc8d1374f15de2e3aa0c28789bee90caeeed10bc546f",
+      "rank": 96,
+      "bits": 8,
+      "columns": 833,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_13",
+      "factors_sha256": "4f029a9d755cc1bdeabe71f8ea06370c1333f436895bba6979ba89aea917edb1",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1904,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_20",
+      "factors_sha256": "2329555ca2866ff8656cabcd4923e6eb9ca6f2441537f23255bb699c87864c91",
+      "rank": 24,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_21",
+      "factors_sha256": "b5aab9040c864a0c99f4f47bbf40a13a1f798a1dd62ed9e30f2f25cfa8da9c6d",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1152,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_22",
+      "factors_sha256": "2d6d9cf2a464fadc341360261cd29555ce531cc08cbc26d6316c90a379d10289",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1176,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_direct_23",
+      "factors_sha256": "6a71aac6bec188cb370af792195f3895ba1d472e08e46c2db97dd4005d9a8883",
+      "rank": 32,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": true
+    }
+  ],
+  "asset_sha256": "842a34056e90402a9fe71ebc068639c0bccd9be99aa7c0c797f07b569f58b974",
+  "asset_bytes": 19482868,
+  "public_delay_labels_used": false,
+  "sparse_pairs_training_geometry_only": true,
+  "direct": false,
+  "mixed": true,
+  "correction": "one disjoint region per branch; separately round local and baseline dots before min"
+}

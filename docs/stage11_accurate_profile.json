@@ -1,0 +1,22 @@
+{
+  "candidate": "stage11_accurate",
+  "profile": "stage11_profiles_b24_p0",
+  "profile_document_sha256": "f6662124239bdee82a83e05aacae1e76d12b0c86b805098bb8e6251088e1fa0f",
+  "parts": [
+    "stage11_tile_residual_00:24:8",
+    "stage11_tile_residual_01:64:8",
+    "stage11_tile_residual_02:32:8",
+    "stage11_tile_residual_03:32:8",
+    "stage11_tile_residual_10:80:8",
+    "stage11_tile_residual_11:96:8",
+    "stage11_tile_residual_12:96:8",
+    "stage11_tile_residual_13:80:8",
+    "stage11_tile_residual_20:48:8",
+    "stage11_tile_residual_21:80:8",
+    "stage11_tile_residual_22:64:8",
+    "stage11_tile_residual_23:48:8",
+    "stage11_outer_rel:40:8"
+  ],
+  "extra_outer": true,
+  "test_labels_used": false
+}

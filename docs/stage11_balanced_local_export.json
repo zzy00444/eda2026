@@ -1,0 +1,121 @@
+{
+  "candidate": "stage11_balanced",
+  "format": "PGLOC005",
+  "parts": [
+    {
+      "factors": "stage11_tile_residual_00",
+      "factors_sha256": "0fe7628ad4e72bd5f3cb6486ccd42ac1d106896bc018b6b7b82572f2df6435ff",
+      "rank": 24,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_01",
+      "factors_sha256": "b3093366a4f6b4530c6895911cdccf94d882a9b3189c8faf63d3494a5f6881de",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1152,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_02",
+      "factors_sha256": "608cb5d30da14cb51d3bb49a710d70904e1a686ecd44c4107efb0372698d18cb",
+      "rank": 48,
+      "bits": 8,
+      "columns": 1176,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_03",
+      "factors_sha256": "abed4a5aa0936231cc9d475ba58f1871963fc0426e2d7ead287c109c49cdab02",
+      "rank": 32,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_10",
+      "factors_sha256": "0398a6bc154fafd1222eaa168d3a9dbc2b5b3706bdcac73e27c92fc71ff22bfd",
+      "rank": 80,
+      "bits": 8,
+      "columns": 1904,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_direct_11",
+      "factors_sha256": "3d567d8d4763ad5bbfa83391ee99056bed601fb52c122f0c2fed3920b8e2dd12",
+      "rank": 96,
+      "bits": 8,
+      "columns": 816,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_residual_12",
+      "factors_sha256": "0b2079d20cc382e85d36f172337865dbbdfff80a875b66b0d32ee23206ed1b6b",
+      "rank": 96,
+      "bits": 8,
+      "columns": 833,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_direct_13",
+      "factors_sha256": "4f029a9d755cc1bdeabe71f8ea06370c1333f436895bba6979ba89aea917edb1",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1904,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_residual_20",
+      "factors_sha256": "f8ee93d893637db6288c7cfc6c2df7ece8bbad07a39e80fc15451a2679a5945c",
+      "rank": 48,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_direct_21",
+      "factors_sha256": "b5aab9040c864a0c99f4f47bbf40a13a1f798a1dd62ed9e30f2f25cfa8da9c6d",
+      "rank": 80,
+      "bits": 8,
+      "columns": 1152,
+      "stored_pairs": 23321,
+      "direct": true
+    },
+    {
+      "factors": "stage11_tile_residual_22",
+      "factors_sha256": "5f4d175bb9316c3ce55f04fd8ba68edf82cdcc6c11efbafe12d2e6de78336781",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1176,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_23",
+      "factors_sha256": "bdca0cd01f83bdcc01dd31dcb887583d6ebd5ee381a2d000a75a63c460c47e7f",
+      "rank": 48,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    }
+  ],
+  "asset_sha256": "cb20ec758c27404de662600dafa716479f93b2e03d047c1bc98c70b50ddbf099",
+  "asset_bytes": 23574924,
+  "public_delay_labels_used": false,
+  "sparse_pairs_training_geometry_only": true,
+  "direct": false,
+  "mixed": true,
+  "correction": "one disjoint region per branch; separately round local and baseline dots before min"
+}

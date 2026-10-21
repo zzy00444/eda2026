@@ -1,0 +1,11 @@
+{
+  "candidate": "stage11_balanced",
+  "binary_bytes": 108007048,
+  "zip_bytes": 98058966,
+  "binary_sha256": "a039694aed6d7c00ea40a3ec19462bc42e4a770b96b8a671d28cb81a29886dac",
+  "zip_sha256": "f71ae21d462c8b08e4eab74b3000d1416dc00d3fdb366a27d46bd0e93a2097db",
+  "contents": [
+    "bin/estimate"
+  ],
+  "unix_mode": "100755"
+}

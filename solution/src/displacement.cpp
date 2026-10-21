@@ -761,6 +761,9 @@ int main(int argc, char** argv) {
             for (; k < kend; k++) {
                 const Job& j2 = J[k + PFD];
                 const float* up = UP + j2.uoff;
+#ifdef EST_LOCAL
+                if(!localPrefetch(j2.key >> 1,j2.uoff / RANK)) {
+#endif
                 pfT0(&Vt[(size_t)(j2.key >> 1) * RANK]);
                 pfT0(up);
 #if EST_PFU > 1
@@ -772,22 +775,27 @@ int main(int argc, char** argv) {
 #if EST_PFU > 3
                 pfT0(up + 48);
 #endif
+#ifdef EST_LOCAL
+                }
+#endif
                 const Job& j = J[k];
                 const int16_t* vr = &Vt[(size_t)(j.key >> 1) * RANK];
+#ifdef EST_LOCAL
+                long r = localEstimate(j.key >> 1, j.uoff / RANK, UP+j.uoff, j.mrow);
+#else
                 float s = dotProduct(UP + j.uoff, vr, RANK);
                 long r = estimateRound((double)j.mrow + (double)s);
-#ifdef EST_LOCAL
-                r += localCorrection(j.key >> 1, j.uoff / RANK);
 #endif
                 (j.key & 1u ? RB : RA)[j.idx] = r;
             }
             for (; k < nj; k++) {
                 const Job& j = J[k];
                 const int16_t* vr = &Vt[(size_t)(j.key >> 1) * RANK];
+#ifdef EST_LOCAL
+                long r = localEstimate(j.key >> 1, j.uoff / RANK, UP+j.uoff, j.mrow);
+#else
                 float s = dotProduct(UP + j.uoff, vr, RANK);
                 long r = estimateRound((double)j.mrow + (double)s);
-#ifdef EST_LOCAL
-                r += localCorrection(j.key >> 1, j.uoff / RANK);
 #endif
                 (j.key & 1u ? RB : RA)[j.idx] = r;
             }

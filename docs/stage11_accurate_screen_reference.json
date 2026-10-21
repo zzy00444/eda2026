@@ -1,0 +1,12 @@
+{
+  "candidate": "stage11_accurate",
+  "valid_no_wall_accuracy": 98.12402634424149,
+  "valid_fixed_wall_accuracy": 98.26534450893709,
+  "valid_python_cpp_mismatches": 0,
+  "real_both_branches": true,
+  "wall_outputs_fixed": true,
+  "test_labels_used": false,
+  "binary_sha256": "a356d750c270f1f43db46c771ce6596989d8decad1714df6051c91c4cf2fff49",
+  "output_sha256": "87396f4b8bb0da6114a3dabf6cad7dad516b3a0b76ff8def165ce45d77226588",
+  "zip_bytes": 103509440
+}

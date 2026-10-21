@@ -1,0 +1,143 @@
+{
+  "name": "stage11_accurate_wall",
+  "base": "stage11_accurate",
+  "base_prediction_sha256": "e419658fef54e04a5eb839e8a96c5b6612322c41d4fc2f6d5c91e79476315ab4",
+  "params": {
+    "objective": "regression_l1",
+    "learning_rate": 0.1,
+    "num_leaves": 31,
+    "min_data_in_leaf": 25,
+    "lambda_l2": 5,
+    "max_bin": 255,
+    "num_threads": 6,
+    "verbosity": -1,
+    "seed": 20261021,
+    "deterministic": true,
+    "force_col_wise": true,
+    "cat_smooth": 30,
+    "cat_l2": 20,
+    "max_cat_threshold": 32
+  },
+  "fit_rows": 4233,
+  "held_wall_rows": 1033,
+  "features": [
+    "sx",
+    "sy",
+    "tx",
+    "ty",
+    "dx",
+    "dy",
+    "ax",
+    "ay",
+    "distance",
+    "source",
+    "target",
+    "source_family",
+    "target_family",
+    "source_bit",
+    "target_bit",
+    "ndx",
+    "ndy",
+    "rx",
+    "ry",
+    "rax",
+    "ray",
+    "overx",
+    "overy",
+    "dx_mod",
+    "dy_mod",
+    "rx_mod",
+    "ry_mod",
+    "sx_mod",
+    "sy_mod",
+    "tx_mod",
+    "ty_mod",
+    "source_band",
+    "target_band",
+    "source_phase",
+    "target_phase",
+    "cross",
+    "landing_cross",
+    "source_wall",
+    "landing_wall",
+    "target_wall",
+    "source_door_distance",
+    "landing_door_distance",
+    "target_door_distance",
+    "edge_x",
+    "edge_y",
+    "gap_x",
+    "gap_y",
+    "net_gap_x",
+    "net_gap_y",
+    "base",
+    "base_minus_gap",
+    "net_length",
+    "direction"
+  ],
+  "curve": [
+    {
+      "trees": 16,
+      "wall_valid_accuracy": 91.59289523805116,
+      "whole_valid_accuracy": 98.23836546108089
+    },
+    {
+      "trees": 32,
+      "wall_valid_accuracy": 95.64171575262903,
+      "whole_valid_accuracy": 98.26209154929633
+    },
+    {
+      "trees": 64,
+      "wall_valid_accuracy": 96.37459560287344,
+      "whole_valid_accuracy": 98.26638622521875
+    },
+    {
+      "trees": 96,
+      "wall_valid_accuracy": 96.39376112469735,
+      "whole_valid_accuracy": 98.26649853517665
+    },
+    {
+      "trees": 128,
+      "wall_valid_accuracy": 96.40599957181541,
+      "whole_valid_accuracy": 98.26657025247677
+    },
+    {
+      "trees": 160,
+      "wall_valid_accuracy": 96.42201262457797,
+      "whole_valid_accuracy": 98.26666408896595
+    }
+  ],
+  "selected": {
+    "trees": 160,
+    "wall_valid_accuracy": 96.42201262457797,
+    "whole_valid_accuracy": 98.26666408896595
+  },
+  "held_wall_baseline": {
+    "rows": 1033,
+    "accuracy": 71.13994261688515,
+    "mae_ps": 208.64569215876088,
+    "rmse_ps": 225.300253571625,
+    "abs_error_p50_p90_p99": [
+      194.0,
+      349.0,
+      443.5199999999993
+    ],
+    "signed_error_ps": -35.45304937076476
+  },
+  "held_wall_updated": {
+    "rows": 1033,
+    "accuracy": 95.45823224126012,
+    "mae_ps": 27.459825750242015,
+    "rmse_ps": 38.980249175066106,
+    "abs_error_p50_p90_p99": [
+      18.0,
+      62.0,
+      130.0
+    ],
+    "signed_error_ps": -1.1558567279767666
+  },
+  "model_sha256": "f4a2d8ed220129414b622b9a177298c90cd8522d36ea917410a33021382947d2",
+  "test_labels_used": false,
+  "architecture_bound_used": false,
+  "caveat": "New residual excludes held source coordinates; inherited stage8 does not"
+}

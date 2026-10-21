@@ -1,0 +1,264 @@
+{
+  "selected_branch_proxy": true,
+  "test_labels_used": false,
+  "wall_outputs_fixed": true,
+  "baseline_valid_accuracy": 97.77970197120274,
+  "curves": [
+    [
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 80,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.12540566399462758,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 2618096,
+        "expected_extra_dot_dimensions": 3.6448
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.14299842510592548,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 3093792,
+        "expected_extra_dot_dimensions": 4.37376
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 128,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.1661108942862485,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 4045184,
+        "expected_extra_dot_dimensions": 5.83168
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 160,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.18641270458961998,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 4996576,
+        "expected_extra_dot_dimensions": 7.2896
+      }
+    ],
+    [
+      {
+        "factors": "stage11_mid_direct",
+        "rank": 64,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": -0.005100318296485586,
+        "coverage": 0.19262,
+        "asset_bytes_excluding_map": 3993664,
+        "expected_extra_dot_dimensions": 12.32768
+      },
+      {
+        "factors": "stage11_mid_direct",
+        "rank": 96,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.05720926252885037,
+        "coverage": 0.19262,
+        "asset_bytes_excluding_map": 5870688,
+        "expected_extra_dot_dimensions": 18.49152
+      },
+      {
+        "factors": "stage11_mid_direct",
+        "rank": 128,
+        "bits": 8,
+        "direct": true,
+        "valid_proxy_gain": 0.08961358180773564,
+        "coverage": 0.19262,
+        "asset_bytes_excluding_map": 7747712,
+        "expected_extra_dot_dimensions": 24.65536
+      }
+    ]
+  ],
+  "combinations": [
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 160
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 128
+        }
+      ],
+      "valid_proxy_accuracy": 98.0557282576001,
+      "local_bytes": 13809572,
+      "extra_dot_dimensions": 31.944960000000002
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 128
+        }
+      ],
+      "valid_proxy_accuracy": 98.03542644729673,
+      "local_bytes": 12858180,
+      "extra_dot_dimensions": 30.48704
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 160
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 96
+        }
+      ],
+      "valid_proxy_accuracy": 98.02332393832121,
+      "local_bytes": 11932548,
+      "extra_dot_dimensions": 25.78112
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 128
+        }
+      ],
+      "valid_proxy_accuracy": 98.0123139781164,
+      "local_bytes": 11906788,
+      "extra_dot_dimensions": 29.029120000000002
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 96
+        }
+      ],
+      "valid_proxy_accuracy": 98.00302212801785,
+      "local_bytes": 10981156,
+      "extra_dot_dimensions": 24.3232
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 80
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 128
+        }
+      ],
+      "valid_proxy_accuracy": 97.99472121700511,
+      "local_bytes": 11431092,
+      "extra_dot_dimensions": 28.30016
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 96
+        }
+      ],
+      "valid_proxy_accuracy": 97.97990965883751,
+      "local_bytes": 10029764,
+      "extra_dot_dimensions": 22.865280000000002
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 80
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 96
+        }
+      ],
+      "valid_proxy_accuracy": 97.96231689772623,
+      "local_bytes": 9554068,
+      "extra_dot_dimensions": 22.13632
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 160
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.96101435749587,
+      "local_bytes": 10055524,
+      "extra_dot_dimensions": 19.61728
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.9407125471925,
+      "local_bytes": 9104132,
+      "extra_dot_dimensions": 18.15936
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.91760007801219,
+      "local_bytes": 8152740,
+      "extra_dot_dimensions": 16.70144
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 80
+        },
+        {
+          "factors": "stage11_mid_direct",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.90000731690088,
+      "local_bytes": 7677044,
+      "extra_dot_dimensions": 15.972480000000001
+    }
+  ]
+}

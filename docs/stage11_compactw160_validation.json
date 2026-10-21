@@ -1,0 +1,13 @@
+{
+  "candidate": "stage11_compactw160",
+  "binary_sha256": "48d1ba04f4f2e12665d71607dd08f39ce6e122be04a19c9b07426d7e5827946c",
+  "zip_sha256": "24c0ae3e692eee271ec1f32f0bdc08633babdab925284af3d8683cd465e0e3a6",
+  "reports": {
+    "integration": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "contract": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "standalone": "d4d60e320225ce22b9c220d3d6950d65533ae5805455f1361ae3cedb7ddb16d6"
+  },
+  "image": "fpga-ziguang:latest",
+  "memory_limit_bytes": 2000000000,
+  "all_passed": true
+}

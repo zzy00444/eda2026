@@ -33,6 +33,7 @@ def main():
     ap.add_argument('--exclude-ly',type=int,default=-1)
     ap.add_argument('--relative-power',type=float,default=0.,choices=(0.,1.,2.))
     ap.add_argument('--refit-base',action='store_true')
+    ap.add_argument('--direct',action='store_true',help='Compress generated distances directly, replacing the base dot in covered regions')
     args=ap.parse_args();started=time.perf_counter()
     h,scale,v,uh,u,m,ids=load_basis();ns,nt,rank=map(int,uh[:3]);rows=ns*nt
     assert sha(args.raw/'arch.txt')==sha(OUT/'oracle/oracle_arch.txt')
@@ -59,7 +60,7 @@ def main():
         path=args.raw/f'all_C_{pid}.bin';st=path.stat();assert st.st_size==nt*int(h[1])*2
         raw=np.memmap(path,'<i2','r',shape=(nt,int(h[1])))[:,loc].astype(np.float32)
         sl=slice(si*nt,(si+1)*nt)
-        residual[sl]=(raw-(u[sl]@localv.T+m[sl,None]))*weight[sl,None]
+        residual[sl]=(raw if args.direct else raw-(u[sl]@localv.T+m[sl,None]))*weight[sl,None]
         if args.relative_power:
             relative_sum+=np.sum((1000/np.maximum(raw+gap,200))**args.relative_power,axis=0)
         assert path.stat().st_mtime_ns==st.st_mtime_ns
@@ -96,7 +97,7 @@ def main():
                 port_weight=args.port_weight,public_delay_labels_used=False,geometry_training_rows_only=True,
                 exclude_rectangle=[args.exclude_lx,args.exclude_ly],relative_power=args.relative_power,
                 relative_weight='mean over generated pairs of inverse delay power; separable displacement proxy, not entrywise optimum',
-                refit_base=args.refit_base,
+                refit_base=args.refit_base,direct=args.direct,
                 architecture_sha256=sha(args.raw/'arch.txt'),source_stats=stats,
                 singular_values=singular.tolist(),factors_sha256=sha(OUT/(args.name+'_factors.npz')),
                 elapsed_seconds=time.perf_counter()-started,scratch_bytes=scratch.stat().st_size)

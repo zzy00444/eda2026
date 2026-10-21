@@ -1,0 +1,11 @@
+{
+  "candidate": "stage11_compact",
+  "raw_sha256": "828981153a5d9cc5162e66b33b22184197772bf1219b824a20531a91411b8535",
+  "compressed_sha256": "bd615d127af6a7f8727532694bd07005740e42aadbd44be739fbe0fb3eb0ba4b",
+  "raw_bytes": 28848548,
+  "compressed_bytes": 18899584,
+  "exact_byte_roundtrip": true,
+  "codec": "XZ/LZMA2 preset 6",
+  "runtime_library": "liblzma.so.5 from the official fpga-ziguang image",
+  "elapsed_seconds": 23.27330599999914
+}

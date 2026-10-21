@@ -54,16 +54,24 @@ def load_base():
 def load_local(path):
     with path.open('rb') as stream:
         magic,rows,rank,cols,nc,bits,reserved=struct.unpack('<8s6I',stream.read(32))
-        if magic==b'PGLOC002':
-            assert not bits and not reserved
+        if magic in (b'PGLOC002',b'PGLOC003',b'PGLOC004',b'PGLOC005'):
+            assert bits in (0,1) and not reserved
             mapping=np.fromfile(stream,'<i4',nc);parts=[];begin=0
             for _ in range(rank):
-                pr,pc,pb,reserved=struct.unpack('<4I',stream.read(16));assert not reserved
+                pr,pc,pb,stored=struct.unpack('<4I',stream.read(16))
+                direct=bool(pr>>31) if magic==b'PGLOC005' else magic==b'PGLOC004'
+                pr&=0x7fffffff
+                pmapping=np.fromfile(stream,'<i4',rows) if magic!=b'PGLOC002' else None
+                assert stored>0 if pmapping is not None else stored==0
                 us=np.fromfile(stream,'<f4',pr);vs=np.fromfile(stream,'<f4',pr)
-                uq=np.fromfile(stream,'i1' if pb==8 else '<i2',rows*pr).reshape(rows,pr)
+                uq=np.fromfile(stream,'i1' if pb==8 else '<i2',(stored or rows)*pr).reshape(stored or rows,pr)
                 v=np.fromfile(stream,'<i2',pc*pr).reshape(pc,pr)
+                if bits:
+                    packed=v.view(np.uint8).reshape(2,pr,pc).transpose(1,2,0).copy().view('<i2').reshape(pr,pc).T.copy()
+                    for col in range(12,pc):packed[col]=(packed[col].astype(np.int32)+packed[col-12]).astype('<i2')
+                    v=packed
                 pm=np.where((mapping>=begin)&(mapping<begin+pc),mapping-begin,-1)
-                parts.append((pm,(uq.astype(np.float32)*us)*vs,v));begin+=pc
+                parts.append((pm,(uq.astype(np.float32)*us)*vs,v,pmapping,direct));begin+=pc
             assert begin==cols and stream.read()==b''
             return parts
         assert magic==b'PGLOC001' and not reserved
@@ -101,11 +109,15 @@ def predict(g,base_assets,local_assets=None,*,local_bias=None,calibration=None,r
             end=min(len(sx),start+4096);p=pair[start:end];r=rows[start:end]
             out[start:end]=round_away(m[p].astype(np.float64)+fma_dot(u[p],v[r]).astype(np.float64))
             if local_assets is not None:
-                for mapping,lu,lv in (local_assets if isinstance(local_assets,list) else [local_assets]):
+                for part in (local_assets if isinstance(local_assets,list) else [local_assets]):
+                    mapping,lu,lv=part[:3];pmapping=part[3] if len(part)>3 else None
                     col=mapping[r];mask=col>=0
+                    pp=p if pmapping is None else pmapping[p]
+                    mask&=pp>=0
                     if not np.any(mask):continue
-                    d=round_away(fma_dot(lu[p[mask]],lv[col[mask]]).astype(np.float64))
-                    out[start:end][mask]+=d
+                    d=round_away(fma_dot(lu[pp[mask]],lv[col[mask]]).astype(np.float64))
+                    if len(part)>4 and part[4]:out[start:end][mask]=d
+                    else:out[start:end][mask]+=d
                     if local_bias is not None:
                         out[start:end][mask]+=local_bias[p[mask]]
         return out

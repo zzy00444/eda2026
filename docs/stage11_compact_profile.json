@@ -1,0 +1,21 @@
+{
+  "candidate": "stage11_compact",
+  "parent": "stage11_accurate",
+  "parts": [
+    "stage11_tile_residual_00:24:8",
+    "stage11_tile_residual_01:64:8",
+    "stage11_tile_residual_02:32:8",
+    "stage11_tile_residual_03:32:8",
+    "stage11_tile_residual_10:64:8",
+    "stage11_tile_residual_11:96:8",
+    "stage11_tile_residual_12:96:8",
+    "stage11_tile_residual_13:64:8",
+    "stage11_tile_residual_20:48:8",
+    "stage11_tile_residual_21:80:8",
+    "stage11_tile_residual_22:64:8",
+    "stage11_tile_residual_23:48:8",
+    "stage11_outer_rel:40:8"
+  ],
+  "test_labels_used": false,
+  "reason": "Two 80-to-64 rank cuts with small validation loss to satisfy the real ZIP limit after lossless encoding"
+}

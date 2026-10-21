@@ -1,0 +1,47 @@
+{
+  "candidate": "stage11_balancedw64",
+  "model": "stage11_balanced_wall",
+  "model_sha256": "03c5bc024d076cdf65f0b44cf4540ee93490bbc6d1fe3fc4306daca63685172c",
+  "base": "stage11_balanced",
+  "trees": 64,
+  "header_sha256": "88a5a115e6cfd8de272788061b318e8ce80742b48a4f18b4f36c07e4846681cb",
+  "bound_used": false,
+  "valid": {
+    "rows": 50000,
+    "accuracy": 98.20230881996729,
+    "mae_ps": 10.5797,
+    "rmse_ps": 18.553089769631363,
+    "abs_error_p50_p90_p99": [
+      6.0,
+      22.0,
+      81.0
+    ],
+    "signed_error_ps": -2.33566
+  },
+  "test": {
+    "rows": 50000,
+    "accuracy": 98.19201281619397,
+    "mae_ps": 10.62222,
+    "rmse_ps": 18.914405621113236,
+    "abs_error_p50_p90_p99": [
+      6.0,
+      22.0,
+      86.0
+    ],
+    "signed_error_ps": -2.36966
+  },
+  "position_assess": {
+    "rows": 180375,
+    "accuracy": 98.20243989073825,
+    "mae_ps": 10.563160083160083,
+    "rmse_ps": 18.801731242444077,
+    "abs_error_p50_p90_p99": [
+      6.0,
+      22.0,
+      83.0
+    ],
+    "signed_error_ps": -2.3641635481635483
+  },
+  "reference_sha256": "ee9f170eb9a8275b43b65d2c4358b228c2f883e1a93e1bff80a8ab7c9d4f98e8",
+  "caveat": "Local base is deployed C++; wall correction is Python. A separate base-dot reference is required."
+}

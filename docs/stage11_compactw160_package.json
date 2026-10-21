@@ -1,0 +1,11 @@
+{
+  "candidate": "stage11_compactw160",
+  "binary_bytes": 103505052,
+  "zip_bytes": 99807086,
+  "binary_sha256": "48d1ba04f4f2e12665d71607dd08f39ce6e122be04a19c9b07426d7e5827946c",
+  "zip_sha256": "24c0ae3e692eee271ec1f32f0bdc08633babdab925284af3d8683cd465e0e3a6",
+  "contents": [
+    "bin/estimate"
+  ],
+  "unix_mode": "100755"
+}

@@ -1,0 +1,454 @@
+{
+  "selected_branch_proxy": true,
+  "test_labels_used": false,
+  "wall_outputs_fixed": true,
+  "baseline_valid_accuracy": 97.77970197120274,
+  "curves": [
+    [
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 48,
+        "valid_proxy_gain": 0.1188923484325569,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 3183072,
+        "expected_extra_dot_dimensions": 2.1888
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 64,
+        "valid_proxy_gain": 0.13398447189012638,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 4244096,
+        "expected_extra_dot_dimensions": 2.9184
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 96,
+        "valid_proxy_gain": 0.1602892485685923,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 6366144,
+        "expected_extra_dot_dimensions": 4.3776
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 128,
+        "valid_proxy_gain": 0.18020860715677733,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 8488192,
+        "expected_extra_dot_dimensions": 5.8368
+      }
+    ],
+    [
+      {
+        "factors": "stage11_mid_rel",
+        "rank": 16,
+        "valid_proxy_gain": 0.03379995963861493,
+        "coverage": 0.19276,
+        "asset_bytes_excluding_map": 1523840,
+        "expected_extra_dot_dimensions": 3.08416
+      },
+      {
+        "factors": "stage11_mid_rel",
+        "rank": 24,
+        "valid_proxy_gain": 0.04796108662725171,
+        "coverage": 0.19276,
+        "asset_bytes_excluding_map": 2285760,
+        "expected_extra_dot_dimensions": 4.62624
+      },
+      {
+        "factors": "stage11_mid_rel",
+        "rank": 32,
+        "valid_proxy_gain": 0.06160538633602973,
+        "coverage": 0.19276,
+        "asset_bytes_excluding_map": 3047680,
+        "expected_extra_dot_dimensions": 6.16832
+      },
+      {
+        "factors": "stage11_mid_rel",
+        "rank": 48,
+        "valid_proxy_gain": 0.08074544825215862,
+        "coverage": 0.19276,
+        "asset_bytes_excluding_map": 4571520,
+        "expected_extra_dot_dimensions": 9.25248
+      },
+      {
+        "factors": "stage11_mid_rel",
+        "rank": 64,
+        "valid_proxy_gain": 0.09974210498603153,
+        "coverage": 0.19276,
+        "asset_bytes_excluding_map": 6095360,
+        "expected_extra_dot_dimensions": 12.33664
+      },
+      {
+        "factors": "stage11_mid_rel",
+        "rank": 80,
+        "valid_proxy_gain": 0.11498790013070295,
+        "coverage": 0.19276,
+        "asset_bytes_excluding_map": 7619200,
+        "expected_extra_dot_dimensions": 15.4208
+      }
+    ]
+  ],
+  "combinations": [
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 80
+        }
+      ],
+      "valid_proxy_accuracy": 98.07489847849023,
+      "local_bytes": 17172708,
+      "extra_dot_dimensions": 21.2576
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 98.05965268334555,
+      "local_bytes": 15648868,
+      "extra_dot_dimensions": 18.17344
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 80
+        }
+      ],
+      "valid_proxy_accuracy": 98.05497911990203,
+      "local_bytes": 15050660,
+      "extra_dot_dimensions": 19.7984
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 48
+        }
+      ],
+      "valid_proxy_accuracy": 98.04065602661167,
+      "local_bytes": 14125028,
+      "extra_dot_dimensions": 15.08928
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 98.03973332475736,
+      "local_bytes": 13526820,
+      "extra_dot_dimensions": 16.71424
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 80
+        }
+      ],
+      "valid_proxy_accuracy": 98.02867434322357,
+      "local_bytes": 12928612,
+      "extra_dot_dimensions": 18.339199999999998
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 32
+        }
+      ],
+      "valid_proxy_accuracy": 98.02151596469555,
+      "local_bytes": 12601188,
+      "extra_dot_dimensions": 12.00512
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 48
+        }
+      ],
+      "valid_proxy_accuracy": 98.02073666802349,
+      "local_bytes": 12002980,
+      "extra_dot_dimensions": 13.63008
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 80
+        }
+      ],
+      "valid_proxy_accuracy": 98.013582219766,
+      "local_bytes": 11867588,
+      "extra_dot_dimensions": 17.6096
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 98.01342854807889,
+      "local_bytes": 11404772,
+      "extra_dot_dimensions": 15.25504
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 24
+        }
+      ],
+      "valid_proxy_accuracy": 98.00787166498677,
+      "local_bytes": 11839268,
+      "extra_dot_dimensions": 10.46304
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 32
+        }
+      ],
+      "valid_proxy_accuracy": 98.00159660610737,
+      "local_bytes": 10479140,
+      "extra_dot_dimensions": 10.545919999999999
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.99833642462133,
+      "local_bytes": 10343748,
+      "extra_dot_dimensions": 14.52544
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 48
+        }
+      ],
+      "valid_proxy_accuracy": 97.99443189134503,
+      "local_bytes": 9880932,
+      "extra_dot_dimensions": 12.17088
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 16
+        }
+      ],
+      "valid_proxy_accuracy": 97.99371053799813,
+      "local_bytes": 11077348,
+      "extra_dot_dimensions": 8.920960000000001
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 24
+        }
+      ],
+      "valid_proxy_accuracy": 97.98795230639858,
+      "local_bytes": 9717220,
+      "extra_dot_dimensions": 9.00384
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 48
+        }
+      ],
+      "valid_proxy_accuracy": 97.97933976788745,
+      "local_bytes": 8819908,
+      "extra_dot_dimensions": 11.44128
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 32
+        }
+      ],
+      "valid_proxy_accuracy": 97.9752918294289,
+      "local_bytes": 8357092,
+      "extra_dot_dimensions": 9.08672
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 16
+        }
+      ],
+      "valid_proxy_accuracy": 97.97379117940994,
+      "local_bytes": 8955300,
+      "extra_dot_dimensions": 7.46176
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 24
+        }
+      ],
+      "valid_proxy_accuracy": 97.96164752972012,
+      "local_bytes": 7595172,
+      "extra_dot_dimensions": 7.54464
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 32
+        }
+      ],
+      "valid_proxy_accuracy": 97.96019970597133,
+      "local_bytes": 7296068,
+      "extra_dot_dimensions": 8.35712
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 16
+        }
+      ],
+      "valid_proxy_accuracy": 97.94748640273149,
+      "local_bytes": 6833252,
+      "extra_dot_dimensions": 6.00256
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 24
+        }
+      ],
+      "valid_proxy_accuracy": 97.94655540626255,
+      "local_bytes": 6534148,
+      "extra_dot_dimensions": 6.81504
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        },
+        {
+          "factors": "stage11_mid_rel",
+          "rank": 16
+        }
+      ],
+      "valid_proxy_accuracy": 97.93239427927391,
+      "local_bytes": 5772228,
+      "extra_dot_dimensions": 5.272959999999999
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "candidate": "stage11_fast",
+  "profile": "stage11_profiles_b20_p5",
+  "profile_document_sha256": "f6662124239bdee82a83e05aacae1e76d12b0c86b805098bb8e6251088e1fa0f",
+  "parts": [
+    "stage11_tile_direct_00:24:8",
+    "stage11_tile_direct_01:48:8",
+    "stage11_tile_direct_02:48:8",
+    "stage11_tile_direct_03:32:8",
+    "stage11_tile_direct_10:48:8",
+    "stage11_tile_direct_11:96:8",
+    "stage11_tile_direct_12:96:8",
+    "stage11_tile_direct_13:48:8",
+    "stage11_tile_direct_20:24:8",
+    "stage11_tile_direct_21:48:8",
+    "stage11_tile_direct_22:48:8",
+    "stage11_tile_direct_23:32:8"
+  ],
+  "extra_outer": false,
+  "test_labels_used": false
+}

@@ -1,0 +1,159 @@
+{
+  "selected_branch_proxy": true,
+  "test_labels_used": false,
+  "wall_outputs_fixed": true,
+  "baseline_valid_accuracy": 97.77970197120274,
+  "curves": [
+    [
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 32,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.03194582365878288,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 1937280,
+        "expected_extra_dot_dimensions": 1.45792
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 48,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.07512430360712402,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 2786112,
+        "expected_extra_dot_dimensions": 2.18688
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 64,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.10530397245659923,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 3634944,
+        "expected_extra_dot_dimensions": 2.91584
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 80,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.12702430033385556,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 4483776,
+        "expected_extra_dot_dimensions": 3.6448
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 96,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.14500544070365692,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 5332608,
+        "expected_extra_dot_dimensions": 4.37376
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 128,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.16883723144388477,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 7030272,
+        "expected_extra_dot_dimensions": 5.83168
+      },
+      {
+        "factors": "stage11_inner_direct",
+        "rank": 160,
+        "bits": 16,
+        "direct": true,
+        "valid_proxy_gain": 0.1889057491635796,
+        "coverage": 0.04556,
+        "asset_bytes_excluding_map": 8727936,
+        "expected_extra_dot_dimensions": 7.2896
+      }
+    ]
+  ],
+  "combinations": [
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 160
+        }
+      ],
+      "valid_proxy_accuracy": 97.96860772036632,
+      "local_bytes": 9793204,
+      "extra_dot_dimensions": 7.2896
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 128
+        }
+      ],
+      "valid_proxy_accuracy": 97.94853920264663,
+      "local_bytes": 8095540,
+      "extra_dot_dimensions": 5.83168
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 96
+        }
+      ],
+      "valid_proxy_accuracy": 97.9247074119064,
+      "local_bytes": 6397876,
+      "extra_dot_dimensions": 4.37376
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 80
+        }
+      ],
+      "valid_proxy_accuracy": 97.9067262715366,
+      "local_bytes": 5549044,
+      "extra_dot_dimensions": 3.6448
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.88500594365934,
+      "local_bytes": 4700212,
+      "extra_dot_dimensions": 2.91584
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 48
+        }
+      ],
+      "valid_proxy_accuracy": 97.85482627480987,
+      "local_bytes": 3851380,
+      "extra_dot_dimensions": 2.18688
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_direct",
+          "rank": 32
+        }
+      ],
+      "valid_proxy_accuracy": 97.81164779486153,
+      "local_bytes": 3002548,
+      "extra_dot_dimensions": 1.45792
+    }
+  ]
+}

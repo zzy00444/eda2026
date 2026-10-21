@@ -1,0 +1,131 @@
+{
+  "candidate": "stage11_compact",
+  "format": "PGLOC005",
+  "parts": [
+    {
+      "factors": "stage11_tile_residual_00",
+      "factors_sha256": "0fe7628ad4e72bd5f3cb6486ccd42ac1d106896bc018b6b7b82572f2df6435ff",
+      "rank": 24,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_01",
+      "factors_sha256": "b3093366a4f6b4530c6895911cdccf94d882a9b3189c8faf63d3494a5f6881de",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1152,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_02",
+      "factors_sha256": "608cb5d30da14cb51d3bb49a710d70904e1a686ecd44c4107efb0372698d18cb",
+      "rank": 32,
+      "bits": 8,
+      "columns": 1176,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_03",
+      "factors_sha256": "abed4a5aa0936231cc9d475ba58f1871963fc0426e2d7ead287c109c49cdab02",
+      "rank": 32,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_10",
+      "factors_sha256": "0398a6bc154fafd1222eaa168d3a9dbc2b5b3706bdcac73e27c92fc71ff22bfd",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1904,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_11",
+      "factors_sha256": "43e66c7a17a9594dc67dd1ab34b8c3678fcfbdcbb31ea10ca9f6096e2154569c",
+      "rank": 96,
+      "bits": 8,
+      "columns": 816,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_12",
+      "factors_sha256": "0b2079d20cc382e85d36f172337865dbbdfff80a875b66b0d32ee23206ed1b6b",
+      "rank": 96,
+      "bits": 8,
+      "columns": 833,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_13",
+      "factors_sha256": "d87187308744a4b123191ecc445ce6b20a2d9abf0cf3cb8b67218162980dde64",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1904,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_20",
+      "factors_sha256": "f8ee93d893637db6288c7cfc6c2df7ece8bbad07a39e80fc15451a2679a5945c",
+      "rank": 48,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_21",
+      "factors_sha256": "987f80d83e51122c248f7b709b4f645217d305bc348c3d9a0f59d73347efe32f",
+      "rank": 80,
+      "bits": 8,
+      "columns": 1152,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_22",
+      "factors_sha256": "5f4d175bb9316c3ce55f04fd8ba68edf82cdcc6c11efbafe12d2e6de78336781",
+      "rank": 64,
+      "bits": 8,
+      "columns": 1176,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_tile_residual_23",
+      "factors_sha256": "bdca0cd01f83bdcc01dd31dcb887583d6ebd5ee381a2d000a75a63c460c47e7f",
+      "rank": 48,
+      "bits": 8,
+      "columns": 2688,
+      "stored_pairs": 23321,
+      "direct": false
+    },
+    {
+      "factors": "stage11_outer_rel",
+      "factors_sha256": "fa0ff4e60c618cdb56a22cec378d2bdbd1f11c2c3f968af71428d807ce535e69",
+      "rank": 40,
+      "bits": 8,
+      "columns": 61824,
+      "stored_pairs": 23321,
+      "direct": false
+    }
+  ],
+  "asset_sha256": "828981153a5d9cc5162e66b33b22184197772bf1219b824a20531a91411b8535",
+  "asset_bytes": 28848548,
+  "public_delay_labels_used": false,
+  "sparse_pairs_training_geometry_only": true,
+  "direct": false,
+  "mixed": true,
+  "delta_v": true,
+  "correction": "one disjoint region per branch; separately round local and baseline dots before min"
+}
