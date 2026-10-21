@@ -1,0 +1,21 @@
+{
+  "binary_sha256": "c9902a7cd0eb32ccd204be4892f75ff32938b2f545f22c85f27fea75cfb849f7",
+  "binary_bytes": 99753748,
+  "table_sha256": {
+    "oracle_vt.bin": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a",
+    "oracle_U.bin": "b4c63f4973cf09ecd23e9fd70040cbb927ac15848d1b5fe887558fa88eff752f",
+    "oracle_M.bin": "8fd874e038bbe236efbfbcc6b38607c3eebc329ddb148108779a0f3b338dad2d",
+    "oracle_ids.txt": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a",
+    "oracle_arch.txt": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+  },
+  "calibration": "unity",
+  "sources": 208,
+  "targets": 288,
+  "source_sha256": "0e4f432a2a0c1fce31035f84711faa02a73023e6cf5d0c5fde065aeaaacbca43",
+  "compiler_flags": [
+    "-std=c++17",
+    "-O3",
+    "-DNDEBUG"
+  ],
+  "image": "fpga-ziguang:latest"
+}

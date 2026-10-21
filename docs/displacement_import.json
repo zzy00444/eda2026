@@ -1,0 +1,30 @@
+{
+  "origin": "F:\\EDA\\pango_delay_handover_v3",
+  "files": {
+    "oracle_vt.bin": {
+      "bytes": 68174616,
+      "sha256": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a"
+    },
+    "oracle_U.bin": {
+      "bytes": 30670872,
+      "sha256": "b4c63f4973cf09ecd23e9fd70040cbb927ac15848d1b5fe887558fa88eff752f"
+    },
+    "oracle_M.bin": {
+      "bytes": 119820,
+      "sha256": "8fd874e038bbe236efbfbcc6b38607c3eebc329ddb148108779a0f3b338dad2d"
+    },
+    "oracle_ids.txt": {
+      "bytes": 2332,
+      "sha256": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a"
+    },
+    "oracle_arch.txt": {
+      "bytes": 720564,
+      "sha256": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    }
+  },
+  "model_labels": "Architecture-generated baseline, no public calibration",
+  "upstream_sources": {
+    "estimate_sub.cpp": "3c3ed0eba777f024415c127a3b98e7d1094fe6d4b740443f36c5afef1848637b",
+    "exact.cpp": "5939dac7e1f7d41c739532ed5d761b1c48f0c3a9a2c2c196c408a7559334ec6a"
+  }
+}
