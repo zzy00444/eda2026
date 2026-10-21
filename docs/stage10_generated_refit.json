@@ -1,0 +1,102 @@
+{
+  "baseline_generated": 98.9163228211514,
+  "curve": [
+    {
+      "power": 0,
+      "ridge": 0.0001,
+      "generated_accuracy": 98.89341294779803,
+      "gain": -0.022909873353370358
+    },
+    {
+      "power": 0,
+      "ridge": 0.01,
+      "generated_accuracy": 98.89391150205547,
+      "gain": -0.022411319095922977
+    },
+    {
+      "power": 0,
+      "ridge": 0.1,
+      "generated_accuracy": 98.89778834502452,
+      "gain": -0.018534476126873756
+    },
+    {
+      "power": 0,
+      "ridge": 1.0,
+      "generated_accuracy": 98.91140597967794,
+      "gain": -0.004916841473459499
+    },
+    {
+      "power": 1,
+      "ridge": 0.0001,
+      "generated_accuracy": 98.89143552549184,
+      "gain": -0.024887295659553388
+    },
+    {
+      "power": 1,
+      "ridge": 0.01,
+      "generated_accuracy": 98.8921673050513,
+      "gain": -0.024155516100094587
+    },
+    {
+      "power": 1,
+      "ridge": 0.1,
+      "generated_accuracy": 98.89780290605148,
+      "gain": -0.01851991509991535
+    },
+    {
+      "power": 1,
+      "ridge": 1.0,
+      "generated_accuracy": 98.91694559315908,
+      "gain": 0.0006227720076878995
+    },
+    {
+      "power": 2,
+      "ridge": 0.0001,
+      "generated_accuracy": 98.78670591532185,
+      "gain": -0.12961690582955043
+    },
+    {
+      "power": 2,
+      "ridge": 0.01,
+      "generated_accuracy": 98.79013480501578,
+      "gain": -0.1261880161356146
+    },
+    {
+      "power": 2,
+      "ridge": 0.1,
+      "generated_accuracy": 98.81428143613267,
+      "gain": -0.10204138501872251
+    },
+    {
+      "power": 2,
+      "ridge": 1.0,
+      "generated_accuracy": 98.88484041291147,
+      "gain": -0.0314824082399241
+    }
+  ],
+  "selected": {
+    "power": 1,
+    "ridge": 1.0
+  },
+  "samples": 4096,
+  "validation_displacements": 2048,
+  "pilot_sources": [
+    0,
+    18,
+    37,
+    56,
+    139,
+    158,
+    208,
+    259,
+    278,
+    361,
+    428,
+    495
+  ],
+  "architecture_sha256": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84",
+  "public_answers_used": false,
+  "external_source": "F:\\EDA\\pango_delay_handover_v3\\build",
+  "source_tables_modified": false,
+  "elapsed_seconds": 17.677200000000084
+}

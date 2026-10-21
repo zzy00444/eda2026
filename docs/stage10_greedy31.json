@@ -1,0 +1,27 @@
+{
+  "name": "stage10_greedy31",
+  "lut": "stage10_lut_greedy",
+  "leaves": 31,
+  "global_curve": [
+    {
+      "trees": 1,
+      "valid_accuracy": 98.0076783174339
+    },
+    {
+      "trees": 2,
+      "valid_accuracy": 98.02533938802821
+    },
+    {
+      "trees": 3,
+      "valid_accuracy": 98.02912721228374
+    },
+    {
+      "trees": 4,
+      "valid_accuracy": 98.02974741999067
+    }
+  ],
+  "wall_trees": 64,
+  "wall_train_rows": 4233,
+  "selected_global_trees": 4,
+  "test_labels_used": false
+}

@@ -1,9 +1,8 @@
 // Stage-9 envelope and residual runtime. Included after the base model globals.
 #pragma once
 #include <zlib.h>
-#include "displacement_residual_model.hpp"
-
 static vector<int16_t> RBoundTable; // [source,target,phase,direction], four adjacent values
+#include "displacement_residual_model.hpp"
 
 static bool residualInit() {
     if (!TB_EMB || TB_OFF[0] < 32) return false;
@@ -73,10 +72,17 @@ static bool residualFeatures(int sx,int sy,int tx,int ty,int source,int target,l
     f[RF_gap_x]=gapx;f[RF_gap_y]=gapy;f[RF_net_gap_x]=ngx;f[RF_net_gap_y]=ngy;
     f[RF_base]=base;f[RF_base_minus_gap]=base-ngx-ngy;f[RF_net_length]=abs(ndx)+abs(ndy);
     f[RF_direction]=2*(dx<0)+(dy<0);f[RF_bound]=bound;f[RF_base_minus_bound]=base-bound;
+#ifdef EST_RESIDUAL_PREPARE
+    rPrepareFeature(f);
+#endif
     return true;
 }
 
 static double residualPrediction(int sx,int sy,int tx,int ty,int source,int target,long base) {
+#ifdef EST_RESIDUAL_QUICK
+    double quick;
+    if(rQuickPredict(sx,sy,tx,ty,source,target,base,quick)) return quick;
+#endif
     RFeature f[RFeatures];
     if(!residualFeatures(sx,sy,tx,ty,source,target,base,f)) return base;
 #ifdef EST_RESIDUAL_DIRECT

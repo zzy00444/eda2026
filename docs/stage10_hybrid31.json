@@ -1,0 +1,27 @@
+{
+  "name": "stage10_hybrid31",
+  "lut": "stage10_lut_small",
+  "leaves": 31,
+  "global_curve": [
+    {
+      "trees": 1,
+      "valid_accuracy": 97.99558451233308
+    },
+    {
+      "trees": 2,
+      "valid_accuracy": 98.01155795886501
+    },
+    {
+      "trees": 3,
+      "valid_accuracy": 98.01535842844451
+    },
+    {
+      "trees": 4,
+      "valid_accuracy": 98.01944848302715
+    }
+  ],
+  "wall_trees": 128,
+  "wall_train_rows": 4233,
+  "selected_global_trees": 4,
+  "test_labels_used": false
+}

@@ -1,0 +1,43 @@
+{
+  "name": "stage10_hybrid127",
+  "lut": "stage10_lut_small",
+  "leaves": 127,
+  "global_curve": [
+    {
+      "trees": 1,
+      "valid_accuracy": 98.01606589734205
+    },
+    {
+      "trees": 2,
+      "valid_accuracy": 98.02138532561958
+    },
+    {
+      "trees": 3,
+      "valid_accuracy": 98.0225897532841
+    },
+    {
+      "trees": 4,
+      "valid_accuracy": 98.02614375407455
+    },
+    {
+      "trees": 6,
+      "valid_accuracy": 98.0320822760489
+    },
+    {
+      "trees": 8,
+      "valid_accuracy": 98.04140921026152
+    },
+    {
+      "trees": 12,
+      "valid_accuracy": 98.04568158696259
+    },
+    {
+      "trees": 16,
+      "valid_accuracy": 98.04911586646233
+    }
+  ],
+  "wall_trees": 128,
+  "wall_train_rows": 4233,
+  "selected_global_trees": 16,
+  "test_labels_used": false
+}

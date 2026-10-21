@@ -56,6 +56,14 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void
 #endif
 using namespace std;
 
+static inline long estimateRound(double value) {
+#ifdef EST_FAST_ROUND
+    return value>=0 ? (long)(value+.5) : (long)(value-.5);
+#else
+    return llround(value);
+#endif
+}
+
 struct SRBArc { int to; int w; };
 static int NP = 0, W = 120, H = 550;
 static vector<string> portName;
@@ -428,6 +436,9 @@ struct Rec {
 #include "displacement_residual_runtime.hpp"
 #endif
 int main(int argc, char** argv) {
+#ifdef EST_PROFILE
+    clock_t profileBegin=clock(), profileSort=0, profileDot=0, profileResidual=0, profileEmit=0;
+#endif
     const char* inPath = NULL; const char* outPath = NULL;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-in") && i + 1 < argc) inPath = argv[++i];
@@ -719,9 +730,15 @@ int main(int argc, char** argv) {
     // Finish the current chunk: order the dot jobs for locality, run them, then
     // emit every line of the chunk in input order.
     auto flushChunk = [&]() {
+#ifdef EST_PROFILE
+        clock_t profileAt=clock();
+#endif
         // ---------------- phase B: dot products, ordered by Vt row ----------
         const Job* J = JA;
         if (nj > 1) J = radixSortJobs(JA, JB, nj, maxJobKey);
+#ifdef EST_PROFILE
+        profileSort+=clock()-profileAt;profileAt=clock();
+#endif
         // Sorted by Vt row: the 68 MB Vt table is walked in ascending order, so
         // it streams (and stays TLB friendly); the U rows come from a much
         // smaller working set and are prefetched a few jobs ahead.
@@ -746,18 +763,21 @@ int main(int argc, char** argv) {
                 const Job& j = J[k];
                 const int16_t* vr = &Vt[(size_t)(j.key >> 1) * RANK];
                 float s = dotProduct(UP + j.uoff, vr, RANK);
-                long r = llround((double)j.mrow + (double)s);
+                long r = estimateRound((double)j.mrow + (double)s);
                 (j.key & 1u ? RB : RA)[j.idx] = r;
             }
             for (; k < nj; k++) {
                 const Job& j = J[k];
                 const int16_t* vr = &Vt[(size_t)(j.key >> 1) * RANK];
                 float s = dotProduct(UP + j.uoff, vr, RANK);
-                long r = llround((double)j.mrow + (double)s);
+                long r = estimateRound((double)j.mrow + (double)s);
                 (j.key & 1u ? RB : RA)[j.idx] = r;
             }
         }
 
+#ifdef EST_PROFILE
+        profileDot+=clock()-profileAt;profileAt=clock();
+#endif
         // A tile keeps one tree's instructions hot while visiting independent
         // queries. Each query still adds leaves in the original tree order.
 #ifdef EST_RESIDUAL_BATCH
@@ -778,7 +798,7 @@ int main(int argc, char** argv) {
                     pred=c0+R.lgap+R.netWall;
                     if(pred>0 && R.tgtIdx<nTgt) {
                         int bucket=pred>=CALIB_BINS[3]?4:pred>=CALIB_BINS[2]?3:pred>=CALIB_BINS[1]?2:pred>=CALIB_BINS[0]?1:0;
-                        pred=llround((double)pred*Calib[(size_t)R.tgtIdx*5+bucket]);
+                        pred=estimateRound((double)pred*Calib[(size_t)R.tgtIdx*5+bucket]);
                     }
                     if(residualFeatures(R.sx,R.sy,R.tx,R.ty,R.source,R.target,pred,
                                         residualFeatureTile+(size_t)count*RFeatures)) {
@@ -798,10 +818,19 @@ int main(int argc, char** argv) {
         }
 #endif
         // ---------------- phase C: emit in input order ----------------
+#ifdef EST_PROFILE
+        profileResidual+=clock()-profileAt;profileAt=clock();
+#endif
         {
         char* op = outBuf;
         const char* const oe = op + OUTCAP;
         for (size_t i = 0; i < nr; i++) {
+#ifdef EST_RESIDUAL_QUICK
+            if(i+16<nr) {
+                const Rec& next=RC[i+16];
+                rQuickPrefetch(next.sx,next.sy,next.tx,next.ty,next.source,next.target);
+            }
+#endif
             const Rec& R = RC[i];
             if (op + R.keyLen + 64 > oe) {
                 size_t bytes = (size_t)(op - outBuf);
@@ -861,7 +890,7 @@ int main(int argc, char** argv) {
                              pred >= CALIB_BINS[2] ? 3 :
                              pred >= CALIB_BINS[1] ? 2 :
                              pred >= CALIB_BINS[0] ? 1 : 0;
-                pred = llround((double)pred * Calib[(size_t)R.tgtIdx * 5 + bucket]);
+                pred = estimateRound((double)pred * Calib[(size_t)R.tgtIdx * 5 + bucket]);
             }
 #ifdef EST_RESIDUAL_BATCH
             pred=residualOutput[i];
@@ -883,6 +912,9 @@ int main(int argc, char** argv) {
         }
         }
         nr = 0; nj = 0; maxJobKey = 0;
+#ifdef EST_PROFILE
+        profileEmit+=clock()-profileAt;
+#endif
     };
 
     // ---------------- block loop ----------------
@@ -1034,6 +1066,12 @@ int main(int argc, char** argv) {
     }
     int outputStatus = fclose(fo);
     int inputStatus = fclose(fi);
+#ifdef EST_PROFILE
+    fprintf(stderr,"profile total=%.6f sort=%.6f dot=%.6f residual=%.6f emit=%.6f other=%.6f\n",
+            double(clock()-profileBegin)/CLOCKS_PER_SEC,double(profileSort)/CLOCKS_PER_SEC,
+            double(profileDot)/CLOCKS_PER_SEC,double(profileResidual)/CLOCKS_PER_SEC,double(profileEmit)/CLOCKS_PER_SEC,
+            double(clock()-profileBegin-profileSort-profileDot-profileResidual-profileEmit)/CLOCKS_PER_SEC);
+#endif
 #ifdef EST_TRACE
     if (traceOut) fclose(traceOut);
 #endif
