@@ -2,21 +2,24 @@
 
 ## 目标与入口
 
-这是“面向超大规模 FPGA 的布局布线延时估算算法”实现仓库。接手时先阅读仓库根目录 [`README.md`](README.md) 的环境准备，再看 [`solution/README.md`](solution/README.md) 的接口、评分和算法结构，最后查阅 [`solution/FPGA延时估算第五阶段结果.md`](solution/FPGA延时估算第五阶段结果.md) 的实验依据。
+这是“面向超大规模 FPGA 的布局布线延时估算算法”实现仓库。接手时先阅读仓库根目录 [`README.md`](README.md) 的环境准备，再看 [`solution/README.md`](solution/README.md) 的接口、评分和算法结构，最后查阅[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)及[实现比较](solution/实现对比与适配评估.md)。本交接说明更新于 2026-10-21。
 
 - 提交程序：`solution/src/main.cpp`
 - 特征、训练和导出：`solution/tools/`
 - 共享路径配置：`solution/tools/project_paths.py`
-- 总分优先模型和导出文件：`solution/build/s3_topology_lr32_511l_25r.txt`、`solution/build/generated_s5_score/`
+- 默认模型和导出文件：`solution/build/foldable_lr08_300r.txt`、`solution/build/generated_s7_fold/`
+- 默认 Net 系数：`solution/build/stage7_net_correction_folded.json`
+- 第五、六阶段历史主模型：`solution/build/s3_topology_lr32_511l_25r.txt`
 - 高准确度导出文件：`solution/build/generated_s5_accuracy/`
-- 当前算法和环境验证证据：`solution/build/stage5_manifest.json`、`solution/build/stage5_*`、`solution/build/stage5_generated_s5_*`
-- 镜像构建、压测和 ZIP 独立运行：`solution/tools/build_candidate_wsl.sh`、`solution/tools/validate_stage5_wsl.sh`、`solution/tools/check_stage5_packages_wsl.sh`
+- 当前算法和环境验证证据：`solution/build/stage7_manifest.json`、`solution/build/stage7_fold_*`
+- 镜像构建和压测：`solution/tools/build_candidate_wsl.sh`、`solution/tools/validate_stage5_wsl.sh stage7_fold`
+- 独立运行检查工具：`solution/tools/standalone.py`；`check_stage5_packages_wsl.sh` 是第五阶段专用包装脚本
 
 Git 有意不保存公开赛题数据、架构表缓存、临时 CSV、ELF、提交 ZIP 和训练缓存。候选模型、C++ 头文件、导出参数及压缩后的验证证据已纳入仓库。
 
 ## 当前基线
 
-第七阶段的默认候选把残差模型折叠进架构表，运行时只有一次查表；相对第五阶段 CPU 降低 52%，预计总分提高约 1.1。指标解释与验证细节以[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)、[第六阶段报告](solution/FPGA延时估算第六阶段结果.md)和 `solution/build/stage7_manifest.json`、`stage6_manifest.json` 为准。
+第七阶段的默认候选把残差模型折叠进架构表，运行时只有一次查表；相对第五阶段同机复测 CPU 降低约 57%，预计总分提高约 1.21。指标解释与验证细节以[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)、[第六阶段报告](solution/FPGA延时估算第六阶段结果.md)和 `solution/build/stage7_manifest.json`、`stage6_manifest.json` 为准。
 
 | 候选 | 固定验证准确度 | 固定测试准确度 | 10M CPU 均值 | 1B CPU 外推 | 预计总分 |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -53,38 +56,33 @@ python -m venv .venv
 
 若已有虚拟环境，无需重复创建；换机器时按实际位置设置 `EDA_DATA_DIR` 和请求文件路径。迁移时 `F:\EDA\solution\.venv` 已存在且版本与本仓库 `solution/requirements.txt` 一致，可直接用 `F:\EDA\solution\.venv\Scripts\python.exe` 代替 `.\\.venv\\Scripts\\python.exe`。
 
-Git 不保存 `solution/build/architecture_meta.json`、`architecture_table.npy`、`architecture_prediction.npy` 和 `stage3_features.pkl`，因此克隆后第一次重建必须先生成周期架构表；跳过这一步会让 `topology_experiment.py`、`export_cpp.py`、`verify_cpp.py` 因缺少架构表而报错。默认总分优先候选的最小重建序列：
+Git 不保存 `solution/build/architecture_meta.json`、`architecture_table.npy`、`architecture_prediction.npy` 和 `stage3_features.pkl`。克隆后先生成周期架构表；从已跟踪模型重建当前默认候选的最小序列如下。请求文件需提前准备为 `From,To` 两列，路径可替换为本机实际样例：
 
 ```powershell
 .\.venv\Scripts\python.exe -u solution\tools\architecture.py
-.\.venv\Scripts\python.exe -u solution\tools\topology_experiment.py `
-  --leaves 511 --rounds 25 --learning-rate 0.32 --prefix s3_topology_lr32
-.\.venv\Scripts\python.exe -u solution\tools\net_correction_experiment.py `
-  --short-trees 1 --fast-trees 1 --cascade-trees 0 --l1-only `
-  --output-dir net_correction_f1_c0
-.\.venv\Scripts\python.exe -u solution\tools\export_cpp.py `
-  --model s3_topology_lr32_511l_25r --trees 1 --fast-categories --packed-ports `
-  --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s6_score
-wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s6_score pgo x86-64 stage6_score'
-.\.venv\Scripts\python.exe -u solution\tools\release_stage6.py
+.\.venv\Scripts\python.exe -u solution\tools\fold_model.py `
+  --model foldable_lr08_300r --trees 300 --out generated_s7_fold `
+  --net-coefficients solution\build\stage7_net_correction_folded.json
+wsl -d Ubuntu-20.04 -- env EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s7_fold pgo x86-64 stage7_fold
+wsl -d Ubuntu-20.04 -- env EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/validate_stage5_wsl.sh stage7_fold
 ```
 
 请求 CSV 首行不是 `From,To` 时，`build_candidate_wsl.sh` 与 `validate_stage5_wsl.sh` 会通过 `tools/ensure_request_header.sh` 自动补表头；官方输入本身带表头，本地从 `delay_estimate_ans.csv` 裁出的 `From,To` 文件通常不带。`F:\EDA\pango_delay_handover_v3\local_build\request.csv` 就是这种无表头文件，脚本会补表头，但更推荐直接用带表头的 `solution/build/local_runs/request_1m.csv`。
 
-候选 ELF 写入 `solution/bin/estimate_stage6_score`，构建期基准输出写入 `solution/build/local_runs/`。如果重建了模型或 C++，重新运行公开集一致性检查、接口/10M 压测和 `release_stage6.py`，不可将旧证据或旧哈希当作新二进制的验证结果。相应命令见根目录 README。
+候选 ELF 写入 `solution/bin/estimate_stage7_fold`，构建期结果及验证报告写入 `solution/build/local_runs/`。如果重建了模型或 C++，应重新核对折叠表量化后的 Python 参考预测、准确度、接口和五次 10M 输出。树模型专用 `verify_cpp.py` 不能直接验证折叠模型。
 
-`release_stage6.py` 会强制校验：五次 10M 输出哈希一致、线程数为 1、容器峰值内存低于 2 GB、1M/10M 预测与第五阶段逐字节等价，然后才打包 `stage6_score_submission.zip`、更新 `bin/estimate` 与 `submission.zip`、写出 `build/stage6_manifest.json`。
+核验新结果后，将指标与压测报告归档到 `build/stage7_fold_metrics.json`、`stage7_fold_benchmark_10m.json` 和 `stage7_fold_integration.json`，再运行 `release_stage7.py`。该脚本读取这些归档证据，检查一致性、资源和预计总分并打包；它不会自动计算新准确度或执行 ZIP 独立运行，不能直接沿用旧证据。
 
-第七阶段（当前默认）的完整重建序列见[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)：`train_foldable.py` → `fit_netcorr_folded.py` → `fold_model.py` → 构建 → `validate_stage5_wsl.sh stage7_fold` → `release_stage7.py`。`foldable_lr08_300r.txt` 已纳入仓库，因此折叠表可以从它重新生成；`architecture.bin` 与其他阶段的表一样不入库。
+需要完整重训时，按[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)执行 `train_foldable.py` → `fit_netcorr_folded.py` → `fold_model.py`。仅重建现有候选时可以跳过重训；`architecture.bin` 不入库。
 
 高准确度候选的结构校正和导出参数见第五阶段报告“复现高准确度候选”小节；构建脚本命令将候选目录改为 `generated_s5_accuracy`，产物标识改为 `stage5_accuracy`。
 
 ## 已知边界与优化顺序
 
 1. 先在接手机器确认 WSL 发行版、Docker Desktop 集成和镜像标签可用；检查数据 JSON/CSV 与请求样例在 Windows 和 WSL 两侧都可读。未准备这些外部文件时，仓库本身仍可供代码阅读，但训练和端到端验证无法启动。
-2. 先按当前参数重建 `stage6_score`，比较新旧导出文件和公开集指标，验证 README 命令与迁移后的目录结构可复现。迁移后已做 Python `compileall`、shell 脚本 `bash -n` 和 `git diff --check`，并在本机完整跑通“架构表 → 训练 → 校正 → 导出 → 镜像内 PGO 构建 → 接口与 10M 压测 → 打包”整条链路，产出的 ELF 与记录哈希一致。
-3. 用 `tools/pareto.py` 维护候选 Pareto 表（准确度、单线程 CPU、1B 外推、预计总分）。当前结论：默认候选在 Pareto 前沿上，纯架构下界更快但准确度低 3.6 分；3 棵树与 6 棵树都被默认候选支配。
-4. 优先做可解释的小步实验：主模型树数/距离门控、Net 校正特征与系数、C++ 热路径与端口解析。每次只改变一类因素，系数只用训练集拟合，验证集用于选型；固定测试集用于回归比较并注明已有反复查看。
+2. 先核对当前 `stage7_fold` 的产物与清单。2026-10-21 清理保留了当前 ELF、ZIP、折叠表、基础架构表和全部受 Git 跟踪的文件；旧 ELF、重复表及预测 CSV 已删除，`stage3_features.pkl` 等缓存需按需再生。
+3. Pango 完整目录为 `F:\EDA\pango_delay_handover_v3`，已包含模型、提交件和本机重编产物；旧 lite 目录缺表的结论不能套用。同机比较已完成，见[原始记录](docs/pango_comparison_20261021.json)：第七阶段/Pango 未校准版测试 94.6074/97.5955，10M CPU 1.7310/2.3186 秒，预计总分 94.2434/96.1442。下一阶段采用 Pango 为准确度/总分参照、第七阶段为速度参照；历史清单不覆盖，官方成绩与本地外推分列。Pango 校准版使用全部公开标签，随机切片不构成干净留出。
+4. 下一阶段优先研究完整位移与端口对的紧凑表示、短路径结构和位置相关误差。当前折叠键上的加树、1023 叶、超调比特扩表等已测实验不支持继续堆容量，但这些负结果不构成新表示方法的上限。
 5. 性能改进达到稳定收益后，再在受限镜像中做多轮大规模压力验证。最终需要官方 1B 规模及隐藏集评测结果才能确认真实排名；10M 线性外推只能用于筛选候选。
 
-避免把本地预测的成绩写成官方成绩，也不要在没有新验证记录的情况下覆盖当前基线证据。新实验应使用独立输出目录，并记录参数、源码/模型哈希和运行环境。
+30 分钟是时间分归零点；任一次超过 1 小时或超过 2 GB 才触发对应硬限制。避免把本地预测写成官方成绩。新实验使用独立目录，记录参数、源码/模型哈希和环境；系数用训练集拟合，选型使用验证集，并保留新的位置分组留出检查。

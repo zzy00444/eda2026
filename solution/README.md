@@ -1,25 +1,27 @@
 # FPGA 布局布线延时估算器
 
-当前默认提交按官方总分选择，采用“架构表 + 1 棵残差树 + 5 项源端 Net 结构校正”。提交文件为 [`submission.zip`](submission.zip)，仅含 `bin/estimate`。另保留 [`stage5_accuracy_submission.zip`](stage5_accuracy_submission.zip)，用于需要更高准确度的场景。旧第四阶段级联包已备份为 `stage4_submission.zip`。
+更新日期：2026-10-21。当前默认提交为第七阶段 `stage7_fold`：残差模型离线折叠进架构表，在线执行“一次查表 + 空间线性项 + Gap 前缀和 + 5 项源端 Net 结构校正”。[`submission.zip`](submission.zip) 与 `stage7_fold_submission.zip` 均只含 `bin/estimate`。
+
+第五阶段高准确度候选仍有记录和导出参数；本机备选包与 ELF 保留在仓库外的 `F:\EDA\solution\stage5_accuracy_submission.zip` 和 `F:\EDA\solution\bin\estimate_stage5_accuracy`。其他旧提交包、旧 ELF 和临时预测大文件已在 2026-10-21 清理，不能假定旧报告中的产物路径仍存在。
 
 ## 当前候选结果
 
 固定划分使用 `numpy.random.default_rng(7)` 的 100 万条公开样本随机排列：验证集为 `[300000:350000]`，测试集为 `[350000:400000]`，其余 900,000 条训练。结构校正系数只在训练集拟合，验证集用于选型；测试集已在多轮开发中查看，是本地回归指标，不能代替官方隐藏集成绩。
 
-| 指标 | 默认：总分优先 | 高准确度候选 |
-| --- | ---: | ---: |
-| 固定验证集准确度 | 94.9601032 | 96.2344961 |
-| 固定测试集准确度 | 94.9711467 | 96.2257253 |
-| 全公开集 C++/Python 不一致行数 | 0 | 0 |
-| 同引脚零延时样本 | 1/1 正确 | 1/1 正确 |
-| 10M 单线程 CPU 秒（各五次） | 2.968～3.072 | 12.935～13.434 |
-| 外推 1B 平均 CPU 分钟 | 5.0477 | 21.9820 |
-| 本地测试准确度 + CPU 外推的预计总分 | 93.4531 | 85.9896 |
-| 容器峰值内存 | 844,095,488 B | 843,706,368 B |
-| ELF 大小 | 57,726,920 B | 58,437,424 B |
-| 提交 ZIP 大小 | 41,688,436 B | 42,016,719 B |
+| 指标 | 当前：第七阶段 | 历史：第六阶段 | 第五阶段高准确度备选 |
+| --- | ---: | ---: | ---: |
+| 固定验证集准确度 | 94.6212479 | 94.9601032 | 96.2344961 |
+| 固定测试集准确度 | 94.6074016 | 94.9711467 | 96.2257253 |
+| 10M 单线程 CPU 均值 | 1.3498318 秒 | 2.2244016 秒 | 13.189198 秒 |
+| 外推 1B 平均 CPU 分钟 | 2.2497 | 3.7073 | 21.9820 |
+| 按本地测试与 CPU 外推的预计总分 | 94.5611 | 94.1233 | 85.9896 |
+| 容器峰值内存 | 806,977,536 B | 见第六阶段清单 | 843,706,368 B |
+| ELF 大小 | 57,595,848 B | 57,624,656 B | 58,437,424 B |
+| 提交 ZIP 大小 | 46,580,381 B | 41,692,644 B | 42,016,719 B |
 
-10M 压测把公开 100 万条请求重复 10 次，各候选五次输出哈希完全相同，并逐字节核对重复内容。未执行完整 1B 终测；表中预计总分不是官方成绩。相同会话重新测得旧第四阶段的预计总分为 83.7738。默认方案降低了准确度、显著缩短 CPU 时间；高准确度候选则同时改善了旧方案的准确度和耗时。见 [`FPGA延时估算第五阶段结果.md`](FPGA延时估算第五阶段结果.md) 和 `build/stage5_manifest.json`。
+10M 压测把公开 100 万条请求重复 10 次，五次输出哈希完全相同，并核对了重复内容。当前第七阶段还记录了百万行 C++/Python 预测一致、11 项接口检查和 ZIP 独立运行通过。未执行完整 1B 终测；表中预计总分不是官方成绩。准确度是赛题的相对误差得分，不是精确命中比例。详情见[第七阶段报告](FPGA延时估算第七阶段结果.md)和 `build/stage7_manifest.json`。
+
+2026-10-21 新增 Pango 同机对照：第七阶段/Pango 未校准版测试准确度 94.6074/97.5955，10M CPU 1.7310/2.3186 秒，预计总分 94.2434/96.1442。测时有批次差异，以上历史指标不改写；完整比较及后续优先级见[实现对比与适配评估](实现对比与适配评估.md)。
 
 ## 赛题接口和评分
 
@@ -44,31 +46,27 @@ bin/estimate -in request.csv -out result.csv
 
 ## 算法结构
 
-`tools/architecture.py` 根据 Arc、Net 和 Gap JSON 生成周期架构表。`tools/net_correction_experiment.py` 根据源 Net 远端落点计算额外 Gap 穿越和 Block 返回/跨越特征，再用训练集拟合 5 个线性系数。运行时用前缀表和稀疏分支计算校正，无查询答案缓存。
+`tools/architecture.py` 从 Arc/Net 构造 10×12 周期图，通过空间势函数、Johnson 重加权和 Dijkstra 生成四方向架构下界表；Gap Line 在预测时单独相加。`tools/train_foldable.py` 只用表键可决定的 20 个特征训练 300 棵残差树，`fit_netcorr_folded.py` 在训练集重拟合 5 个结构校正系数，`fold_model.py` 把模型修正写入 28,753,920 项 int16 表。
 
-默认仅使用 `s3_topology_lr32_511l_25r` 的第 1 棵树；高准确度版本距离小于 100 时用 25 棵，其他情况用前 18 棵。两者均追加各自拟合的 5 项结构校正，并使用验证键值的 64 位端口完美哈希。模型和约 57.5 MB 架构表嵌入 ELF，运行时不依赖 Python、JSON 或外部模型。最终构建使用 `-march=x86-64`，不要求本机专有指令。
+当前运行时没有树推理，表键为 `(方向, 源端口, dx%10, dy%12, 目标端口)`，随后叠加空间线性项、Gap 前缀和及 Net 超调/跨墙校正。解析使用校验完整名称的 64 位开放寻址哈希，4 MiB 输入输出缓冲与 8 行批处理隐藏访存延迟。表和参数嵌入 ELF，运行时不依赖 Python、JSON 或外部模型；构建使用 PGO 与 `-march=x86-64`。
+
+第五、六阶段的树实现仍保留在同一份 `src/main.cpp` 中，通过生成头文件的 `FOLDED_MODEL` 宏选择。第五阶段高准确度模型距离小于 100 时用 25 棵树，其他情况用前 18 棵。完整 Pango 工程采用另一种完整位移低秩表示，最新资产核查和比较见[实现对比与适配评估](实现对比与适配评估.md)。
 
 ## 构建和验证
 
-在仓库根目录 `F:\EDA\solution\eda2026` 的 PowerShell 中，先确保 WSL 的 Ubuntu-20.04 已启用 Docker Desktop 集成，并设置赛题数据及请求文件路径，然后执行以下命令。训练脚本的输出目录相对于 `solution\build`，导出目录参数也会写入该 build 目录：
+在仓库根目录的 PowerShell 中，先按[根目录 README](../README.md)准备 Python、官方数据、请求 CSV 和 WSL/Docker。利用已跟踪模型重建当前默认候选：
 
 ```powershell
 $env:PYTHONPATH = (Resolve-Path solution\tools).Path
 $env:EDA_DATA_DIR = (Resolve-Path ..\..\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay).Path
-.\.venv\Scripts\python.exe -u solution\tools\topology_experiment.py `
-  --leaves 511 --rounds 25 --learning-rate 0.32 --prefix s3_topology_lr32
-.\.venv\Scripts\python.exe -u solution\tools\net_correction_experiment.py `
-  --short-trees 1 --fast-trees 1 --cascade-trees 0 --l1-only `
-  --output-dir net_correction_f1_c0
-.\.venv\Scripts\python.exe -u solution\tools\export_cpp.py `
-  --model s3_topology_lr32_511l_25r --trees 1 --fast-categories --packed-ports `
-  --net-correction net_correction_f1_c0/metrics.json --output-dir generated_s5_score
-wsl -d Ubuntu-20.04 -- bash -lc 'EDA_REQUEST_CSV_WSL=/mnt/f/EDA/pango_delay_handover_v3/local_build/request.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s5_score pgo x86-64 stage5_score'
-.\.venv\Scripts\python.exe -u solution\tools\verify_cpp.py `
-  --result solution/build/generated_s5_score_result.csv `
-  --generated-dir generated_s5_score --name stage5_score --all-rows
+.\.venv\Scripts\python.exe -u solution\tools\architecture.py
+.\.venv\Scripts\python.exe -u solution\tools\fold_model.py `
+  --model foldable_lr08_300r --trees 300 --out generated_s7_fold `
+  --net-coefficients solution\build\stage7_net_correction_folded.json
+wsl -d Ubuntu-20.04 -- env EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/build_candidate_wsl.sh generated_s7_fold pgo x86-64 stage7_fold
+wsl -d Ubuntu-20.04 -- env EDA_REQUEST_CSV_WSL=/mnt/f/EDA/solution/eda2026/solution/build/local_runs/request_1m.csv bash /mnt/f/EDA/solution/eda2026/solution/tools/validate_stage5_wsl.sh stage7_fold
 ```
 
-`tools/validate_stage5_wsl.sh` 对两个候选执行接口和 10M 压测；`tools/check_stage5_packages_wsl.sh` 验证 ZIP 解压后无外部模型依赖。构建工作区默认位于 WSL `$HOME/eda2026-work`，ELF 和报告分别回写到 `solution/bin` 与 `solution/build/local_runs`；构建脚本不会自动覆盖默认提交。应在 `fpga-ziguang:latest` 镜像内编译，避免宿主机 C++ 运行库不兼容。
+请求 CSV 路径须存在，首行无表头时构建/验证脚本会补齐。本机已保留 `solution/build/local_runs/request_1m.csv`。构建工作区默认位于 WSL `$HOME/eda2026-work`，ELF 和结果回写到 `solution/bin` 与 `solution/build/local_runs`；构建脚本不会覆盖默认提交。
 
-训练依赖和完整实验记录保存在 `build/`；临时实验脚本不属于提交包。
+第七阶段需按折叠表的量化规则重新核对 Python/C++ 输出；`verify_cpp.py` 目前只适用于树模型。新报告核验并归档到 `build/stage7_fold_*.json` 后，才运行 `release_stage7.py` 打包。发布脚本不会自动重算准确度或执行 ZIP 独立运行检查；不能用旧指标证明新二进制已验证。完整重训和历史候选流程见各阶段报告。
