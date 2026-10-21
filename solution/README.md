@@ -1,5 +1,7 @@
 # FPGA 布局布线延时估算器
 
+第十一阶段正在进行[基线匹配与分区相对误差压缩](../docs/第十一阶段优化计划.md)，见[实时记录](../docs/第十一阶段优化记录.md)。新训练与运行资产使用独立前缀，以下第十阶段发布版继续保留。
+
 更新日期：2026-10-21。当前默认为第十阶段 `stage10_local96w64`，源码为 [displacement.cpp](src/displacement.cpp)、[局部残差](src/displacement_local_runtime.hpp)和[稀疏墙内残差](src/displacement_wall_runtime.hpp)。`submission.zip` 等同 `stage10_local96w64_submission.zip`，额外保留最高精度 `stage10_local160w160_submission.zip`，第九阶段两个包和第八/七阶段速度方案也保留。见[默认清单](../docs/stage10_manifest.json)和[高精度清单](../docs/stage10_accuracy_manifest.json)。
 
 ## 当前结果

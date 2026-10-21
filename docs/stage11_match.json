@@ -1,0 +1,68 @@
+{
+  "real_both_branches": true,
+  "test_labels_used": false,
+  "wall_outputs_fixed_for_isolation": true,
+  "training_rows": 715350,
+  "validation_rows": 50000,
+  "configs": [
+    {
+      "aligned": false,
+      "calibration": "old",
+      "valid_accuracy": 98.01536989509542,
+      "held_accuracy": 98.04180852944243
+    },
+    {
+      "aligned": false,
+      "calibration": "unity",
+      "valid_accuracy": 98.00746141580746,
+      "held_accuracy": 98.0318526867324
+    },
+    {
+      "aligned": false,
+      "calibration": "0.5",
+      "valid_accuracy": 98.01778877033058,
+      "held_accuracy": 98.04330947873403
+    },
+    {
+      "aligned": false,
+      "calibration": "1.0",
+      "valid_accuracy": 98.01836096718064,
+      "held_accuracy": 98.04272599587064
+    },
+    {
+      "aligned": true,
+      "calibration": "old",
+      "valid_accuracy": 98.02057568915117,
+      "held_accuracy": 98.03520481075455
+    },
+    {
+      "aligned": true,
+      "calibration": "unity",
+      "valid_accuracy": 98.00276607301166,
+      "held_accuracy": 98.0160437192439
+    },
+    {
+      "aligned": true,
+      "calibration": "0.5",
+      "valid_accuracy": 98.02067190077823,
+      "held_accuracy": 98.03506406290361
+    },
+    {
+      "aligned": true,
+      "calibration": "1.0",
+      "valid_accuracy": 98.02084577414287,
+      "held_accuracy": 98.03413103290384
+    }
+  ],
+  "best": {
+    "aligned": true,
+    "calibration": "1.0",
+    "valid_accuracy": 98.02084577414287,
+    "held_accuracy": 98.03413103290384
+  },
+  "m_local_bias_range": [
+    -11,
+    9
+  ],
+  "frozen_local_sha256": "731b7909ed728f0565ca44260cb35434ef434e2376e8dda5bc0fcc6915e31560"
+}

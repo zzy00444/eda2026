@@ -1,0 +1,7 @@
+{
+  "candidate": "stage11_inner64",
+  "valid_accuracy": 97.9136864430929,
+  "valid_python_cpp_mismatches": 0,
+  "wall_outputs_fixed": true,
+  "test_labels_used": false
+}

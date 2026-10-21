@@ -54,6 +54,18 @@ def load_base():
 def load_local(path):
     with path.open('rb') as stream:
         magic,rows,rank,cols,nc,bits,reserved=struct.unpack('<8s6I',stream.read(32))
+        if magic==b'PGLOC002':
+            assert not bits and not reserved
+            mapping=np.fromfile(stream,'<i4',nc);parts=[];begin=0
+            for _ in range(rank):
+                pr,pc,pb,reserved=struct.unpack('<4I',stream.read(16));assert not reserved
+                us=np.fromfile(stream,'<f4',pr);vs=np.fromfile(stream,'<f4',pr)
+                uq=np.fromfile(stream,'i1' if pb==8 else '<i2',rows*pr).reshape(rows,pr)
+                v=np.fromfile(stream,'<i2',pc*pr).reshape(pc,pr)
+                pm=np.where((mapping>=begin)&(mapping<begin+pc),mapping-begin,-1)
+                parts.append((pm,(uq.astype(np.float32)*us)*vs,v));begin+=pc
+            assert begin==cols and stream.read()==b''
+            return parts
         assert magic==b'PGLOC001' and not reserved
         mapping=np.fromfile(stream,'<i4',nc)
         us=np.fromfile(stream,'<f4',rank);vs=np.fromfile(stream,'<f4',rank)
@@ -64,7 +76,7 @@ def load_local(path):
     return mapping,u,v
 
 
-def predict(g,base_assets,local_assets=None):
+def predict(g,base_assets,local_assets=None,*,local_bias=None,calibration=None,return_raw=False):
     u,v,m=base_assets
     _,_,_,ndx,ndy,vp,hp,dd=architecture()
     sx,sy,tx,ty,sp,tp=(g[k].astype(np.int32) for k in ('sx','sy','tx','ty','source_id','target_id'))
@@ -89,14 +101,20 @@ def predict(g,base_assets,local_assets=None):
             end=min(len(sx),start+4096);p=pair[start:end];r=rows[start:end]
             out[start:end]=round_away(m[p].astype(np.float64)+fma_dot(u[p],v[r]).astype(np.float64))
             if local_assets is not None:
-                mapping,lu,lv=local_assets;col=mapping[r];mask=col>=0
-                d=round_away(fma_dot(lu[p[mask]],lv[col[mask]]).astype(np.float64))
-                out[start:end][mask]+=d
+                for mapping,lu,lv in (local_assets if isinstance(local_assets,list) else [local_assets]):
+                    col=mapping[r];mask=col>=0
+                    if not np.any(mask):continue
+                    d=round_away(fma_dot(lu[p[mask]],lv[col[mask]]).astype(np.float64))
+                    out[start:end][mask]+=d
+                    if local_bias is not None:
+                        out[start:end][mask]+=local_bias[p[mask]]
         return out
     a=branch(row0)+cross*292;b=branch(row1)
     raw=np.where(cross&door,np.minimum(a,b),a)+gap+netwall*292
     raw[~good]=0;raw[(sx==tx)&(sy==ty)&(sp==tp)]=0
-    cal=np.fromfile(OUT/'calibration_train.bin','<f4')
+    if return_raw:
+        return raw.astype(np.int32),good
+    cal=np.fromfile(OUT/'calibration_train.bin','<f4') if calibration is None else calibration
     bins=np.searchsorted([700,1000,2000,4000],raw,side='right')
     pred=np.where(raw>0,round_away(raw.astype(np.float64)*cal[np.maximum(ti,0)*5+bins]),0)
     return np.maximum(pred,0).astype(np.int32),good

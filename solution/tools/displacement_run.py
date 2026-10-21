@@ -54,6 +54,7 @@ def main():
     bench.add_argument('names', nargs='+')
     bench.add_argument('--runs', type=int, default=5)
     bench.add_argument('--tag', default='displacement_final')
+    bench.add_argument('--repeat',type=int,default=10,help='Repeat the 1M input; 100 means a 100M benchmark')
     validate = sub.add_parser('validate')
     validate.add_argument('name')
     clean = sub.add_parser('clean')
@@ -148,16 +149,20 @@ def main():
                        IMAGE, '/work/oracle', '/work/arch.txt', '/work/oracle_queries.csv']
             subprocess.run(command, stdout=output, check=True)
     elif args.action == 'benchmark':
-        if args.runs < 1:
-            raise ValueError('At least one run is required')
+        if args.runs < 1 or args.repeat < 1:
+            raise ValueError('At least one run and one input repetition are required')
         request = WORK / 'request.csv'
         shutil.copy2(REPO / 'solution/build/local_runs/request_1m.csv', request)
-        expanded = WORK / 'request_10m.csv'
+        with request.open('rb') as stream:
+            source_rows=sum(block.count(b'\n') for block in iter(lambda:stream.read(4<<20),b''))-1
+        assert source_rows==1_000_000
+        benchmark_rows=source_rows*args.repeat
+        expanded = WORK / ('request_repeat_'+str(args.repeat)+'.csv')
         with request.open('rb') as source, expanded.open('wb') as target:
             header = source.readline()
             start = source.tell()
             target.write(header)
-            for _ in range(10):
+            for _ in range(args.repeat):
                 source.seek(start)
                 shutil.copyfileobj(source, target, 4 << 20)
         expected, data = {}, {}
@@ -175,7 +180,7 @@ def main():
                 with reference.open('rb') as stream:
                     digest.update(stream.readline())
                     begin = stream.tell()
-                    for _ in range(10):
+                    for _ in range(args.repeat):
                         stream.seek(begin)
                         for block in iter(lambda: stream.read(4 << 20), b''):
                             digest.update(block)
@@ -186,24 +191,25 @@ def main():
                     report = WORK / 'benchmark_once.json'
                     output = WORK / 'benchmark_output.csv'
                     docker(['python3', '/workspace/solution/tools/benchmark.py',
-                            '--input', '/work/request_10m.csv', '--output', '/work/' + output.name,
+                            '--input', '/work/' + expanded.name, '--output', '/work/' + output.name,
                             '--report', '/work/' + report.name, '--executable', '/work/' + name],
                            readonly_repo=True)
                     item = json.loads(report.read_text())[0]
                     assert item['output_sha256'] == expected[name], name + ' repeated output mismatch'
                     assert item['max_observed_threads'] == 1
                     assert item['container_peak_bytes'] < 2_000_000_000
-                    item.update(run=iteration+1, rows=10_000_000, repeated_output_verified=True)
+                    item.update(run=iteration+1, rows=benchmark_rows, repeated_output_verified=True)
                     data[name]['runs'].append(item)
                     output.unlink()
                     print(name, iteration+1, item['cpu_seconds'], flush=True)
             for item in data.values():
-                item['mean_10m_cpu_seconds'] = sum(run['cpu_seconds'] for run in item['runs']) / args.runs
-                item['projected_1b_cpu_seconds'] = item['mean_10m_cpu_seconds'] * 100
+                item['mean_measured_cpu_seconds'] = sum(run['cpu_seconds'] for run in item['runs']) / args.runs
+                item['mean_10m_cpu_seconds'] = item['mean_measured_cpu_seconds']*10_000_000/benchmark_rows
+                item['projected_1b_cpu_seconds'] = item['mean_measured_cpu_seconds']*1_000_000_000/benchmark_rows
                 item['max_container_bytes'] = max(run['container_peak_bytes'] for run in item['runs'])
             result = {'image': IMAGE, 'cpu_limit': 1, 'memory_limit_bytes': 2_000_000_000,
                       'runs': args.runs, 'timer': 'child user+sys; fresh container per candidate/run',
-                      'order': 'alternating forward/reverse', 'rows': 10_000_000,
+                      'order': 'alternating forward/reverse', 'rows': benchmark_rows,'input_repetitions':args.repeat,
                       'cpu_model': next(line.split(':', 1)[1].strip() for line in
                                         Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name')),
                       'official_score': False, 'full_1b_completed': False, 'candidates': data}

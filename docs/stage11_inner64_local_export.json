@@ -1,0 +1,17 @@
+{
+  "candidate": "stage11_inner64",
+  "format": "PGLOC002",
+  "parts": [
+    {
+      "factors": "stage11_inner_rel",
+      "factors_sha256": "64ec2bc42abadd10b7917e0b9e5be80f0306fc9679618392da8e40948cba4bee",
+      "rank": 64,
+      "bits": 8,
+      "columns": 3201
+    }
+  ],
+  "asset_sha256": "62dce793eb9473b08c5393f83cfc3623308161ff1abb3a19566f27f8c6fae6b3",
+  "asset_bytes": 5309364,
+  "public_delay_labels_used": false,
+  "correction": "one disjoint region per branch; separately round local and baseline dots before min"
+}

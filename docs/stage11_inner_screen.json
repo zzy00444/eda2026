@@ -1,0 +1,126 @@
+{
+  "selected_branch_proxy": true,
+  "test_labels_used": false,
+  "wall_outputs_fixed": true,
+  "baseline_valid_accuracy": 97.77970197120274,
+  "curves": [
+    [
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 32,
+        "valid_proxy_gain": 0.09177674928563949,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 2122048,
+        "expected_extra_dot_dimensions": 1.4592
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 48,
+        "valid_proxy_gain": 0.1188923484325569,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 3183072,
+        "expected_extra_dot_dimensions": 2.1888
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 64,
+        "valid_proxy_gain": 0.13398447189012638,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 4244096,
+        "expected_extra_dot_dimensions": 2.9184
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 80,
+        "valid_proxy_gain": 0.14928348436569663,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 5305120,
+        "expected_extra_dot_dimensions": 3.648
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 96,
+        "valid_proxy_gain": 0.1602892485685923,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 6366144,
+        "expected_extra_dot_dimensions": 4.3776
+      },
+      {
+        "factors": "stage11_inner_rel",
+        "rank": 128,
+        "valid_proxy_gain": 0.18020860715677733,
+        "coverage": 0.0456,
+        "asset_bytes_excluding_map": 8488192,
+        "expected_extra_dot_dimensions": 5.8368
+      }
+    ]
+  ],
+  "combinations": [
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 128
+        }
+      ],
+      "valid_proxy_accuracy": 97.95991057835951,
+      "local_bytes": 9553492,
+      "extra_dot_dimensions": 5.8368
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 96
+        }
+      ],
+      "valid_proxy_accuracy": 97.93999121977133,
+      "local_bytes": 7431444,
+      "extra_dot_dimensions": 4.3776
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 80
+        }
+      ],
+      "valid_proxy_accuracy": 97.92898545556844,
+      "local_bytes": 6370420,
+      "extra_dot_dimensions": 3.648
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 64
+        }
+      ],
+      "valid_proxy_accuracy": 97.91368644309287,
+      "local_bytes": 5309396,
+      "extra_dot_dimensions": 2.9184
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 48
+        }
+      ],
+      "valid_proxy_accuracy": 97.8985943196353,
+      "local_bytes": 4248372,
+      "extra_dot_dimensions": 2.1888
+    },
+    {
+      "parts": [
+        {
+          "factors": "stage11_inner_rel",
+          "rank": 32
+        }
+      ],
+      "valid_proxy_accuracy": 97.87147872048838,
+      "local_bytes": 3187348,
+      "extra_dot_dimensions": 1.4592
+    }
+  ]
+}
