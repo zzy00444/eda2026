@@ -1,0 +1,11 @@
+{
+  "candidate": "displacement_q16",
+  "binary_bytes": 84422932,
+  "zip_bytes": 80792890,
+  "binary_sha256": "13abb2a5ceab35c92abbee92a36061feea16cd2bf48b4b11cec71b6900acaaf1",
+  "zip_sha256": "d4d6b5ff33df672e2b08632283927f0f9fb0977ca85148dc566cfe27318012dd",
+  "contents": [
+    "bin/estimate"
+  ],
+  "unix_mode": "100755"
+}

@@ -40,6 +40,7 @@ def main():
     run = sub.add_parser('run')
     run.add_argument('names', nargs='+')
     run.add_argument('--request', type=Path, default=REPO / 'solution/build/local_runs/request_1m.csv')
+    run.add_argument('--trace', action='store_true')
     oracle = sub.add_parser('oracle')
     oracle.add_argument('--queries', type=Path, required=True)
     args = parser.parse_args()
@@ -70,8 +71,13 @@ def main():
                 shutil.copy2(REPO / 'solution/bin' / ('estimate_' + name), binary)
                 binary.chmod(0o755)
             output = name + '_result.csv'
-            docker(['/work/' + name, '-in', '/work/request.csv', '-out', '/work/' + output])
+            command = ['/work/' + name, '-in', '/work/request.csv', '-out', '/work/' + output]
+            if args.trace:
+                command += ['-trace', '/work/' + name + '_trace.bin']
+            docker(command)
             shutil.copy2(WORK / output, BUILD / output)
+            if args.trace:
+                shutil.copy2(WORK / (name + '_trace.bin'), BUILD / (name + '_trace.bin'))
             print(name, 'result_sha256', sha(WORK / output), flush=True)
     elif args.action == 'oracle':
         shutil.copy2(REPO / 'solution/src/displacement_oracle.cpp', WORK / 'oracle.cpp')

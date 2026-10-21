@@ -62,6 +62,9 @@ static vector<int16_t> Vt;
 static vector<float> U;
 static vector<int16_t> M;
 static vector<float> Calib;
+#ifdef EST_TRACE
+static FILE* traceOut = nullptr;
+#endif
 // Must match the bins used by tools/fit_calibration.py.
 static const int CALIB_BINS[4] = {700, 1000, 2000, 4000};
 static vector<int> srcPort, tgtPort, srcIdxOf, tgtIdxOf, netdx, netdy;
@@ -393,6 +396,9 @@ struct Rec {
     uint8_t ncd;        // candidates 0..2
     uint8_t same;       // self query
     uint16_t tgtIdx;    // target-port index for residual calibration
+#ifdef EST_TRACE
+    int32_t pair, row0, row1;
+#endif
 };
 
 #ifndef EST_BLOCK_MB
@@ -409,6 +415,12 @@ int main(int argc, char** argv) {
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-in") && i + 1 < argc) inPath = argv[++i];
         else if (!strcmp(argv[i], "-out") && i + 1 < argc) outPath = argv[++i];
+#ifdef EST_TRACE
+        else if (!strcmp(argv[i], "-trace") && i + 1 < argc) {
+            traceOut = fopen(argv[++i], "wb");
+            if (!traceOut) { fprintf(stderr, "cannot open trace output\n"); return 1; }
+        }
+#endif
     }
     if (!inPath || !outPath) {
         fprintf(stderr, "usage: estimate -in <input_file> -out <output_file>\n");
@@ -508,7 +520,23 @@ int main(int argc, char** argv) {
         nSrc = h[0]; nTgt = h[1]; int R2 = h[2]; XSTEP = h[3]; YSTEP = h[4];
         if (R2 != RANK) { fprintf(stderr, "rank mismatch\n"); return 1; }
         U.resize((size_t)nSrc * nTgt * RANK);
-        if (fread(U.data(), 4, U.size(), f) != U.size()) return 1;
+        if (h[5] == 0) {
+            if (fread(U.data(), 4, U.size(), f) != U.size()) return 1;
+        } else if (h[5] == 16 || h[5] == 8) {
+            // The deployment format stores one scale per SVD component.
+            // Decode at startup; the online AVX2 dot and float U layout stay the same.
+            vector<float> scales(RANK);
+            if (fread(scales.data(), 4, RANK, f) != (size_t)RANK) return 1;
+            if (h[5] == 16) {
+                vector<int16_t> values(U.size());
+                if (fread(values.data(), 2, values.size(), f) != values.size()) return 1;
+                for (size_t i = 0; i < U.size(); i++) U[i] = (float)values[i] * scales[i % RANK];
+            } else {
+                vector<int8_t> values(U.size());
+                if (fread(values.data(), 1, values.size(), f) != values.size()) return 1;
+                for (size_t i = 0; i < U.size(); i++) U[i] = (float)values[i] * scales[i % RANK];
+            }
+        } else { fprintf(stderr, "unsupported U encoding\n"); return 1; }
         fclose(f);
     }
     {
@@ -729,16 +757,32 @@ int main(int argc, char** argv) {
             op += kl;
             op[0] = ',';
             long pred;
+#ifdef EST_TRACE
+            int32_t traceRow = R.row0;
+            int32_t traceOffset = R.cpen0 + R.lgap + R.netWall;
+#endif
             if (!R.ncd) pred = 0;
             else {
                 long c0 = (long)RA[i] + (long)R.cpen0;
                 if (R.ncd > 1) {
                     long c1 = (long)RB[i] + (long)R.cpen1;
-                    if (c1 < c0) c0 = c1;
+                    if (c1 < c0) {
+                        c0 = c1;
+#ifdef EST_TRACE
+                        traceRow = R.row1;
+                        traceOffset = R.cpen1 + R.lgap + R.netWall;
+#endif
+                    }
                 }
                 pred = c0 + (long)R.lgap + (long)R.netWall;
                 if (R.same) pred = 0;
             }
+#ifdef EST_TRACE
+            if (traceOut) {
+                int32_t trace[4] = {R.pair, traceRow, traceOffset, (int32_t)pred};
+                if (fwrite(trace, sizeof(int32_t), 4, traceOut) != 4) exit(1);
+            }
+#endif
             if (pred > 0 && R.tgtIdx < nTgt) {
                 int bucket = pred >= CALIB_BINS[3] ? 4 :
                              pred >= CALIB_BINS[2] ? 3 :
@@ -817,6 +861,9 @@ int main(int argc, char** argv) {
                     R.keyLen = (uint32_t)(c2 - base);
                     R.ncd = 0; R.same = 0; R.lgap = 0; R.netWall = 0; R.tgtIdx = 0;
                     R.cpen0 = 0; R.cpen1 = 0;
+#ifdef EST_TRACE
+                    R.pair = R.row0 = R.row1 = -1;
+#endif
                     uint32_t ridx = (uint32_t)nr;
                     nr++;
                     uint32_t v0 = pinLookup(pin0, plen0);
@@ -850,6 +897,9 @@ int main(int argc, char** argv) {
                     long lgap = vpre[max(x0, sx)] - vpre[min(x0, sx)] + hpre[max(y0, sy)] - hpre[min(y0, sy)]
                               + vpre[max(sx, x1)] - vpre[min(sx, x1)] + hpre[max(sy, y1)] - hpre[min(sy, y1)];
                     uint32_t uoff = (uint32_t)(((size_t)si * nTgt + ti) * RANK);
+#ifdef EST_TRACE
+                    R.pair = si * nTgt + ti;
+#endif
                     int16_t mrow = M[(size_t)si * nTgt + ti];
                     int nvt = 0;
                     for (int ci = 0; ci < ncd; ci++) {
@@ -862,6 +912,10 @@ int main(int argc, char** argv) {
                         uint32_t key = (uint32_t)(vtOff / RANK) * 2u + (uint32_t)(ci != 0);
                         Job& j = JA[nj++];
                         j.key = key; j.idx = ridx; j.uoff = uoff;
+#ifdef EST_TRACE
+                        if (ci == 0) R.row0 = (int32_t)(key >> 1);
+                        else R.row1 = (int32_t)(key >> 1);
+#endif
                         j.mrow = mrow; j.cpen = (int16_t)cpen[ci];
                         if (key > maxJobKey) maxJobKey = key;
                         if (nvt == 0) R.cpen0 = (int16_t)cpen[ci];
@@ -885,5 +939,8 @@ int main(int argc, char** argv) {
     }
     fclose(fo);
     fclose(fi);
+#ifdef EST_TRACE
+    if (traceOut) fclose(traceOut);
+#endif
     return 0;
 }

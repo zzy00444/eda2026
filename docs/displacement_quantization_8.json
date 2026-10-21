@@ -1,0 +1,10 @@
+{
+  "bits": 8,
+  "scaling": "per-component maxabs, float32 scale",
+  "source_sha256": "b4c63f4973cf09ecd23e9fd70040cbb927ac15848d1b5fe887558fa88eff752f",
+  "output_sha256": "765edd03ddaff7054681c498915511cdf734587a202d9d77f06760feebe8f4a1",
+  "bytes": 7668248,
+  "raw_bytes_saved": 23002624,
+  "U_max_abs_reconstruction_error": 3584.125,
+  "U_mean_abs_reconstruction_error": 25.917236328125
+}
