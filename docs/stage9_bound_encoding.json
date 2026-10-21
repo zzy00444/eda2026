@@ -1,0 +1,35 @@
+{
+  "codec": "exact /12; source-target-phase order; phase delta; signed byte with 0x80+i16 escape; zlib6",
+  "shape": [
+    4,
+    208,
+    288,
+    120
+  ],
+  "compressed_bytes": 17424731,
+  "decoded_stream_bytes": 31227616,
+  "table_bytes": 57507840,
+  "table_crc32": 2715333862,
+  "compressed_sha256": "a645f52dbca4157c04d1e6c7fb845e0e3fc780819ea887559f11865ec4c13c9d",
+  "source_table_sha256": "b294ea672d1c5dc1cf6a7e96279f73584c45c613bf30ebffa537120b93f1ae1f",
+  "source_meta_sha256": "a7f82b4d832fb4005c6202a2dc71cc276ce594768e28463d81e5f843ad4459ac",
+  "slopes": [
+    [
+      150,
+      127
+    ],
+    [
+      150,
+      -125
+    ],
+    [
+      -150,
+      127
+    ],
+    [
+      -150,
+      -125
+    ]
+  ],
+  "all_values_roundtrip_verified": true
+}

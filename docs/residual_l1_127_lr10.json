@@ -1,0 +1,171 @@
+{
+  "name": "residual_l1_127_lr10",
+  "params": {
+    "objective": "regression_l1",
+    "learning_rate": 0.1,
+    "num_leaves": 127,
+    "min_data_in_leaf": 150,
+    "lambda_l2": 10,
+    "max_bin": 255,
+    "num_threads": 6,
+    "verbosity": -1,
+    "seed": 20261021,
+    "deterministic": true,
+    "force_col_wise": true,
+    "cat_smooth": 30,
+    "cat_l2": 20,
+    "max_cat_threshold": 32
+  },
+  "feature_names": [
+    "sx",
+    "sy",
+    "tx",
+    "ty",
+    "dx",
+    "dy",
+    "ax",
+    "ay",
+    "distance",
+    "source",
+    "target",
+    "source_family",
+    "target_family",
+    "source_bit",
+    "target_bit",
+    "ndx",
+    "ndy",
+    "rx",
+    "ry",
+    "rax",
+    "ray",
+    "overx",
+    "overy",
+    "dx_mod",
+    "dy_mod",
+    "rx_mod",
+    "ry_mod",
+    "sx_mod",
+    "sy_mod",
+    "tx_mod",
+    "ty_mod",
+    "source_band",
+    "target_band",
+    "source_phase",
+    "target_phase",
+    "cross",
+    "landing_cross",
+    "source_wall",
+    "landing_wall",
+    "target_wall",
+    "source_door_distance",
+    "landing_door_distance",
+    "target_door_distance",
+    "edge_x",
+    "edge_y",
+    "gap_x",
+    "gap_y",
+    "net_gap_x",
+    "net_gap_y",
+    "base",
+    "base_minus_gap",
+    "net_length",
+    "direction"
+  ],
+  "categorical_features": [
+    "source",
+    "target",
+    "source_family",
+    "target_family",
+    "direction"
+  ],
+  "fit_rows": 719583,
+  "position_assess_rows": 180375,
+  "valid_rows": 50000,
+  "baseline_valid": {
+    "rows": 50000,
+    "accuracy": 97.63876959265059,
+    "mae_ps": 12.69178,
+    "rmse_ps": 26.082645954733966,
+    "abs_error_p50_p90_p99": [
+      7.0,
+      25.0,
+      105.0
+    ],
+    "signed_error_ps": -2.56106
+  },
+  "curve": [
+    {
+      "trees": 4,
+      "valid_accuracy": 97.70946886046097,
+      "valid_mae": 12.15568
+    },
+    {
+      "trees": 8,
+      "valid_accuracy": 97.75526969587708,
+      "valid_mae": 11.81464
+    },
+    {
+      "trees": 16,
+      "valid_accuracy": 97.8170821752768,
+      "valid_mae": 11.35704
+    },
+    {
+      "trees": 32,
+      "valid_accuracy": 97.85325241760194,
+      "valid_mae": 11.09884
+    },
+    {
+      "trees": 64,
+      "valid_accuracy": 97.87232275122048,
+      "valid_mae": 10.97802
+    },
+    {
+      "trees": 96,
+      "valid_accuracy": 97.87618485382902,
+      "valid_mae": 10.95796
+    },
+    {
+      "trees": 128,
+      "valid_accuracy": 97.87683303355733,
+      "valid_mae": 10.95632
+    },
+    {
+      "trees": 160,
+      "valid_accuracy": 97.87865367882942,
+      "valid_mae": 10.94618
+    }
+  ],
+  "selected_by_validation": {
+    "trees": 160,
+    "valid_accuracy": 97.87865367882942,
+    "valid_mae": 10.94618
+  },
+  "position_assess_baseline": {
+    "rows": 180375,
+    "accuracy": 97.68438335551399,
+    "mae_ps": 12.532701316701317,
+    "rmse_ps": 25.786300627839196,
+    "abs_error_p50_p90_p99": [
+      7.0,
+      25.0,
+      107.0
+    ],
+    "signed_error_ps": -2.479955647955648
+  },
+  "position_assess_updated": {
+    "rows": 180375,
+    "accuracy": 97.9122287271776,
+    "mae_ps": 10.872227304227303,
+    "rmse_ps": 17.6531679754751,
+    "abs_error_p50_p90_p99": [
+      7.0,
+      23.0,
+      70.0
+    ],
+    "signed_error_ps": -1.5135911295911295
+  },
+  "model_sha256": "ba592d299c69522a1c2f1fa723a3221583a7db38112583bc433f3b4351ced39f",
+  "elapsed_seconds": 78.68484640000133,
+  "test_labels_used": false,
+  "caveat": "Only the new residual excludes held source coordinates; inherited stage8 used main training"
+}

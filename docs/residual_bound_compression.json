@@ -1,0 +1,22 @@
+[
+  {
+    "encoding": "phase_raw",
+    "zlib_bytes": 39750795,
+    "raw_bytes": 57507840
+  },
+  {
+    "encoding": "source_raw",
+    "zlib_bytes": 33929006,
+    "raw_bytes": 57507840
+  },
+  {
+    "encoding": "phase_delta",
+    "zlib_bytes": 21058412,
+    "raw_bytes": 57507840
+  },
+  {
+    "encoding": "phase_mixed_delta",
+    "zlib_bytes": 24710387,
+    "raw_bytes": 57507840
+  }
+]

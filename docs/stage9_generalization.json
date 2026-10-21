@@ -1,0 +1,159 @@
+{
+  "fit_rows": 719583,
+  "position_assess_rows": 180375,
+  "baseline": "displacement_cal16",
+  "oracle_truth_sha256": "8c2917470e4b6728db90ebfb81dc5b666abfb469c23e28a42ca0488c8ae4d0f9",
+  "oracle_request_sha256": "1185d125207e0535a753a366ed0d1acefe3da8855791df251ff509262f65f941",
+  "oracle_spec_sha256": "4c2b037d8c10f2047b54eebcfd20f1260cd635c7c59ce74ebf57f83ca4589692",
+  "caveat": "Historical rng7 regression slices, not blind; only new residual parameters exclude held source coordinates",
+  "candidates": {
+    "stage9_fast16": {
+      "binary_sha256": "8bcdaafa9604aafd664725e2b29e728ff40ddafef4f0425f42caafb90acd1fab",
+      "output_sha256": "eb3c20d6ef5f8b45806a0a1e056f723c8e02cac62b800416cfd69f8f32d24c3e",
+      "reference_sha256": "785fd95e4db3e013c8b3a90c6a87fee25e99a8028d79063efc22373f05a5302f",
+      "prediction_sha256": "785fd95e4db3e013c8b3a90c6a87fee25e99a8028d79063efc22373f05a5302f",
+      "export_report_sha256": "39f542f0011fcb45b536e9c346afaa52ac4661fef819db148b11ea452105ee75",
+      "rows": 1000000,
+      "python_cpp_mismatch_count": 0,
+      "max_absolute_difference": 0,
+      "position_assess": {
+        "rows": 180375,
+        "accuracy": 98.04635617066864,
+        "mae_ps": 10.342674982674982,
+        "rmse_ps": 18.506630978095128,
+        "abs_error_p50_p90_p99": [
+          6.0,
+          23.0,
+          76.0
+        ],
+        "signed_error_ps": -1.8277920997920998
+      },
+      "oracle_output_sha256": "6ba10218c04d92db58999eb600611b7b95c517fcf224f08ff83a02ba61cd8e13",
+      "official_eight": {
+        "rows": 8,
+        "accuracy": 95.59641202465555,
+        "mae_ps": 8.625,
+        "rmse_ps": 10.11805317242403,
+        "abs_error_p50_p90_p99": [
+          8.5,
+          14.899999999999999,
+          16.79
+        ],
+        "signed_error_ps": -4.625
+      },
+      "reserved_48": {
+        "rows": 48,
+        "accuracy": 87.93654502616702,
+        "mae_ps": 18.520833333333332,
+        "rmse_ps": 26.099568961957974,
+        "abs_error_p50_p90_p99": [
+          11.5,
+          48.30000000000005,
+          68.18
+        ],
+        "signed_error_ps": -1.8958333333333333
+      },
+      "paired_valid_delta_vs_stage8": {
+        "mean_accuracy_delta": 0.38260439239008914,
+        "source_coordinate_cluster_95_interval": [
+          0.36147948195681695,
+          0.40372930282336134
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_test_delta_vs_stage8": {
+        "mean_accuracy_delta": 0.38041912160862024,
+        "source_coordinate_cluster_95_interval": [
+          0.35965772940264246,
+          0.401180513814598
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_position_assess_delta_vs_stage8": {
+        "mean_accuracy_delta": 0.3619728151546672,
+        "source_coordinate_cluster_95_interval": [
+          0.3484945730515847,
+          0.37545105725774974
+        ],
+        "source_coordinate_groups": 12037,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "stage9_accurate64": {
+      "binary_sha256": "b97d01134dba19203669714bdf1add8f3624e5c093ef7b85fd30921fc63ac8a9",
+      "output_sha256": "f9b2786912d9ad91d99f2e46c177d5bc2930258ae66ad6c72c1dc60c711d462c",
+      "reference_sha256": "96b7aa249fa70947cb968268d2ad5eff621b846e425212d113d8d3a8fd8aaee3",
+      "prediction_sha256": "96b7aa249fa70947cb968268d2ad5eff621b846e425212d113d8d3a8fd8aaee3",
+      "export_report_sha256": "7702abb527de3d57433684010a92b142c4beb58f6c13c1d7d2ac5fd35b39c806",
+      "rows": 1000000,
+      "python_cpp_mismatch_count": 0,
+      "max_absolute_difference": 0,
+      "position_assess": {
+        "rows": 180375,
+        "accuracy": 98.08772721585923,
+        "mae_ps": 10.124995148995149,
+        "rmse_ps": 17.946857719659505,
+        "abs_error_p50_p90_p99": [
+          6.0,
+          22.0,
+          74.0
+        ],
+        "signed_error_ps": -2.0116424116424114
+      },
+      "oracle_output_sha256": "7860d0f29b8a56de16300f42629bc06ab4e14227e0a255d1a18ee19186ecb4c9",
+      "official_eight": {
+        "rows": 8,
+        "accuracy": 94.69936455625924,
+        "mae_ps": 10.125,
+        "rmse_ps": 11.185928660598547,
+        "abs_error_p50_p90_p99": [
+          9.5,
+          15.6,
+          16.86
+        ],
+        "signed_error_ps": -3.125
+      },
+      "reserved_48": {
+        "rows": 48,
+        "accuracy": 88.57898463249467,
+        "mae_ps": 17.833333333333332,
+        "rmse_ps": 24.686366007710948,
+        "abs_error_p50_p90_p99": [
+          11.5,
+          44.50000000000002,
+          63.53
+        ],
+        "signed_error_ps": -2.5416666666666665
+      },
+      "paired_valid_delta_vs_stage8": {
+        "mean_accuracy_delta": 0.4187464098687096,
+        "source_coordinate_cluster_95_interval": [
+          0.3981460102349475,
+          0.4393468095024717
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_test_delta_vs_stage8": {
+        "mean_accuracy_delta": 0.41823977532637874,
+        "source_coordinate_cluster_95_interval": [
+          0.39793236369800805,
+          0.4385471869547494
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_position_assess_delta_vs_stage8": {
+        "mean_accuracy_delta": 0.4033438603452325,
+        "source_coordinate_cluster_95_interval": [
+          0.3894081932126173,
+          0.4172795274778477
+        ],
+        "source_coordinate_groups": 12037,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    }
+  }
+}

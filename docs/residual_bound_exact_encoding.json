@@ -1,0 +1,30 @@
+{
+  "encoding": "divide exact congruence by12, source-target-phase layout, mixed x/y difference, zlib9",
+  "bytes": 23180253,
+  "raw_bytes": 57507840,
+  "shape": [
+    4,
+    208,
+    288,
+    10,
+    12
+  ],
+  "slopes": [
+    [
+      150,
+      127
+    ],
+    [
+      150,
+      -125
+    ],
+    [
+      -150,
+      127
+    ],
+    [
+      -150,
+      -125
+    ]
+  ]
+}

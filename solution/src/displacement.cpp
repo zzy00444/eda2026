@@ -18,6 +18,9 @@
 // The low-rank estimate and geometric penalties are unchanged. A small
 // embedded target-port / predicted-delay table applies a fitted multiplicative
 // residual correction after the original integer estimate is formed.
+// With EST_RESIDUAL, a losslessly packed periodic architecture envelope and
+// a frozen position-aware tree residual follow this calibration. Self queries
+// and unsupported directions retain their original zero-delay behavior.
 //   * the rank-128 dot product runs in an AVX2+FMA kernel selected at run time
 //     through __builtin_cpu_support("avx2") && ("fma"); a scalar kernel is
 //     always kept, so a CPU without AVX2 can never SIGILL.  The whole file is
@@ -404,6 +407,9 @@ struct Rec {
     uint8_t ncd;        // candidates 0..2
     uint8_t same;       // self query
     uint16_t tgtIdx;    // target-port index for residual calibration
+#ifdef EST_RESIDUAL
+    uint16_t sx,sy,tx,ty,source,target;
+#endif
 #ifdef EST_TRACE
     int32_t pair, row0, row1;
 #endif
@@ -417,6 +423,9 @@ struct Rec {
 #endif
 #ifndef EST_PFU
 #define EST_PFU 4
+#endif
+#ifdef EST_RESIDUAL
+#include "displacement_residual_runtime.hpp"
 #endif
 int main(int argc, char** argv) {
     const char* inPath = NULL; const char* outPath = NULL;
@@ -436,6 +445,9 @@ int main(int argc, char** argv) {
     }
     string D = exeDir(argv[0]);
     blobInit(argv[0]);
+#ifdef EST_RESIDUAL
+    if (!residualInit()) { fprintf(stderr,"cannot decode residual envelope\n"); return 1; }
+#endif
 #if EST_X86
     __builtin_cpu_init();
     gDotAvx2 = __builtin_cpu_supports("avx2") && __builtin_cpu_supports("fma");
@@ -812,6 +824,9 @@ int main(int argc, char** argv) {
                              pred >= CALIB_BINS[0] ? 1 : 0;
                 pred = llround((double)pred * Calib[(size_t)R.tgtIdx * 5 + bucket]);
             }
+#ifdef EST_RESIDUAL
+            if (R.ncd && !R.same) pred=(long)residualPrediction(R.sx,R.sy,R.tx,R.ty,R.source,R.target,pred);
+#endif
             if (pred > 0) {
                 int m = fmtPos(op + 1, (uint32_t)pred);
                 op += m + 1;
@@ -902,6 +917,9 @@ int main(int argc, char** argv) {
                     uint32_t v1 = pinLookup(pin1, plen1);
                     if (!v0 || !v1) { fprintf(stderr, "unknown port\n"); return 1; }
                     int p0 = (int)(v0 & 0x3FFu) - 1;
+#ifdef EST_RESIDUAL
+                    R.sx=x0;R.sy=y0;R.tx=x1;R.ty=y1;R.source=p0;R.target=(v1&0x3FFu)-1;
+#endif
                     int si = (int)((v0 >> 10) & 0x3FFu) - 1;
                     int ti = (int)((v1 >> 20) & 0x3FFu) - 1;
                     if (si < 0 || ti < 0) continue;

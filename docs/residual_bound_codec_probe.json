@@ -1,0 +1,32 @@
+[
+  {
+    "encoding": "q_phase_16",
+    "bytes": 20568524,
+    "raw_bytes": 57507840
+  },
+  {
+    "encoding": "q_phase_variable",
+    "bytes": 17424731,
+    "raw_bytes": 31227616
+  },
+  {
+    "encoding": "q_phase_byteplanes",
+    "bytes": 19104456,
+    "raw_bytes": 57507840
+  },
+  {
+    "encoding": "q_mixed_16",
+    "bytes": 23337173,
+    "raw_bytes": 57507840
+  },
+  {
+    "encoding": "q_mixed_variable",
+    "bytes": 18538695,
+    "raw_bytes": 29214268
+  },
+  {
+    "encoding": "q_mixed_byteplanes",
+    "bytes": 22327517,
+    "raw_bytes": 57507840
+  }
+]

@@ -1,0 +1,198 @@
+{
+  "baseline_valid": 97.63876959265059,
+  "configs": [
+    {
+      "kind": "physical",
+      "gate": "all",
+      "margin": 0,
+      "valid_accuracy": 97.72356551135513,
+      "rows_changed": 3248,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "all",
+      "margin": 4,
+      "valid_accuracy": 97.68118784411547,
+      "rows_changed": 1530,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "all",
+      "margin": 8,
+      "valid_accuracy": 97.66051717702311,
+      "rows_changed": 695,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "all",
+      "margin": 16,
+      "valid_accuracy": 97.6456560712179,
+      "rows_changed": 156,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "no_wall",
+      "margin": 0,
+      "valid_accuracy": 97.7049198507218,
+      "rows_changed": 2160,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "no_wall",
+      "margin": 4,
+      "valid_accuracy": 97.67258794614,
+      "rows_changed": 1035,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "no_wall",
+      "margin": 8,
+      "valid_accuracy": 97.65645886032667,
+      "rows_changed": 480,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "no_wall",
+      "margin": 16,
+      "valid_accuracy": 97.644601420253,
+      "rows_changed": 109,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "long_no_wall",
+      "margin": 0,
+      "valid_accuracy": 97.66119661202457,
+      "rows_changed": 1399,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "long_no_wall",
+      "margin": 4,
+      "valid_accuracy": 97.64856515042258,
+      "rows_changed": 630,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "long_no_wall",
+      "margin": 8,
+      "valid_accuracy": 97.64297724163083,
+      "rows_changed": 280,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "physical",
+      "gate": "long_no_wall",
+      "margin": 16,
+      "valid_accuracy": 97.63964628654035,
+      "rows_changed": 51,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "all",
+      "margin": 0,
+      "valid_accuracy": 94.52910383299101,
+      "rows_changed": 18827,
+      "bound_above_truth": 16401
+    },
+    {
+      "kind": "virtual",
+      "gate": "all",
+      "margin": 4,
+      "valid_accuracy": 94.6569006173015,
+      "rows_changed": 17589,
+      "bound_above_truth": 16298
+    },
+    {
+      "kind": "virtual",
+      "gate": "all",
+      "margin": 8,
+      "valid_accuracy": 94.8002918086234,
+      "rows_changed": 16943,
+      "bound_above_truth": 16174
+    },
+    {
+      "kind": "virtual",
+      "gate": "all",
+      "margin": 16,
+      "valid_accuracy": 95.10408234590408,
+      "rows_changed": 16362,
+      "bound_above_truth": 15899
+    },
+    {
+      "kind": "virtual",
+      "gate": "no_wall",
+      "margin": 0,
+      "valid_accuracy": 97.7049198507218,
+      "rows_changed": 2160,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "no_wall",
+      "margin": 4,
+      "valid_accuracy": 97.67258794614,
+      "rows_changed": 1035,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "no_wall",
+      "margin": 8,
+      "valid_accuracy": 97.65645886032667,
+      "rows_changed": 480,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "no_wall",
+      "margin": 16,
+      "valid_accuracy": 97.644601420253,
+      "rows_changed": 109,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "long_no_wall",
+      "margin": 0,
+      "valid_accuracy": 97.66119661202457,
+      "rows_changed": 1399,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "long_no_wall",
+      "margin": 4,
+      "valid_accuracy": 97.64856515042258,
+      "rows_changed": 630,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "long_no_wall",
+      "margin": 8,
+      "valid_accuracy": 97.64297724163083,
+      "rows_changed": 280,
+      "bound_above_truth": 0
+    },
+    {
+      "kind": "virtual",
+      "gate": "long_no_wall",
+      "margin": 16,
+      "valid_accuracy": 97.63964628654035,
+      "rows_changed": 51,
+      "bound_above_truth": 0
+    }
+  ],
+  "test_labels_used": false
+}

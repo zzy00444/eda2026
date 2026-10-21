@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import struct
 import subprocess
 
 from displacement_assets import pack, sha
@@ -38,6 +39,8 @@ def main():
     build.add_argument('--m', type=Path)
     build.add_argument('--calibration', type=Path)
     build.add_argument('--define', action='append', default=[])
+    build.add_argument('--residual-header', type=Path)
+    build.add_argument('--bound-file', type=Path)
     run = sub.add_parser('run')
     run.add_argument('names', nargs='+')
     run.add_argument('--request', type=Path, default=REPO / 'solution/build/local_runs/request_1m.csv')
@@ -63,10 +66,29 @@ def main():
         shutil.copy2(source, WORK / 'displacement.cpp')
         raw = WORK / (args.name + '.raw')
         flags = ['-std=c++17', '-O3', '-DNDEBUG'] + ['-D' + item for item in args.define]
-        docker(['g++', *flags, '/work/displacement.cpp', '-o', '/work/' + raw.name])
+        libraries = []
+        if args.residual_header:
+            if not args.bound_file:
+                raise ValueError('Residual build requires --bound-file')
+            shutil.copy2(args.residual_header, WORK / 'displacement_residual_model.hpp')
+            shutil.copy2(REPO / 'solution/src/displacement_residual_runtime.hpp', WORK / 'displacement_residual_runtime.hpp')
+            flags += ['-DEST_RESIDUAL']
+            libraries += ['-lz']
+        docker(['g++', *flags, '/work/displacement.cpp', *libraries, '-o', '/work/' + raw.name])
+        if args.residual_header:
+            with raw.open('ab') as target:
+                begin = target.tell()
+                compressed = args.bound_file.read_bytes()
+                encoding = json.loads((REPO / 'docs/stage9_bound_encoding.json').read_text())
+                assert sha(args.bound_file) == encoding['compressed_sha256']
+                target.write(compressed)
+                target.write(b'PGBND001'+struct.pack('<3Q',begin,len(compressed),encoding['decoded_stream_bytes']))
         binary = WORK / args.name
         record = pack(raw, BUILD / 'oracle', binary, args.u, args.m, args.calibration)
         record.update(source_sha256=sha(source), compiler_flags=flags, image=IMAGE)
+        if args.residual_header:
+            record.update(residual_header_sha256=sha(args.residual_header), bound_sha256=sha(args.bound_file),
+                          residual_runtime_sha256=sha(REPO / 'solution/src/displacement_residual_runtime.hpp'), libraries=libraries)
         target = REPO / 'solution/bin' / ('estimate_' + args.name)
         target.parent.mkdir(exist_ok=True)
         shutil.copy2(binary, target)

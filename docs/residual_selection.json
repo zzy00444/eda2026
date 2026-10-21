@@ -1,0 +1,283 @@
+{
+  "configs": [
+    {
+      "model": "residual_bound_127",
+      "trees": 4,
+      "bound_clamp": false,
+      "valid_accuracy": 97.82083762253114
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 4,
+      "bound_clamp": true,
+      "valid_accuracy": 97.85676843170758
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 8,
+      "bound_clamp": false,
+      "valid_accuracy": 97.91383619798124
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 8,
+      "bound_clamp": true,
+      "valid_accuracy": 97.92778451820367
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 12,
+      "bound_clamp": false,
+      "valid_accuracy": 97.95741694448805
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 12,
+      "bound_clamp": true,
+      "valid_accuracy": 97.96381594171525
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 16,
+      "bound_clamp": false,
+      "valid_accuracy": 97.98720353390806
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 16,
+      "bound_clamp": true,
+      "valid_accuracy": 97.98991955592571
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 24,
+      "bound_clamp": false,
+      "valid_accuracy": 98.01477811162535
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 24,
+      "bound_clamp": true,
+      "valid_accuracy": 98.01632664610275
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 32,
+      "bound_clamp": false,
+      "valid_accuracy": 98.03167332403568
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 32,
+      "bound_clamp": true,
+      "valid_accuracy": 98.03304138777933
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 64,
+      "bound_clamp": false,
+      "valid_accuracy": 98.05626400640632
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 64,
+      "bound_clamp": true,
+      "valid_accuracy": 98.0575160025193
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 128,
+      "bound_clamp": false,
+      "valid_accuracy": 98.06853548498249
+    },
+    {
+      "model": "residual_bound_127",
+      "trees": 128,
+      "bound_clamp": true,
+      "valid_accuracy": 98.06978150366083
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 4,
+      "bound_clamp": false,
+      "valid_accuracy": 97.9452249060991
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 4,
+      "bound_clamp": true,
+      "valid_accuracy": 97.95051933855942
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 8,
+      "bound_clamp": false,
+      "valid_accuracy": 97.97961354137833
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 8,
+      "bound_clamp": true,
+      "valid_accuracy": 97.98163629065724
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 12,
+      "bound_clamp": false,
+      "valid_accuracy": 97.99661275242754
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 12,
+      "bound_clamp": true,
+      "valid_accuracy": 97.99865153454823
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 16,
+      "bound_clamp": false,
+      "valid_accuracy": 98.01932112319722
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 16,
+      "bound_clamp": true,
+      "valid_accuracy": 98.02137398504067
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 24,
+      "bound_clamp": false,
+      "valid_accuracy": 98.01927335491324
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 24,
+      "bound_clamp": true,
+      "valid_accuracy": 98.02162057966031
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 32,
+      "bound_clamp": false,
+      "valid_accuracy": 98.01709870634365
+    },
+    {
+      "model": "residual_bound_255_fast",
+      "trees": 32,
+      "bound_clamp": true,
+      "valid_accuracy": 98.01964826006248
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 4,
+      "bound_clamp": false,
+      "valid_accuracy": 97.70946886046097
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 4,
+      "bound_clamp": true,
+      "valid_accuracy": 97.79353266009197
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 8,
+      "bound_clamp": false,
+      "valid_accuracy": 97.75526969587708
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 8,
+      "bound_clamp": true,
+      "valid_accuracy": 97.84063243812963
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 12,
+      "bound_clamp": false,
+      "valid_accuracy": 97.7957635531476
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 12,
+      "bound_clamp": true,
+      "valid_accuracy": 97.88216412328502
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 16,
+      "bound_clamp": false,
+      "valid_accuracy": 97.8170821752768
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 16,
+      "bound_clamp": true,
+      "valid_accuracy": 97.90411714123569
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 24,
+      "bound_clamp": false,
+      "valid_accuracy": 97.84335092622499
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 24,
+      "bound_clamp": true,
+      "valid_accuracy": 97.9312397807992
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 32,
+      "bound_clamp": false,
+      "valid_accuracy": 97.85325241760194
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 32,
+      "bound_clamp": true,
+      "valid_accuracy": 97.94189788427971
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 64,
+      "bound_clamp": false,
+      "valid_accuracy": 97.87232275122048
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 64,
+      "bound_clamp": true,
+      "valid_accuracy": 97.96225260926778
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 128,
+      "bound_clamp": false,
+      "valid_accuracy": 97.87683303355733
+    },
+    {
+      "model": "residual_l1_127_lr10",
+      "trees": 128,
+      "bound_clamp": true,
+      "valid_accuracy": 97.96749090112895
+    }
+  ],
+  "selected": {
+    "model": "residual_bound_127",
+    "trees": 64,
+    "bound_clamp": true,
+    "valid_accuracy": 98.0575160025193
+  },
+  "criterion": "fewest trees with validation>=98.05; otherwise highest validation",
+  "test_labels_used": false,
+  "fast_selected": {
+    "model": "residual_bound_255_fast",
+    "trees": 16,
+    "bound_clamp": true,
+    "valid_accuracy": 98.02137398504067
+  },
+  "fast_criterion": "fewest trees with validation>=98.02; otherwise no fast candidate"
+}
