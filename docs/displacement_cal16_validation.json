@@ -1,0 +1,13 @@
+{
+  "candidate": "displacement_cal16",
+  "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+  "zip_sha256": "0e4a73eeee134fc1d63b67d282b7eb31b58fbd6875ca595cc9fcf5aa728ee8d0",
+  "reports": {
+    "integration": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "contract": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "standalone": "2c3b0bd9be0e26da199c33da1117614484ef49023a4d84136abd9ab1a54065da"
+  },
+  "image": "fpga-ziguang:latest",
+  "memory_limit_bytes": 2000000000,
+  "all_passed": true
+}

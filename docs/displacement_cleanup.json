@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-21",
+  "removed": [
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_q16",
+      "bytes": 84422932
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_q16.raw",
+      "bytes": 63768
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_q16_result.csv",
+      "bytes": 40333390
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/bin/estimate_displacement_q16",
+      "bytes": 84422932
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/displacement_q16_result.csv",
+      "bytes": 40333390
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_refit_q16",
+      "bytes": 84423084
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_refit_q16.raw",
+      "bytes": 63920
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_refit_q16_result.csv",
+      "bytes": 40333520
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/bin/estimate_displacement_refit_q16",
+      "bytes": 84423084
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/displacement_refit_q16_result.csv",
+      "bytes": 40333520
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_cal32",
+      "bytes": 84423084
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_cal32.raw",
+      "bytes": 63920
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_cal32_result.csv",
+      "bytes": 40333686
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/bin/estimate_displacement_cal32",
+      "bytes": 84423084
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_cal64",
+      "bytes": 84423084
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_cal64.raw",
+      "bytes": 63920
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/displacement_cal64_result.csv",
+      "bytes": 40333686
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/bin/estimate_displacement_cal64",
+      "bytes": 84423084
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/U_refit.bin",
+      "bytes": 30670872
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/U_q16.bin",
+      "bytes": 15335960
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/U_q8.bin",
+      "bytes": 7668248
+    },
+    {
+      "path": "/mnt/f/EDA/solution/eda2026/solution/displacement_q16_submission.zip",
+      "bytes": 80792890
+    },
+    {
+      "path": "/home/zzy/eda2026-displacement/stage7_fold_result.csv",
+      "bytes": 40332871
+    }
+  ],
+  "total_file_bytes_removed": 1092441929,
+  "note": "Logical file bytes across repo and WSL; VHDX shrink is not measured",
+  "retained": [
+    "default and cal16 ELF/ZIP",
+    "stage7 backup",
+    "original baseline",
+    "frozen model and final parameters",
+    "trace, geometry, compact predictions"
+  ]
+}

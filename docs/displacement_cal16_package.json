@@ -1,0 +1,11 @@
+{
+  "candidate": "displacement_cal16",
+  "binary_bytes": 84423084,
+  "zip_bytes": 80797119,
+  "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+  "zip_sha256": "0e4a73eeee134fc1d63b67d282b7eb31b58fbd6875ca595cc9fcf5aa728ee8d0",
+  "contents": [
+    "bin/estimate"
+  ],
+  "unix_mode": "100755"
+}

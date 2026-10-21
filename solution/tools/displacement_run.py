@@ -5,6 +5,7 @@ Run with WSL Python; training/scoring use the Windows project virtualenv.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -41,8 +42,17 @@ def main():
     run.add_argument('names', nargs='+')
     run.add_argument('--request', type=Path, default=REPO / 'solution/build/local_runs/request_1m.csv')
     run.add_argument('--trace', action='store_true')
+    run.add_argument('--suffix', default='result')
     oracle = sub.add_parser('oracle')
     oracle.add_argument('--queries', type=Path, required=True)
+    bench = sub.add_parser('benchmark')
+    bench.add_argument('names', nargs='+')
+    bench.add_argument('--runs', type=int, default=5)
+    bench.add_argument('--tag', default='displacement_final')
+    validate = sub.add_parser('validate')
+    validate.add_argument('name')
+    clean = sub.add_parser('clean')
+    clean.add_argument('names', nargs='+')
     args = parser.parse_args()
     WORK.mkdir(exist_ok=True)
     BUILD.mkdir(parents=True, exist_ok=True)
@@ -70,7 +80,7 @@ def main():
             if not binary.exists():
                 shutil.copy2(REPO / 'solution/bin' / ('estimate_' + name), binary)
                 binary.chmod(0o755)
-            output = name + '_result.csv'
+            output = name + '_' + args.suffix + '.csv'
             command = ['/work/' + name, '-in', '/work/request.csv', '-out', '/work/' + output]
             if args.trace:
                 command += ['-trace', '/work/' + name + '_trace.bin']
@@ -90,6 +100,110 @@ def main():
                        '--memory-swap=2000000000', '--mount', f'type=bind,source={WORK},target=/work',
                        IMAGE, '/work/oracle', '/work/arch.txt', '/work/oracle_queries.csv']
             subprocess.run(command, stdout=output, check=True)
+    elif args.action == 'benchmark':
+        if args.runs < 1:
+            raise ValueError('At least one run is required')
+        request = WORK / 'request.csv'
+        shutil.copy2(REPO / 'solution/build/local_runs/request_1m.csv', request)
+        expanded = WORK / 'request_10m.csv'
+        with request.open('rb') as source, expanded.open('wb') as target:
+            header = source.readline()
+            start = source.tell()
+            target.write(header)
+            for _ in range(10):
+                source.seek(start)
+                shutil.copyfileobj(source, target, 4 << 20)
+        expected, data = {}, {}
+        try:
+            for name in args.names:
+                binary = WORK / name
+                original = REPO / 'solution/bin' / ('estimate_' + name)
+                if not binary.exists() or sha(binary) != sha(original):
+                    shutil.copy2(original, binary)
+                    binary.chmod(0o755)
+                reference = WORK / (name + '_result.csv')
+                # Always regenerate the reference for this exact binary.
+                docker(['/work/' + name, '-in', '/work/request.csv', '-out', '/work/' + reference.name])
+                digest = hashlib.sha256()
+                with reference.open('rb') as stream:
+                    digest.update(stream.readline())
+                    begin = stream.tell()
+                    for _ in range(10):
+                        stream.seek(begin)
+                        for block in iter(lambda: stream.read(4 << 20), b''):
+                            digest.update(block)
+                expected[name] = digest.hexdigest()
+                data[name] = {'binary_sha256': sha(binary), 'reference_1m_sha256': sha(reference), 'runs': []}
+            for iteration in range(args.runs):
+                for name in (args.names if iteration % 2 == 0 else args.names[::-1]):
+                    report = WORK / 'benchmark_once.json'
+                    output = WORK / 'benchmark_output.csv'
+                    docker(['python3', '/workspace/solution/tools/benchmark.py',
+                            '--input', '/work/request_10m.csv', '--output', '/work/' + output.name,
+                            '--report', '/work/' + report.name, '--executable', '/work/' + name],
+                           readonly_repo=True)
+                    item = json.loads(report.read_text())[0]
+                    assert item['output_sha256'] == expected[name], name + ' repeated output mismatch'
+                    assert item['max_observed_threads'] == 1
+                    assert item['container_peak_bytes'] < 2_000_000_000
+                    item.update(run=iteration+1, rows=10_000_000, repeated_output_verified=True)
+                    data[name]['runs'].append(item)
+                    output.unlink()
+                    print(name, iteration+1, item['cpu_seconds'], flush=True)
+            for item in data.values():
+                item['mean_10m_cpu_seconds'] = sum(run['cpu_seconds'] for run in item['runs']) / args.runs
+                item['projected_1b_cpu_seconds'] = item['mean_10m_cpu_seconds'] * 100
+                item['max_container_bytes'] = max(run['container_peak_bytes'] for run in item['runs'])
+            result = {'image': IMAGE, 'cpu_limit': 1, 'memory_limit_bytes': 2_000_000_000,
+                      'runs': args.runs, 'timer': 'child user+sys; fresh container per candidate/run',
+                      'order': 'alternating forward/reverse', 'rows': 10_000_000,
+                      'cpu_model': next(line.split(':', 1)[1].strip() for line in
+                                        Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name')),
+                      'official_score': False, 'full_1b_completed': False, 'candidates': data}
+            (REPO / 'docs' / (args.tag + '_benchmark.json')).write_text(json.dumps(result, indent=2) + '\n')
+        finally:
+            expanded.unlink(missing_ok=True)
+            (WORK / 'benchmark_output.csv').unlink(missing_ok=True)
+    elif args.action == 'validate':
+        name = args.name
+        binary = REPO / 'solution/bin' / ('estimate_' + name)
+        candidate = WORK / name
+        if not candidate.exists() or sha(candidate) != sha(binary):
+            shutil.copy2(binary, candidate)
+            candidate.chmod(0o755)
+        binary_sha = sha(candidate)
+        package = REPO / 'solution' / (name + '_submission.zip')
+        package_sha = sha(package)
+        docker(['python3', '/workspace/solution/tools/integration.py', '--executable', '/work/' + name,
+                '--report', '/work/' + name + '_integration.json'], readonly_repo=True)
+        docker(['python3', '/workspace/solution/tools/displacement_contract.py', '--executable', '/work/' + name,
+                '--report', '/work/' + name + '_contract.json'], readonly_repo=True)
+        docker(['python3', '/workspace/solution/tools/standalone.py',
+                '--package', '/workspace/solution/' + name + '_submission.zip',
+                '--reference-executable', '/work/' + name,
+                '--report', '/work/' + name + '_standalone.json'], readonly_repo=True)
+        for suffix in ('integration', 'contract', 'standalone'):
+            shutil.copy2(WORK / (name + '_' + suffix + '.json'),
+                         REPO / 'docs' / (name + '_' + suffix + '.json'))
+        assert sha(candidate) == sha(binary) == binary_sha
+        assert sha(package) == package_sha
+        record = {'candidate': name, 'binary_sha256': binary_sha, 'zip_sha256': package_sha,
+                  'reports': {suffix: sha(REPO / 'docs' / (name + '_' + suffix + '.json'))
+                              for suffix in ('integration', 'contract', 'standalone')},
+                  'image': IMAGE, 'memory_limit_bytes': 2_000_000_000, 'all_passed': True}
+        (REPO / 'docs' / (name + '_validation.json')).write_text(json.dumps(record, indent=2) + '\n')
+    elif args.action == 'clean':
+        for name in args.names:
+            if not name.replace('_', '').isalnum():
+                raise ValueError('Invalid candidate name')
+            targets = [WORK / name, WORK / (name + '.raw'), WORK / (name + '_result.csv'),
+                       REPO / 'solution/bin' / ('estimate_' + name), BUILD / (name + '_result.csv')]
+            for path in targets:
+                if path.parent not in (WORK, BUILD, REPO / 'solution/bin'):
+                    raise ValueError('Unexpected cleanup directory')
+                if path.is_file():
+                    path.unlink()
+                    print('removed', path, flush=True)
 
 
 if __name__ == '__main__':

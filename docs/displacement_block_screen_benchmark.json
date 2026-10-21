@@ -1,0 +1,117 @@
+{
+  "image": "fpga-ziguang:latest",
+  "cpu_limit": 1,
+  "memory_limit_bytes": 2000000000,
+  "runs": 2,
+  "timer": "child user+sys; fresh container per candidate/run",
+  "order": "alternating forward/reverse",
+  "rows": 10000000,
+  "full_1b_completed": false,
+  "candidates": {
+    "displacement_cal16": {
+      "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+      "reference_1m_sha256": "6c8c0f043fa7b119d0b649754b915666fc202a57e0f9431319b33fb7a9c7d6cf",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.3523162660003436,
+          "user_seconds": 1.68853,
+          "sys_seconds": 0.610657,
+          "cpu_seconds": 2.299187,
+          "process_peak_rss_kib": 156696,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 581529600,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        },
+        {
+          "run": 2,
+          "wall_seconds": 2.169210803000169,
+          "user_seconds": 1.645642,
+          "sys_seconds": 0.456217,
+          "cpu_seconds": 2.101859,
+          "process_peak_rss_kib": 156900,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 582012928,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.200523,
+      "projected_1b_cpu_seconds": 220.0523,
+      "max_container_bytes": 582012928
+    },
+    "displacement_cal32": {
+      "binary_sha256": "f2484ed2c2157d8c969721112864fb596c28d2f53c271be077c9f89460b3900a",
+      "reference_1m_sha256": "6c8c0f043fa7b119d0b649754b915666fc202a57e0f9431319b33fb7a9c7d6cf",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.3497187040002245,
+          "user_seconds": 1.762449,
+          "sys_seconds": 0.5464,
+          "cpu_seconds": 2.308849,
+          "process_peak_rss_kib": 211632,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 638033920,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        },
+        {
+          "run": 2,
+          "wall_seconds": 2.4131172170000355,
+          "user_seconds": 1.768276,
+          "sys_seconds": 0.6028209999999999,
+          "cpu_seconds": 2.371097,
+          "process_peak_rss_kib": 211788,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 638267392,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.3399729999999996,
+      "projected_1b_cpu_seconds": 233.99729999999997,
+      "max_container_bytes": 638267392
+    },
+    "displacement_cal64": {
+      "binary_sha256": "1902f8b5b301c3263a5546fd631d7caac290906e003036ebe4a39d442e20fac3",
+      "reference_1m_sha256": "6c8c0f043fa7b119d0b649754b915666fc202a57e0f9431319b33fb7a9c7d6cf",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.229806489999646,
+          "user_seconds": 1.728828,
+          "sys_seconds": 0.45966399999999996,
+          "cpu_seconds": 2.188492,
+          "process_peak_rss_kib": 321460,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 750673920,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        },
+        {
+          "run": 2,
+          "wall_seconds": 2.2305538730006447,
+          "user_seconds": 1.555339,
+          "sys_seconds": 0.609856,
+          "cpu_seconds": 2.1651949999999998,
+          "process_peak_rss_kib": 321460,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 750383104,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.1768435,
+      "projected_1b_cpu_seconds": 217.68435,
+      "max_container_bytes": 750673920
+    }
+  }
+}

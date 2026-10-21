@@ -1,0 +1,141 @@
+{
+  "stage": 8,
+  "date": "2026-10-21",
+  "candidate": "displacement_cal16",
+  "binary": "solution/bin/estimate",
+  "submission": "solution/submission.zip",
+  "design": "full-displacement rank128, U-int16, train-only M and calibration",
+  "validation_accuracy": 97.63876959265059,
+  "test_accuracy": 97.6508289022556,
+  "mean_10m_cpu_seconds": 2.022604,
+  "projected_1b_cpu_seconds": 202.26039999999998,
+  "projected_total": 96.43515978847115,
+  "full_public_accuracy": 97.68579752480055,
+  "max_process_rss_kib": 157216,
+  "max_container_bytes": 582066176,
+  "max_threads": 1,
+  "output_1m_sha256": "6c8c0f043fa7b119d0b649754b915666fc202a57e0f9431319b33fb7a9c7d6cf",
+  "output_10m_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+  "package": {
+    "candidate": "displacement_cal16",
+    "binary_bytes": 84423084,
+    "zip_bytes": 80797119,
+    "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+    "zip_sha256": "0e4a73eeee134fc1d63b67d282b7eb31b58fbd6875ca595cc9fcf5aa728ee8d0",
+    "contents": [
+      "bin/estimate"
+    ],
+    "unix_mode": "100755"
+  },
+  "build": {
+    "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+    "binary_bytes": 84423084,
+    "table_sha256": {
+      "oracle_vt.bin": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a",
+      "oracle_U.bin": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f",
+      "oracle_M.bin": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d",
+      "oracle_ids.txt": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a",
+      "oracle_arch.txt": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/calibration_train.bin",
+    "sources": 208,
+    "targets": 288,
+    "source_sha256": "b1328c53d58a01df40346a49efcfd66516f53a8a0585f6046f87c61f85611369",
+    "compiler_flags": [
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG"
+    ],
+    "image": "fpga-ziguang:latest"
+  },
+  "embedded_assets": {
+    "oracle_vt.bin": {
+      "bytes": 68174616,
+      "sha256": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a"
+    },
+    "oracle_U.bin": {
+      "bytes": 15335960,
+      "sha256": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f"
+    },
+    "oracle_M.bin": {
+      "bytes": 119820,
+      "sha256": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d"
+    },
+    "oracle_ids.txt": {
+      "bytes": 2332,
+      "sha256": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a"
+    },
+    "oracle_arch.txt": {
+      "bytes": 720564,
+      "sha256": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration_train.bin": {
+      "bytes": 5760,
+      "sha256": "294ccb9669e3b2665825c70b20b7a34250ed479ef051dfb2fd4f329e4bb7d11d"
+    }
+  },
+  "comparison_same_batch": {
+    "stage7_fold": {
+      "test_accuracy": 94.6074016157127,
+      "mean_10m_cpu_seconds": 1.3433854,
+      "projected_1b_cpu_seconds": 134.33854,
+      "projected_total": 94.56643345923683
+    },
+    "displacement_baseline": {
+      "test_accuracy": 97.59551720275164,
+      "mean_10m_cpu_seconds": 1.9630068,
+      "projected_1b_cpu_seconds": 196.30068,
+      "projected_total": 96.44057476220131
+    },
+    "displacement_cal16": {
+      "test_accuracy": 97.6508289022556,
+      "mean_10m_cpu_seconds": 2.022604,
+      "projected_1b_cpu_seconds": 202.26039999999998,
+      "projected_total": 96.43515978847115
+    },
+    "displacement_cal64": {
+      "test_accuracy": 97.6508289022556,
+      "mean_10m_cpu_seconds": 2.052224,
+      "projected_1b_cpu_seconds": 205.2224,
+      "projected_total": 96.41047645513781
+    }
+  },
+  "cpu_10m_range": [
+    1.898895,
+    2.147197
+  ],
+  "selection_reason": "cal16: higher accuracy, smaller ZIP and complete input checks; projected total tied with original baseline within timing noise",
+  "total_delta_vs_original_baseline": -0.0054149737301543155,
+  "evidence_sha256": {
+    "displacement_final_benchmark.json": "f0bfefd1312f442284f6b68dd074027a559cb210d737be96af94cc9daad87408",
+    "displacement_cal16_analysis.json": "433357ad25e81496fb88156e4bbb8d416e8267ec2e77d7880aedfc6831d6f64e",
+    "displacement_cal16_package.json": "a9ddfb0a5091a665780c80ce86a0ef853eb07f58ae0658c4240f0ef96798dc28",
+    "displacement_cal16_validation.json": "bb256682ad09051fcce2e2af273bdb953062bb3a044af1bbeb764cd2df64b082",
+    "displacement_cal16_integration.json": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "displacement_cal16_contract.json": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "displacement_cal16_standalone.json": "2c3b0bd9be0e26da199c33da1117614484ef49023a4d84136abd9ab1a54065da",
+    "displacement_import.json": "fae8adc317d209933f87f88652a6856bd49aef3de37cbbb3576e71162a78523a",
+    "displacement_refit.json": "2453a9f31557862ca75ef0cb8e69622a0b58fe273c7ab86a90f9c001273a920c",
+    "U_refit_q16_quantization.json": "04ab4170f90c30f38cd5ebf9f8a41a7df56f676566eeb95907d40938ff1e81b0",
+    "displacement_train_calibration.json": "e04ca15a920ba058e6e5a696741383a2df4ecb8d43e3a14b0e510abb6e8db3c0",
+    "displacement_generalization.json": "b72e36e3aadea86247e70ac6afb0c007f340dbfcb4beb93cf976ecc64a365132"
+  },
+  "source_sha256": {
+    "solution\\src\\displacement.cpp": "b1328c53d58a01df40346a49efcfd66516f53a8a0585f6046f87c61f85611369",
+    "solution\\tools\\displacement_assets.py": "3ae2026c5b178b0d2946f4f6f305932d3a889f0c3fad8be4060db3663b97aea3",
+    "solution\\tools\\displacement_run.py": "c30b0efbb0ca75c7f28a96fa1a68715717a562af3e129688d48ff33ee066be70",
+    "solution\\tools\\displacement_refit.py": "cc0a4fb8ddec3ac831e776beeb41161f5538dfafc27f77d1348e5d0a231eba05",
+    "solution\\tools\\displacement_quantize.py": "bca0b68f750b6cf8d735918870d45a0ec7e402afda9d33e97657e2c977d9f53f",
+    "solution\\tools\\displacement_calibrate.py": "407fc085c26bbb45ba30eb801a4716e51cca57fefd3b06980bf9ec0471df665d",
+    "solution\\tools\\displacement_analyze.py": "93ad898f8a0612246dce907ca0d0d3cabd5d528e43afc2ccc37480ae85e9eeaa",
+    "solution\\tools\\displacement_contract.py": "0b0df6398df78f1f910f6890e1601b45943e82a7484aedfc829097d8adb5ef6b",
+    "solution\\tools\\release_stage8.py": "43a5d4d0ee0033760cb98a35d8ee472f76be2ca860c80acf93c21ff55231b29a"
+  },
+  "official_score": false,
+  "full_1b_completed": false,
+  "limitations": [
+    "Historical rng7 regression slices, not a blind test",
+    "48 reserved oracle queries slightly regress in relative score",
+    "CPU timing extrapolated from 10M, not an official result"
+  ]
+}
