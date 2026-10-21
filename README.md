@@ -4,6 +4,8 @@
 
 实验与参数重建见[完整位移模型优化记录](docs/完整位移模型优化记录.md)，产物及证据指纹见[第八阶段清单](docs/stage8_manifest.json)。源码在 [solution/src/displacement.cpp](solution/src/displacement.cpp)，交接入口为 [HANDOFF.md](HANDOFF.md)。
 
+新一轮以准确度超过 98 为目标，按[第九阶段计划](docs/第九阶段98分优化计划.md)执行；验收前默认保持第八阶段。
+
 ## 当前结果
 
 下表采用本轮同机、相同输入、正反交错五轮 10M CPU 测量。准确度是赛题相对误差得分，固定 rng7 测试切片已在历史开发中查看；完整 1B 和官方隐藏集尚未评测。
