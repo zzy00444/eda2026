@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "colliding_unknown_port",
+    "extra_column",
+    "negative_coordinate",
+    "out_of_grid",
+    "nondigit_coordinate",
+    "integer_overflow",
+    "bad_prefix",
+    "overlong_row",
+    "long_zero_padded_coordinate_and_name_preservation",
+    "header_without_final_newline",
+    "write_failure_nonzero_exit"
+  ],
+  "colliding_unknown_fixture": "BAD13",
+  "all_passed": true
+}

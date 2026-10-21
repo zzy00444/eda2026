@@ -1,0 +1,11 @@
+{
+  "candidate": "stage10_local160w160",
+  "binary_bytes": 99026656,
+  "zip_bytes": 92486699,
+  "binary_sha256": "a9862fd8bcc69b3cb4831299a83cb4ba9ab41127d0ae03e7048d4b9f1fd6e6de",
+  "zip_sha256": "1e0d3103574ebd709735b54a8e7bdf658bff440ba8f28d249e685b6281ffbed2",
+  "contents": [
+    "bin/estimate"
+  ],
+  "unix_mode": "100755"
+}

@@ -17,9 +17,10 @@ def main():
     args=ap.parse_args()
     g=np.load(OUT/'geometry.npz');y=g['y']
     pred_path=OUT/(args.base+'_prediction.npy')
-    if not pred_path.exists():
-        np.save(pred_path,pd.read_csv(OUT/(args.base+'_result.csv'),usecols=['delay']).delay.to_numpy(np.int32))
-    base=np.load(pred_path)
+    # Rebuild from this run's CSV; a stale NPY must never select training labels.
+    base=pd.read_csv(OUT/(args.base+'_result.csv'),usecols=['delay']).delay.to_numpy(np.int32)
+    assert len(base)==len(y)
+    np.save(pred_path,base)
     x=make_features(g,base);wall=x.landing_wall.to_numpy()>0
     tr,va,_,held=indices(g);tr=tr[wall[tr]];vw=va[wall[va]]
     pars=dict(objective='regression_l1',learning_rate=.1,num_leaves=31,min_data_in_leaf=25,

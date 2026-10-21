@@ -1,0 +1,165 @@
+{
+  "candidate": "stage10_local160w160",
+  "binary_sha256": "a9862fd8bcc69b3cb4831299a83cb4ba9ab41127d0ae03e7048d4b9f1fd6e6de",
+  "local_asset_sha256": "ae8b897cb2d6a052cba7c56be4d8d51065e8fe6ca64a930a8ea6e8b26b9da6d9",
+  "wall_model_sha256": "78950c7fe69890f0a013e7b2d29705863d25fa7ed92013700a5644753dbbe285",
+  "wall_trees": 160,
+  "output_sha256": "111cb780df3fd8003ba45f0ed5ad56862c9ddfb685d115d74c036dd9980e6a18",
+  "reference_sha256": "b1a536c35899eb23b3824de7cef982ef1da15a1bc946106cb08878223176c044",
+  "rows": 1000000,
+  "python_cpp_mismatch_count": 0,
+  "stage8_reference_mismatch_count": 0,
+  "both_branches_reconstructed": true,
+  "float32_fma_emulated": true,
+  "local_only_valid": {
+    "rows": 50000,
+    "accuracy": 97.93630087310953,
+    "mae_ps": 12.03772,
+    "rmse_ps": 25.613661198665056,
+    "abs_error_p50_p90_p99": [
+      7.0,
+      23.0,
+      105.0
+    ],
+    "signed_error_ps": -2.45864
+  },
+  "caveat": "Historical regression slices; only new wall parameters and local geometry weights exclude held source coordinates",
+  "splits": {
+    "valid": {
+      "updated": {
+        "rows": 50000,
+        "accuracy": 98.07938925995693,
+        "mae_ps": 10.93828,
+        "rmse_ps": 18.80586610608509,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          23.0,
+          81.0
+        ],
+        "signed_error_ps": -2.14628
+      },
+      "baseline": {
+        "rows": 50000,
+        "accuracy": 97.63876959265059,
+        "mae_ps": 12.69178,
+        "rmse_ps": 26.082645954733966,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          25.0,
+          105.0
+        ],
+        "signed_error_ps": -2.56106
+      },
+      "paired_delta": {
+        "mean_accuracy_delta": 0.44061966730632346,
+        "source_coordinate_cluster_95_interval": [
+          0.4126403017821977,
+          0.46859903283044924
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "test": {
+      "updated": {
+        "rows": 50000,
+        "accuracy": 98.07453242194569,
+        "mae_ps": 10.95046,
+        "rmse_ps": 19.093692675855028,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          22.0,
+          85.0
+        ],
+        "signed_error_ps": -2.18654
+      },
+      "baseline": {
+        "rows": 50000,
+        "accuracy": 97.6508289022556,
+        "mae_ps": 12.6805,
+        "rmse_ps": 26.068785549004772,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          25.0,
+          111.0
+        ],
+        "signed_error_ps": -2.4301
+      },
+      "paired_delta": {
+        "mean_accuracy_delta": 0.42370351969009573,
+        "source_coordinate_cluster_95_interval": [
+          0.39673843941262976,
+          0.4506685999675617
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "position_assess": {
+      "updated": {
+        "rows": 180375,
+        "accuracy": 98.09558080541835,
+        "mae_ps": 10.874389466389466,
+        "rmse_ps": 18.97018443336536,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          23.0,
+          83.0
+        ],
+        "signed_error_ps": -2.1797588357588356
+      },
+      "baseline": {
+        "rows": 180375,
+        "accuracy": 97.68438335551399,
+        "mae_ps": 12.532701316701317,
+        "rmse_ps": 25.786300627839196,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          25.0,
+          107.0
+        ],
+        "signed_error_ps": -2.479955647955648
+      },
+      "paired_delta": {
+        "mean_accuracy_delta": 0.41119744990437757,
+        "source_coordinate_cluster_95_interval": [
+          0.39425519666478687,
+          0.42813970314396826
+        ],
+        "source_coordinate_groups": 12037,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    }
+  },
+  "oracle": {
+    "truth_sha256": "8c2917470e4b6728db90ebfb81dc5b666abfb469c23e28a42ca0488c8ae4d0f9",
+    "request_sha256": "1185d125207e0535a753a366ed0d1acefe3da8855791df251ff509262f65f941",
+    "spec_sha256": "4c2b037d8c10f2047b54eebcfd20f1260cd635c7c59ce74ebf57f83ca4589692",
+    "output_sha256": "f7e6388178a6ec8394af485e541848720d0481b85bab85d23d870e1c07fead0b",
+    "python_cpp_mismatch_count": 0,
+    "official_eight": {
+      "rows": 8,
+      "accuracy": 95.03318736648885,
+      "mae_ps": 9.5,
+      "rmse_ps": 10.21028892833107,
+      "abs_error_p50_p90_p99": [
+        8.0,
+        13.899999999999999,
+        15.79
+      ],
+      "signed_error_ps": -2.75
+    },
+    "reserved_48": {
+      "rows": 48,
+      "accuracy": 94.5062398198201,
+      "mae_ps": 10.708333333333334,
+      "rmse_ps": 13.512340039139533,
+      "abs_error_p50_p90_p99": [
+        8.0,
+        22.200000000000017,
+        32.53
+      ],
+      "signed_error_ps": -1.625
+    }
+  }
+}

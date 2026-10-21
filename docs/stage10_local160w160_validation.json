@@ -1,0 +1,13 @@
+{
+  "candidate": "stage10_local160w160",
+  "binary_sha256": "a9862fd8bcc69b3cb4831299a83cb4ba9ab41127d0ae03e7048d4b9f1fd6e6de",
+  "zip_sha256": "1e0d3103574ebd709735b54a8e7bdf658bff440ba8f28d249e685b6281ffbed2",
+  "reports": {
+    "integration": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "contract": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "standalone": "a1e4041f707cd81451fad06ef22603b2e2a2b3d577a26904d015c4a481bc7dd6"
+  },
+  "image": "fpga-ziguang:latest",
+  "memory_limit_bytes": 2000000000,
+  "all_passed": true
+}

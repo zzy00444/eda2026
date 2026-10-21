@@ -1,54 +1,54 @@
 # EDA 2026 赛题交接
 
-更新于 2026-10-21。[第九阶段计划](docs/第九阶段98分优化计划.md)已完成：C++ 固定验证和测试回归均超过 98。默认选择 16 树版；按用户后续要求，额外保留本轮已验收的最高精度且本机外推低于 30 分钟的 64 树版，同时保留第八/七阶段速度方案。
+更新于 2026-10-21。[第十阶段联合优化计划](docs/第十阶段精度与综合分联合优化计划.md)已完成：默认 `stage10_local96w64` 的验证/测试准确度均超过 98，预计总分高于同批第八阶段 0.071206。额外保留已验收最高精度 `stage10_local160w160`，五轮每次外推均小于 30 分钟。第九阶段两个包和第八/七阶段速度方案继续保留。本轮只用本地 Docker，未向赛事平台提交，也未推送 Git。
 
 ## 当前产物
 
 | 用途 | ELF | ZIP | 证据 |
 | --- | --- | --- | --- |
-| 默认，超过 98 | `solution/bin/estimate`，同 `estimate_stage9_fast16` | `solution/submission.zip`，同 `stage9_fast16_submission.zip` | [默认清单](docs/stage9_manifest.json) |
-| 额外保留高精度 | `solution/bin/estimate_stage9_accurate64` | `solution/stage9_accurate64_submission.zip` | [高精度清单](docs/stage9_accuracy_manifest.json) |
+| 默认，联合门槛通过 | `solution/bin/estimate`，同 `estimate_stage10_local96w64` | `solution/submission.zip`，同 `stage10_local96w64_submission.zip` | [默认清单](docs/stage10_manifest.json) |
+| 额外保留最高精度 | `solution/bin/estimate_stage10_local160w160` | `solution/stage10_local160w160_submission.zip` | [高精度清单](docs/stage10_accuracy_manifest.json) |
+| 第九阶段旧默认 | `solution/bin/estimate_stage9_fast16` | `solution/stage9_fast16_submission.zip` | [历史清单](docs/stage9_manifest.json) |
+| 第九阶段旧高精度 | `solution/bin/estimate_stage9_accurate64` | `solution/stage9_accurate64_submission.zip` | [历史高精度清单](docs/stage9_accuracy_manifest.json) |
 | 速度与综合分参照 | `solution/bin/estimate_displacement_cal16` | `solution/displacement_cal16_submission.zip` | [第八阶段历史清单](docs/stage8_manifest.json) |
 | 历史速度回退 | `solution/bin/estimate_stage7_fold` | `solution/stage7_fold_submission.zip` | `solution/build/stage7_manifest.json` |
 
 | 方案 | 测试回归准确度 | 同批 10M CPU 均值 | 1B CPU 外推 | 预计总分 |
 | --- | ---: | ---: | ---: | ---: |
-| 第八阶段 | 97.650829 | 1.886051 s | 3.143 分钟 | 96.548954 |
-| 第九阶段 16 树默认 | 98.031248 | 7.630726 s | 12.718 分钟 | 92.066060 |
-| 第九阶段 64 树额外保留 | 98.069069 | 16.872524 s | 28.121 分钟 | 84.394818 |
+| 第八阶段 | 97.650829 | 2.420913 s | 4.035 分钟 | 96.103236 |
+| 第十阶段默认 96 维+稀疏墙内 64 树 | 98.021603 | 2.691408 s | 4.486 分钟 | 96.174442 |
+| 第十阶段额外高精度 160 维+稀疏墙内 160 树 | 98.074532 | 2.973247 s | 4.955 分钟 | 95.981920 |
 
-准确度目标已在本地回归达到，综合分因 CPU 成本下降，不能声称全面超过旧方案。64 树五次外推范围为 27.760～28.599 分钟，均小于用户指定的 30 分钟预算；远程平台有波动，尚未执行完整 1B 或远程验证。所有公开切片均非官方隐藏集。
+上表来自本轮同批五次 10M 交替测速。默认联合验收通过但分数余量较小；额外高精度版综合分未过第八阶段，仅作保留备选。高精度五轮外推 4.488～5.388 分钟，远低于 30 分钟。历史第八阶段 96.548954 与新默认之差为 -0.374512，不能跨批混用时间。尚未执行完整 1B 或远程验证，公开切片均非官方隐藏集。
 
-16/64 树 ZIP 为 98,376,571 / 98,540,421 B，容器峰值 649,625,600 / 649,138,176 B，观察线程数 1。两者通过百万行 Python/C++ 零差异、五轮 10M 逐字节一致及重复内容核对、11+11 项接口/边界和 ZIP 独立运行。参见[最终基准](docs/stage9_final_benchmark.json)和两份发布清单。
+默认/高精度 ZIP 为 87,769,854 / 92,486,699 B，容器峰值 616,259,584 / 635,576,320 B，线程数 1。两者通过百万行独立 Python/C++ 零差异、五轮 10M 一致与重复内容核对、11+11 项接口/边界和 ZIP 独立运行。参见[最终基准](docs/stage10_final_benchmark.json)和两份清单。
 
 ## 实现与再生
 
 - [根 README](README.md)：环境、数据、构建、发布与产物链接。
 - [solution/README](solution/README.md)：规则、评分、接口及当前算法。
-- [第九阶段记录](docs/第九阶段优化记录.md)：训练、导出、压缩、性能修正、负结果和完整复现。
+- [第十阶段记录](docs/第十阶段优化记录.md)：生成残差、稀疏墙内模型、负结果及完整复现。
+- [第九阶段记录](docs/第九阶段优化记录.md)：历史全局包络和残差模型。
 - [第八阶段记录](docs/完整位移模型优化记录.md)：冻结基础资产和第八阶段参数的生成。
 
-源码为 `solution/src/displacement.cpp`、`displacement_residual_runtime.hpp`，生成头为本地 `solution/build/displacement/<候选>.hpp`。基础资产为 `oracle/`、`U_refit_q16.bin`、`M_refit.bin`、`calibration_train.bin`。新增资产为 `stage9_bound.z`、两个冻结模型原文 `residual_bound_255_fast.txt` / `residual_bound_127.txt`、导出头、`*_frozen.json` 和参考数组。保留完整 128 轮训练模型；正式候选分别使用前 16/64 棵树。
+源码为 `solution/src/displacement.cpp`、`displacement_local_runtime.hpp`、`displacement_wall_runtime.hpp`。基础资产为 `oracle/`、`U_refit_q16.bin`、`M_refit.bin`、`calibration_train.bin`。新增资产位于 `solution/build/displacement/`：`stage10_local_weighted_factors.npz`、`stage10_local96.local` / `stage10_local160.local`、`stage10_local96_wall.txt` / `stage10_local160_wall.txt`、两个 `*.wall.hpp` 及冻结配置/独立参考。第九阶段包络和模型仍保留；本轮候选不加载它们。
 
-新残差使用相对误差加权 L1，在 719,583 行拟合；180,375 行按源坐标留出，只隔离新增参数。基础第八阶段 M/校准曾用主训练集，不称其为整个系统的新盲测。验证选择，配置冻结后测试回归；历史切片已被开发反复查看。48 条保留位置精确查询仍有结构误差，16 树 87.936545、64 树 88.578985；见[本轮泛化报告](docs/stage9_generalization.json)。
+局部模型拟合架构生成距离残差，不用公开延迟标签；端口频率权重仅用 719,583 行训练几何。墙内残差在其中 4,233 行训练，使用相对误差加权 L1。180,375 行位置评估为 98.041809 / 98.095581，继承基础参数曾用主训练集，因此不是全系统盲测。48 条精确保留位置为 93.903862 / 94.506240；第八阶段为 88.050655。参考报告分别为 `docs/stage10_local96w64_reference.json` / `stage10_local160w160_reference.json`。
 
 本机 Windows Python 为 `F:\EDA\solution\.venv\Scripts\python.exe`；WSL `Ubuntu-20.04`，仓库映射 `/mnt/f/EDA/solution/eda2026`，工作目录 `/home/zzy/eda2026-displacement`，镜像 `fpga-ziguang:latest`。容器精确限制为单 CPU、2,000,000,000 B，镜像已有 zlib。二进制、包和缓存不入 Git，新克隆须先重建本地资产。
 
-构建使用 `--residual-header ... --bound-file ... --define EST_RESIDUAL_BATCH`；导出使用 `--direct --integer`。先训练/导出，再 `build` → `run` → `analyze` → `package` → 精确查询 → `validate`，最后两个候选一起 `residual_verify` 和五轮 `benchmark`。候选共用编译头，构建必须顺序；测时避免其他估算器、训练或压缩。
+构建使用 `--local-file ... --wall-header ... --define EST_FAST_ROUND`。先训练/导出，再 `build` → `run` → `analyze` → `package` → 精确查询 → `local_verify` → `validate` → 同批五轮 `benchmark`。候选共用编译头，构建必须顺序；测时避免其他估算器、训练或压缩。完整命令见第十阶段记录；参考验证器显式重建双分支和 float32 FMA，不能用旧单分支筛选充当一致性证据。
 
-发布先运行 `release_stage9.py stage9_accurate64 --retain`，再运行 `release_stage9.py stage9_fast16`。前者只登记备选，后者覆盖默认；两者都核对实际代码、模型、ELF/ZIP、准确度、五轮、内存、单线程及独立运行，要求每轮 1B 外推低于 1800 秒。源码或模型改变须重算，禁止沿用旧报告证明新产物。
+发布入口为 `release_stage10.py stage10_local160w160 --retain` 和 `release_stage10.py stage10_local96w64`。前者登记高精度备选，后者还须通过同批第八阶段综合分门槛才覆盖默认；二者都核对实际代码、模型、ELF/ZIP、参考、五轮、资源及独立运行，每轮外推低于 1800 秒。源码或模型变化须重新验收。
 
-`stage8_manifest.json` 是历史发布快照，其中 canonical 路径已被第九阶段接替，应通过具名备份找到旧产物。第八阶段源码位于 Git `0232704`；旧发布器不能用当前新增残差源码去通过其源码指纹检查。
+`stage8_manifest.json`、第九阶段两个 manifest 是历史快照，canonical 路径已被本轮接替；用具名备份找到旧产物。第八阶段源码位于 `0232704`，第九阶段发布提交为 `91f253e`，旧发布版应从相应提交重建。
 
-外部 `F:\EDA\pango_delay_handover_v3` 仍有人修改。本轮未改动或使用其新增模型；重新导入须核对 [displacement_import.json](docs/displacement_import.json) 指纹，也不改动原始附件。
+外部 `F:\EDA\pango_delay_handover_v3` 仍有人修改。本轮仅读取 `build/all_C_<source>.bin`，架构 SHA 与仓库冻结资产相同，各源尺寸/mtime 记录在 `stage10_local_weighted_training.json`；未修改、清理或运行该工程脚本，也未导入其新增模型。
 
 ## 后续优先级
 
-1. 在远程平台分别测试默认、高精度和第八阶段包，保存平台准确度与五次 CPU，用实际环境决定使用哪个包。高精度版的本地外推距 30 分钟约 1.88 分钟，不保证远程仍在预算内。
-2. 继续压缩树推理成本，在保持已达到的准确度时争取恢复时间分；通用树表、逐请求直接分支、浮点小批次的负结果及最终整数批处理均已有报告。每轮继续额外保留已验收且满足时间预算的最高精度版本。
-3. 扩充短距离、墙门、边界和稀少输出端口的精确参考，先验证合法路径及候选覆盖；不把逐样本 oracle 最优当作在线收益。
-4. 研究更紧凑的架构包络/残差表示。当前 ZIP 余量约 1.5 MB，避免重建约 32 GB 稠密原料；清理可再生试验大文件时保留正式高精度、速度备份、生成参数和证据。
-# 第十阶段进行中
-
-按[联合优化计划](docs/第十阶段精度与综合分联合优化计划.md)仅在本地 Docker 继续优化，未提交赛事远程平台。精度达到 98 的混合候选仍在降耗，尚未通过综合分门槛，默认产物暂不切换。进度及失败试验见[第十阶段记录](docs/第十阶段优化记录.md)。第八阶段速度包与第九阶段额外高精度包继续保留；重建旧发布版须使用其发布提交，因为当前源码正在优化。
+1. 本轮已经完成联合验收；下一轮优先扩大 0.0712 分的余量，研究局部位移分区/非均匀秩、更适合短距离相对误差的生成残差权重，先筛选再测实际双分支成本。
+2. 精度最高备选仅比旧高精度测试回归高约 0.0055，不把它解释为隐藏集显著提升；继续额外保留最快和最高精度的已验收产物。
+3. 扩充墙门、边界和稀少端口的精确参考，解释保留位置仍未达到 98 的误差。仅当收到新的远程测试安排时才向赛事平台提交，目前继续以本地镜像为准。
+4. 默认/高精度 ZIP 余量约 12.23/7.51 MB。不要重建约 32 GB 原料；可再生缓存的清理不能删除正式速度、高精度备份、生成配置和证据。
 

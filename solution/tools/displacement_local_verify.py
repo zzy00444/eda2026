@@ -147,7 +147,8 @@ def main():
         og['si']=np.array([sm.get(int(p),-1) for p in og['source_id']]);og['ti']=np.array([tm.get(int(p),-1) for p in og['target_id']])
         op,good=predict(og,base_assets,load_local(local_path));ox=make_features(og,op)
         wi=np.flatnonzero((ox.landing_wall.to_numpy()>0)&good)
-        op[wi]=np.maximum(0,np.floor(op[wi]+model.predict(ox.iloc[wi],num_iteration=args.trees,num_threads=2)+.5)).astype(np.int32)
+        if len(wi):
+            op[wi]=np.maximum(0,np.floor(op[wi]+model.predict(ox.iloc[wi],num_iteration=args.trees,num_threads=2)+.5)).astype(np.int32)
         assert np.array_equal(op,deployed.delay.to_numpy())
         report['oracle']=dict(truth_sha256=sha(OUT/'oracle_answers.csv'),request_sha256=sha(OUT/'oracle_request.csv'),
                               spec_sha256=sha(OUT/'oracle_spec.json'),output_sha256=sha(oracle_path),python_cpp_mismatch_count=0,

@@ -1,6 +1,6 @@
 {
   "candidate": "stage10_local96w64",
-  "binary_sha256": "f44d29d9fa4df1e420a7d0543226030eb9b5e2982c9eab19e6cd5d5b54caceac",
+  "binary_sha256": "46a06e7daf4061abbf425e2b8dd5d531cb38085cb2d3c0c473e54262cabcc9d3",
   "local_asset_sha256": "731b7909ed728f0565ca44260cb35434ef434e2376e8dda5bc0fcc6915e31560",
   "wall_model_sha256": "c3e80aa7fb6be0098659d8b457ab2476598b48a6cff0fa067c38fe5e7e2122da",
   "wall_trees": 64,
@@ -129,6 +129,37 @@
         "source_coordinate_groups": 12037,
         "note": "Approximate cluster interval, conditional on this evaluated dataset"
       }
+    }
+  },
+  "oracle": {
+    "truth_sha256": "8c2917470e4b6728db90ebfb81dc5b666abfb469c23e28a42ca0488c8ae4d0f9",
+    "request_sha256": "1185d125207e0535a753a366ed0d1acefe3da8855791df251ff509262f65f941",
+    "spec_sha256": "4c2b037d8c10f2047b54eebcfd20f1260cd635c7c59ce74ebf57f83ca4589692",
+    "output_sha256": "bee57d120381471707770627936ab3f6f7503de3b32efdcf3e921fb7b6138938",
+    "python_cpp_mismatch_count": 0,
+    "official_eight": {
+      "rows": 8,
+      "accuracy": 95.70043290234949,
+      "mae_ps": 7.875,
+      "rmse_ps": 9.17196816392207,
+      "abs_error_p50_p90_p99": [
+        7.0,
+        13.3,
+        13.93
+      ],
+      "signed_error_ps": -3.875
+    },
+    "reserved_48": {
+      "rows": 48,
+      "accuracy": 93.90386222446666,
+      "mae_ps": 11.541666666666666,
+      "rmse_ps": 14.81975033527893,
+      "abs_error_p50_p90_p99": [
+        8.0,
+        25.400000000000034,
+        34.59
+      ],
+      "signed_error_ps": -1.75
     }
   }
 }

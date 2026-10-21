@@ -1,0 +1,236 @@
+{
+  "stage": 10,
+  "date": "2026-10-21",
+  "candidate": "stage10_local96w64",
+  "retained_alternative": false,
+  "binary": "solution/bin/estimate",
+  "submission": "solution/submission.zip",
+  "validation_accuracy": 98.01536989509542,
+  "test_accuracy": 98.02160262237159,
+  "mean_10m_cpu_seconds": 2.691408,
+  "projected_1b_cpu_seconds": 269.1408,
+  "projected_total": 96.17444209789727,
+  "full_public_accuracy": 98.05051012713682,
+  "position_assess": {
+    "rows": 180375,
+    "accuracy": 98.04180852944243,
+    "mae_ps": 11.005699237699238,
+    "rmse_ps": 19.082574476433955,
+    "abs_error_p50_p90_p99": [
+      7.0,
+      23.0,
+      83.0
+    ],
+    "signed_error_ps": -2.193003465003465
+  },
+  "reserved_48": {
+    "rows": 48,
+    "accuracy": 93.90386222446666,
+    "mae_ps": 11.541666666666666,
+    "rmse_ps": 14.81975033527893,
+    "abs_error_p50_p90_p99": [
+      8.0,
+      25.400000000000034,
+      34.59
+    ],
+    "signed_error_ps": -1.75
+  },
+  "python_cpp_mismatch_count": 0,
+  "comparison_same_batch": {
+    "displacement_cal16": {
+      "test_accuracy": 97.6508289022556,
+      "mean_10m_cpu_seconds": 2.4209126,
+      "projected_1b_cpu_seconds": 242.09125999999998,
+      "projected_total": 96.10323595513782
+    },
+    "stage10_local96w64": {
+      "test_accuracy": 98.02160262237159,
+      "mean_10m_cpu_seconds": 2.691408,
+      "projected_1b_cpu_seconds": 269.1408,
+      "projected_total": 96.17444209789727
+    },
+    "stage10_local160w160": {
+      "test_accuracy": 98.07453242194569,
+      "mean_10m_cpu_seconds": 2.9732473999999995,
+      "projected_1b_cpu_seconds": 297.32473999999996,
+      "projected_total": 95.98191977088989
+    }
+  },
+  "joint_gate_passed": true,
+  "projected_total_delta_vs_stage8": 0.07120614275945059,
+  "projected_total_delta_vs_stage8_historical": -0.26071769057388394,
+  "max_container_bytes": 616259584,
+  "max_threads": 1,
+  "cpu_budget_seconds": 1800,
+  "cpu_10m_range": [
+    2.491314,
+    3.000995
+  ],
+  "package": {
+    "candidate": "stage10_local96w64",
+    "binary_bytes": 93574384,
+    "zip_bytes": 87769854,
+    "binary_sha256": "46a06e7daf4061abbf425e2b8dd5d531cb38085cb2d3c0c473e54262cabcc9d3",
+    "zip_sha256": "9c96fac936ee1bfc6901bc746bc3f5fcc91fa1b8619df057c4107582e01391dc",
+    "contents": [
+      "bin/estimate"
+    ],
+    "unix_mode": "100755"
+  },
+  "build": {
+    "binary_sha256": "46a06e7daf4061abbf425e2b8dd5d531cb38085cb2d3c0c473e54262cabcc9d3",
+    "binary_bytes": 93574384,
+    "table_sha256": {
+      "oracle_vt.bin": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a",
+      "oracle_U.bin": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f",
+      "oracle_M.bin": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d",
+      "oracle_ids.txt": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a",
+      "oracle_arch.txt": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/calibration_train.bin",
+    "sources": 208,
+    "targets": 288,
+    "source_sha256": "b0763f3e9a59e421eab2d281507148f89bae01280ff383547851b704d4f3f8b3",
+    "compiler_flags": [
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-DEST_FAST_ROUND",
+      "-DEST_WALL",
+      "-DEST_LOCAL"
+    ],
+    "image": "fpga-ziguang:latest",
+    "wall_header_sha256": "49e22094585df3c6d080abf1d2487e577913b080cf5c0e05cde1230bacc282b6",
+    "wall_runtime_sha256": "8dfecbcea138d37c4ac31134642c936e96d3b93af497e8fb6913c8dc5de14a81",
+    "local_asset_sha256": "731b7909ed728f0565ca44260cb35434ef434e2376e8dda5bc0fcc6915e31560",
+    "local_runtime_sha256": "b51fec7ed6d8b41d3d239a46aa71bd42af26c4adb20aba8debae4cfbfb40994e"
+  },
+  "embedded_assets": {
+    "oracle_vt.bin": {
+      "bytes": 68174616,
+      "sha256": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a"
+    },
+    "oracle_U.bin": {
+      "bytes": 15335960,
+      "sha256": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f"
+    },
+    "oracle_M.bin": {
+      "bytes": 119820,
+      "sha256": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d"
+    },
+    "oracle_ids.txt": {
+      "bytes": 2332,
+      "sha256": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a"
+    },
+    "oracle_arch.txt": {
+      "bytes": 720564,
+      "sha256": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration_train.bin": {
+      "bytes": 5760,
+      "sha256": "294ccb9669e3b2665825c70b20b7a34250ed479ef051dfb2fd4f329e4bb7d11d"
+    }
+  },
+  "local": {
+    "candidate": "stage10_local96",
+    "factors": "stage10_local_weighted",
+    "factors_sha256": "3cc59161ebbe43e893d98d4321ef3ccf1f542bf0b5ce93dae6b5f019a3df7885",
+    "rank": 96,
+    "bits": 8,
+    "columns": 11809,
+    "pairs": 59904,
+    "asset_sha256": "731b7909ed728f0565ca44260cb35434ef434e2376e8dda5bc0fcc6915e31560",
+    "asset_bytes": 9084132,
+    "correction": "round(local dot) added to round(base M+dot), before branch minimum and calibration",
+    "distance_gate": "V row belongs to frozen local rectangle; both candidates evaluated",
+    "public_delay_labels_used": false
+  },
+  "wall": {
+    "candidate": "stage10_local96w64",
+    "model": "stage10_local96_wall",
+    "model_sha256": "c3e80aa7fb6be0098659d8b457ab2476598b48a6cff0fa067c38fe5e7e2122da",
+    "base": "stage10_local96",
+    "trees": 64,
+    "header_sha256": "49e22094585df3c6d080abf1d2487e577913b080cf5c0e05cde1230bacc282b6",
+    "bound_used": false,
+    "valid": {
+      "rows": 50000,
+      "accuracy": 98.01536989509542,
+      "mae_ps": 11.09064,
+      "rmse_ps": 18.934506066966733,
+      "abs_error_p50_p90_p99": [
+        7.0,
+        23.0,
+        81.0
+      ],
+      "signed_error_ps": -2.14924
+    },
+    "test": {
+      "rows": 50000,
+      "accuracy": 98.02160262237159,
+      "mae_ps": 11.08242,
+      "rmse_ps": 19.198367118065015,
+      "abs_error_p50_p90_p99": [
+        7.0,
+        23.0,
+        86.0
+      ],
+      "signed_error_ps": -2.1737
+    },
+    "position_assess": {
+      "rows": 180375,
+      "accuracy": 98.04180852944243,
+      "mae_ps": 11.005699237699238,
+      "rmse_ps": 19.082574476433955,
+      "abs_error_p50_p90_p99": [
+        7.0,
+        23.0,
+        83.0
+      ],
+      "signed_error_ps": -2.193003465003465
+    },
+    "reference_sha256": "f25664df50b7b0c610c03aadf44f323ae64780bcc74ccba737082eab5088aee0",
+    "caveat": "Local base is deployed C++; wall correction is Python. A separate base-dot reference is required."
+  },
+  "evidence_sha256": {
+    "stage10_final_benchmark.json": "1849974dd9bc5966a0ad31dbd2c7099da1fe266d59f6e91defb0c26ac8008470",
+    "stage10_local96w64_analysis.json": "6685eb84907291a49297d15891bfaa0ee6c812800f6a70996348632318a8a13d",
+    "stage10_local96w64_reference.json": "534ba9cd214a4927898b66e3d4cf70671a2b1974694200a2252d5abd3069b7c2",
+    "stage10_local96w64_wall_export.json": "99afdd859d04a5fb5de4bfb1be8cc1326526c5fe42d576ce53e2ea972bba235a",
+    "stage10_local96w64_package.json": "59423950e311e630a38ecf98d7638b1c4e28cce7e5194e35c0ddee595aadc67a",
+    "stage10_local96w64_validation.json": "07ba221ad14a5614b38934a2e089940d46a5e73003e5ce71dada0ec773fd2946",
+    "stage10_local96w64_integration.json": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "stage10_local96w64_contract.json": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "stage10_local96w64_standalone.json": "a83bafb8c8f0ab9688d1808df901f8ef5103e8e04abc3e7224ceb3d35ea43e38",
+    "stage10_local96_wall.json": "932efeb954b367c4e63ed80846fe25851160b2c039670aa4634e00bbdb6442ad",
+    "stage10_local96_local_export.json": "8d8381d9d7ae79872578307d0b60ca8005c4d78ba2e479b6568d585e2e10dddc",
+    "stage10_local_weighted_training.json": "5536caed0e8aac24a56f6dc99989024a2d7acaf9e0008253fad5c7016d9d0d44",
+    "stage8_manifest.json": "57ad12c9c6c2628d5e6841ef75537106c36bda653cf94310458eec2495d384cb",
+    "stage9_manifest.json": "ab938f491071b37506de56cab8dc72093392d0471c0271ad2a420c1e0e2f50bf",
+    "stage9_accuracy_manifest.json": "f3ec479ae34d3ec174940f62fc3f6c7b24d30eae98915eb38b21e2233f9004f1"
+  },
+  "source_sha256": {
+    "src/displacement.cpp": "b0763f3e9a59e421eab2d281507148f89bae01280ff383547851b704d4f3f8b3",
+    "src/displacement_local_runtime.hpp": "b51fec7ed6d8b41d3d239a46aa71bd42af26c4adb20aba8debae4cfbfb40994e",
+    "src/displacement_wall_runtime.hpp": "8dfecbcea138d37c4ac31134642c936e96d3b93af497e8fb6913c8dc5de14a81",
+    "tools/displacement_local_train.py": "f1a1efb765339c6983119b7a64d64f1a2ee86d8013a8210346df49bc2346330a",
+    "tools/displacement_local_export.py": "06c12f06aaeae88d0170ed2526e9c3c4dec143b2975470d61fe2b737526ee0b9",
+    "tools/displacement_local_screen.py": "4a8c1372f6802b35ea3cffcecf825fe74c1488c54cd3225f0595a64f6f543c8b",
+    "tools/displacement_wall_train.py": "ee6d27b722afefb17b0678dae493510fb4fa2808494ffa445530cc48990d08ef",
+    "tools/displacement_wall_export.py": "2ec463600cc4c29645a0486e6062d440b07ec742b8b657547aa2b1d124ba9b2c",
+    "tools/displacement_local_verify.py": "d042a867417977066be56d7c9c452d5fade61e4da9fa6ac7bb95bef87984f3fc",
+    "tools/displacement_run.py": "4480c49dd69222f479ba00f48846b945949b2ceb1819a9078bc5cf283ffb636a",
+    "tools/displacement_assets.py": "3ae2026c5b178b0d2946f4f6f305932d3a889f0c3fad8be4060db3663b97aea3",
+    "tools/displacement_analyze.py": "93ad898f8a0612246dce907ca0d0d3cabd5d528e43afc2ccc37480ae85e9eeaa",
+    "tools/displacement_package.py": "9fca62456cf10b002c108e78a1d1378f9f473979de3e1ddc62e8dcc5a54522a6",
+    "tools/release_stage10.py": "4df12beb5054222d023e4dc3e70cf441f92f49bef01ef505d4801bd9cc9a5ed9"
+  },
+  "official_score": false,
+  "full_1b_completed": false,
+  "limitations": [
+    "Historical rng7 slices, repeatedly inspected; no blind or official accuracy claim",
+    "CPU extrapolated from repeated 10M requests, not a complete 1B run",
+    "Position exclusion covers only new wall parameters and local geometry weights",
+    "48 exact reserved queries still expose structural approximation errors"
+  ]
+}
