@@ -1,6 +1,7 @@
 """Export a frozen LightGBM prefix, metadata, and reference predictions for C++."""
 import argparse
 import json
+import math
 import lightgbm as lgb
 import numpy as np
 from displacement_residual import FEATURES, architecture, make_features, architecture_bound, corrected, indices
@@ -16,6 +17,7 @@ def main():
     parser.add_argument('--name', required=True)
     parser.add_argument('--clamp', action='store_true')
     parser.add_argument('--direct', action='store_true', help='Emit C++ branches for frozen trees')
+    parser.add_argument('--integer', action='store_true', help='Use exact integer features and split thresholds')
     args = parser.parse_args()
     model_path = OUT / (args.model+'.txt')
     model = lgb.Booster(model_file=str(model_path))
@@ -56,6 +58,7 @@ def main():
              f'constexpr bool RClamp={str(args.clamp).lower()};',
              f'constexpr unsigned RTableCRC={encoding["table_crc32"]}u;',
              f'constexpr unsigned long RDecodedBytes={encoding["decoded_stream_bytes"]}ul;',
+             'using RFeature='+('int32_t;' if args.integer else 'float;'),
              'struct RNode {int left,right,feature; double value; unsigned cb,count;};']
     lines += [f'constexpr int RF_{name}={i};' for i, name in enumerate(feature_names)]
     for name, values in [('RFamily', family), ('RBit', bit), ('RSourceIndex', [sm.get(i,-1) for i in range(len(names))]),
@@ -75,17 +78,21 @@ def main():
             if count:
                 condition = f'rCategory(f[{feature}], {cb}u, {count}u)'
             else:
-                condition = f'f[{feature}] <= {value:.17g}'
+                threshold = str(math.floor(value)) if args.integer else f'{value:.17g}'
+                condition = f'f[{feature}] <= {threshold}'
             return ([indent+'if ('+condition+') {']+branch(left, indent+'    ')+
                     [indent+'} else {']+branch(right, indent+'    ')+[indent+'}'])
-        lines += ['static inline bool rCategory(float value,unsigned begin,unsigned count) {',
+        lines += ['static inline bool rCategory(RFeature value,unsigned begin,unsigned count) {',
                   '    unsigned cat=(unsigned)(int)value;',
                   '    return cat/64<count && ((RCategories[begin+cat/64]>>(cat&63))&1ull);', '}']
         for t, root in enumerate(roots):
-            lines += [f'static double rTree{t}(const float* f) {{']+branch(root)+['}']
-        lines += ['static double rDirectPredict(const float* f) {', '    double delta=0;']
+            lines += [f'static double rTree{t}(const RFeature* f) {{']+branch(root)+['}']
+        lines += ['static double rDirectPredict(const RFeature* f) {', '    double delta=0;']
         lines += [f'    delta+=rTree{t}(f);' for t in range(len(roots))]
         lines += ['    return delta;', '}']
+        lines += ['static void rBatchPredict(const RFeature* f,double* delta,int n) {']
+        lines += [f'    for(int i=0;i<n;i++) delta[i]+=rTree{t}(f+(size_t)i*RFeatures);' for t in range(len(roots))]
+        lines += ['}']
     header = OUT / (args.name+'.hpp')
     header.write_text('\n'.join(lines)+'\n')
     # Freeze configuration before looking at the historical test regression.
@@ -93,6 +100,7 @@ def main():
                   bound_clamp=args.clamp, feature_names=feature_names, nodes=len(nodes),
                   header_sha256=sha(header), bound_sha256=encoding['compressed_sha256'])
     config['direct_cpp_branches'] = args.direct
+    config['integer_features'] = args.integer
     (OUT / (args.name+'_frozen.json')).write_text(json.dumps(config, indent=2)+'\n')
     g = np.load(OUT / 'geometry.npz')
     base = np.load(OUT / 'displacement_cal16_prediction.npy')
@@ -100,6 +108,10 @@ def main():
     bound = architecture_bound(g, x)
     x['bound'] = bound.astype(np.float32)
     x['base_minus_bound'] = base-x['bound'].to_numpy()
+    if args.integer:
+        values = x.to_numpy()
+        assert np.isfinite(values).all() and np.array_equal(values, np.rint(values))
+        assert np.max(np.abs(values)) < 2**24, 'Integer values must also be exact in the training float32 representation'
     pred = corrected(base, model.predict(x, num_iteration=args.trees, num_threads=6))
     if args.clamp:
         pred = np.maximum(pred, bound).astype(np.int32)

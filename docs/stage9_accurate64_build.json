@@ -1,0 +1,29 @@
+{
+  "binary_sha256": "701adce5c49f5629f18fafcb62bba303065069ae5a6ab30906b0eec5b33d24ad",
+  "binary_bytes": 102534887,
+  "table_sha256": {
+    "oracle_vt.bin": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a",
+    "oracle_U.bin": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f",
+    "oracle_M.bin": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d",
+    "oracle_ids.txt": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a",
+    "oracle_arch.txt": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+  },
+  "calibration": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/calibration_train.bin",
+  "sources": 208,
+  "targets": 288,
+  "source_sha256": "07f3dcb040440550998b7a58c9fa6cf6eab280b2a6a8dbba1140917e586f0f79",
+  "compiler_flags": [
+    "-std=c++17",
+    "-O3",
+    "-DNDEBUG",
+    "-DEST_RESIDUAL_BATCH",
+    "-DEST_RESIDUAL"
+  ],
+  "image": "fpga-ziguang:latest",
+  "residual_header_sha256": "d5e6aa19d176766a7c973e9e99562d957e836f91d64ead1dfd3eb2b9b14d81e9",
+  "bound_sha256": "a645f52dbca4157c04d1e6c7fb845e0e3fc780819ea887559f11865ec4c13c9d",
+  "residual_runtime_sha256": "e462b823395eb9696809ebef4f147736370d76151b2449928474562c876b6ebd",
+  "libraries": [
+    "-lz"
+  ]
+}

@@ -42,9 +42,9 @@ static bool residualInit() {
 
 static inline int rmod(int value,int period) { int r=value%period; return r<0?r+period:r; }
 
-static double residualPrediction(int sx,int sy,int tx,int ty,int source,int target,long base) {
+static bool residualFeatures(int sx,int sy,int tx,int ty,int source,int target,long base,RFeature* f) {
     int sp=RSourceIndex[source],tp=RTargetIndex[target];
-    if (sp<0 || tp<0) return base;
+    if (sp<0 || tp<0) return false;
     int dx=tx-sx,dy=ty-sy,ax=abs(dx),ay=abs(dy),ndx=netdx[source],ndy=netdy[source];
     int lx=max(0,min(W-1,sx+ndx)),ly=max(0,min(H-1,sy+ndy)),rx=dx-ndx,ry=dy-ndy;
     auto cross=[](int a,int b) {return (a<=75 && b>=90)||(b<=75 && a>=90);};
@@ -57,7 +57,6 @@ static double residualPrediction(int sx,int sy,int tx,int ty,int source,int targ
     int bound=INT_MIN;
     for(int d=0;d<4;d++) bound=max(bound,(int)q[d]+(RSlopes[d][0]*(dx-mx)+RSlopes[d][1]*(dy-my))/12);
     bound+=ngx+ngy;
-    float f[RFeatures];
     f[RF_sx]=sx;f[RF_sy]=sy;f[RF_tx]=tx;f[RF_ty]=ty;
     f[RF_dx]=dx;f[RF_dy]=dy;f[RF_ax]=ax;f[RF_ay]=ay;f[RF_distance]=ax+ay;
     f[RF_source]=source;f[RF_target]=target;f[RF_source_family]=RFamily[source];f[RF_target_family]=RFamily[target];
@@ -74,6 +73,12 @@ static double residualPrediction(int sx,int sy,int tx,int ty,int source,int targ
     f[RF_gap_x]=gapx;f[RF_gap_y]=gapy;f[RF_net_gap_x]=ngx;f[RF_net_gap_y]=ngy;
     f[RF_base]=base;f[RF_base_minus_gap]=base-ngx-ngy;f[RF_net_length]=abs(ndx)+abs(ndy);
     f[RF_direction]=2*(dx<0)+(dy<0);f[RF_bound]=bound;f[RF_base_minus_bound]=base-bound;
+    return true;
+}
+
+static double residualPrediction(int sx,int sy,int tx,int ty,int source,int target,long base) {
+    RFeature f[RFeatures];
+    if(!residualFeatures(sx,sy,tx,ty,source,target,base,f)) return base;
 #ifdef EST_RESIDUAL_DIRECT
     double delta=rDirectPredict(f);
 #else
@@ -93,5 +98,5 @@ static double residualPrediction(int sx,int sy,int tx,int ty,int source,int targ
     }
 #endif
     double pred=max(0.,floor((double)base+delta+.5));
-    return RClamp?max(pred,(double)bound):pred;
+    return RClamp?max(pred,(double)f[RF_bound]):pred;
 }

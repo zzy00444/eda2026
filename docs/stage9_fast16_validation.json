@@ -1,0 +1,13 @@
+{
+  "candidate": "stage9_fast16",
+  "binary_sha256": "04cf060c823adee7449680e1b80a945b58990cace59d522dc9bed8ea939cefe1",
+  "zip_sha256": "03ef041b30a188ccaf89c938c483a320dd5a656c2be9efff1c25c4a257592880",
+  "reports": {
+    "integration": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "contract": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "standalone": "18ee77109f2083794d6a9aab0a2a123620024d512ea53559bf4e5ca5dace004a"
+  },
+  "image": "fpga-ziguang:latest",
+  "memory_limit_bytes": 2000000000,
+  "all_passed": true
+}

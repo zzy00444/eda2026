@@ -62,9 +62,10 @@
     "base_minus_bound"
   ],
   "nodes": 8144,
-  "header_sha256": "e0df3ccb2c96fd7b43fb89370b45e3d7bf40e7142f26fb4f92dbdf547aed62bc",
+  "header_sha256": "b6a9d5954821aa46379ccc94ad9692db1ff03e60ccb6b88e31f05ae7e6c86672",
   "bound_sha256": "a645f52dbca4157c04d1e6c7fb845e0e3fc780819ea887559f11865ec4c13c9d",
   "direct_cpp_branches": true,
+  "integer_features": true,
   "valid": {
     "rows": 50000,
     "accuracy": 98.02137398504067,

@@ -1,0 +1,341 @@
+{
+  "stage": 9,
+  "date": "2026-10-21",
+  "candidate": "stage9_fast16",
+  "binary": "solution/bin/estimate",
+  "submission": "solution/submission.zip",
+  "retained_alternative": false,
+  "cpu_budget_seconds": 1800,
+  "design": "stage8 + exact periodic envelope + frozen weighted-L1 position residual; direct C++ trees",
+  "validation_accuracy": 98.02137398504067,
+  "test_accuracy": 98.03124802386422,
+  "mean_10m_cpu_seconds": 7.6307258000000004,
+  "projected_1b_cpu_seconds": 763.07258,
+  "projected_total": 92.06606025242472,
+  "output_10m_sha256": "5689681c45088883a8c9cff874b98fa421e706cd75660108d2392fa1363b9cad",
+  "full_public_accuracy": 98.16667009749925,
+  "position_assess": {
+    "rows": 180375,
+    "accuracy": 98.04635617066864,
+    "mae_ps": 10.342674982674982,
+    "rmse_ps": 18.506630978095128,
+    "abs_error_p50_p90_p99": [
+      6.0,
+      23.0,
+      76.0
+    ],
+    "signed_error_ps": -1.8277920997920998
+  },
+  "reserved_48": {
+    "rows": 48,
+    "accuracy": 87.93654502616702,
+    "mae_ps": 18.520833333333332,
+    "rmse_ps": 26.099568961957974,
+    "abs_error_p50_p90_p99": [
+      11.5,
+      48.30000000000005,
+      68.18
+    ],
+    "signed_error_ps": -1.8958333333333333
+  },
+  "output_1m_sha256": "eb3c20d6ef5f8b45806a0a1e056f723c8e02cac62b800416cfd69f8f32d24c3e",
+  "python_cpp_mismatch_count": 0,
+  "max_process_rss_kib": 222848,
+  "max_container_bytes": 649625600,
+  "max_threads": 1,
+  "cpu_10m_range": [
+    7.5291690000000004,
+    7.750737
+  ],
+  "package": {
+    "candidate": "stage9_fast16",
+    "binary_bytes": 102176663,
+    "zip_bytes": 98376571,
+    "binary_sha256": "04cf060c823adee7449680e1b80a945b58990cace59d522dc9bed8ea939cefe1",
+    "zip_sha256": "03ef041b30a188ccaf89c938c483a320dd5a656c2be9efff1c25c4a257592880",
+    "contents": [
+      "bin/estimate"
+    ],
+    "unix_mode": "100755"
+  },
+  "build": {
+    "binary_sha256": "04cf060c823adee7449680e1b80a945b58990cace59d522dc9bed8ea939cefe1",
+    "binary_bytes": 102176663,
+    "table_sha256": {
+      "oracle_vt.bin": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a",
+      "oracle_U.bin": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f",
+      "oracle_M.bin": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d",
+      "oracle_ids.txt": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a",
+      "oracle_arch.txt": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/calibration_train.bin",
+    "sources": 208,
+    "targets": 288,
+    "source_sha256": "07f3dcb040440550998b7a58c9fa6cf6eab280b2a6a8dbba1140917e586f0f79",
+    "compiler_flags": [
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-DEST_RESIDUAL_BATCH",
+      "-DEST_RESIDUAL"
+    ],
+    "image": "fpga-ziguang:latest",
+    "residual_header_sha256": "b6a9d5954821aa46379ccc94ad9692db1ff03e60ccb6b88e31f05ae7e6c86672",
+    "bound_sha256": "a645f52dbca4157c04d1e6c7fb845e0e3fc780819ea887559f11865ec4c13c9d",
+    "residual_runtime_sha256": "e462b823395eb9696809ebef4f147736370d76151b2449928474562c876b6ebd",
+    "libraries": [
+      "-lz"
+    ]
+  },
+  "embedded_assets": {
+    "oracle_vt.bin": {
+      "bytes": 68174616,
+      "sha256": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a"
+    },
+    "oracle_U.bin": {
+      "bytes": 15335960,
+      "sha256": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f"
+    },
+    "oracle_M.bin": {
+      "bytes": 119820,
+      "sha256": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d"
+    },
+    "oracle_ids.txt": {
+      "bytes": 2332,
+      "sha256": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a"
+    },
+    "oracle_arch.txt": {
+      "bytes": 720564,
+      "sha256": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration_train.bin": {
+      "bytes": 5760,
+      "sha256": "294ccb9669e3b2665825c70b20b7a34250ed479ef051dfb2fd4f329e4bb7d11d"
+    }
+  },
+  "bound_encoding": {
+    "codec": "exact /12; source-target-phase order; phase delta; signed byte with 0x80+i16 escape; zlib6",
+    "shape": [
+      4,
+      208,
+      288,
+      120
+    ],
+    "compressed_bytes": 17424731,
+    "decoded_stream_bytes": 31227616,
+    "table_bytes": 57507840,
+    "table_crc32": 2715333862,
+    "compressed_sha256": "a645f52dbca4157c04d1e6c7fb845e0e3fc780819ea887559f11865ec4c13c9d",
+    "source_table_sha256": "b294ea672d1c5dc1cf6a7e96279f73584c45c613bf30ebffa537120b93f1ae1f",
+    "source_meta_sha256": "a7f82b4d832fb4005c6202a2dc71cc276ce594768e28463d81e5f843ad4459ac",
+    "slopes": [
+      [
+        150,
+        127
+      ],
+      [
+        150,
+        -125
+      ],
+      [
+        -150,
+        127
+      ],
+      [
+        -150,
+        -125
+      ]
+    ],
+    "all_values_roundtrip_verified": true
+  },
+  "residual": {
+    "candidate": "stage9_fast16",
+    "model": "residual_bound_255_fast",
+    "model_sha256": "6f01557a4b7005d1abae8d5cfe083f0282f5bbca41794bc5a313dff63847d129",
+    "trees": 16,
+    "bound_clamp": true,
+    "feature_names": [
+      "sx",
+      "sy",
+      "tx",
+      "ty",
+      "dx",
+      "dy",
+      "ax",
+      "ay",
+      "distance",
+      "source",
+      "target",
+      "source_family",
+      "target_family",
+      "source_bit",
+      "target_bit",
+      "ndx",
+      "ndy",
+      "rx",
+      "ry",
+      "rax",
+      "ray",
+      "overx",
+      "overy",
+      "dx_mod",
+      "dy_mod",
+      "rx_mod",
+      "ry_mod",
+      "sx_mod",
+      "sy_mod",
+      "tx_mod",
+      "ty_mod",
+      "source_band",
+      "target_band",
+      "source_phase",
+      "target_phase",
+      "cross",
+      "landing_cross",
+      "source_wall",
+      "landing_wall",
+      "target_wall",
+      "source_door_distance",
+      "landing_door_distance",
+      "target_door_distance",
+      "edge_x",
+      "edge_y",
+      "gap_x",
+      "gap_y",
+      "net_gap_x",
+      "net_gap_y",
+      "base",
+      "base_minus_gap",
+      "net_length",
+      "direction",
+      "bound",
+      "base_minus_bound"
+    ],
+    "nodes": 8144,
+    "header_sha256": "b6a9d5954821aa46379ccc94ad9692db1ff03e60ccb6b88e31f05ae7e6c86672",
+    "bound_sha256": "a645f52dbca4157c04d1e6c7fb845e0e3fc780819ea887559f11865ec4c13c9d",
+    "direct_cpp_branches": true,
+    "integer_features": true,
+    "valid": {
+      "rows": 50000,
+      "accuracy": 98.02137398504067,
+      "mae_ps": 10.44708,
+      "rmse_ps": 18.701303697870905,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        23.0,
+        76.0
+      ],
+      "signed_error_ps": -1.8546
+    },
+    "test": {
+      "rows": 50000,
+      "accuracy": 98.03124802386422,
+      "mae_ps": 10.42708,
+      "rmse_ps": 18.634433718253955,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        23.0,
+        79.0
+      ],
+      "signed_error_ps": -1.84996
+    },
+    "position_assess": {
+      "rows": 180375,
+      "accuracy": 98.04635617066864,
+      "mae_ps": 10.342674982674982,
+      "rmse_ps": 18.506630978095128,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        23.0,
+        76.0
+      ],
+      "signed_error_ps": -1.8277920997920998
+    },
+    "full_public": {
+      "rows": 1000000,
+      "accuracy": 98.16667009749925,
+      "mae_ps": 9.960246,
+      "rmse_ps": 18.11298258156287,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        22.0,
+        76.0
+      ],
+      "signed_error_ps": -1.825516
+    },
+    "caveat": "Historical regression slices; new residual excludes held source coordinates, inherited stage8 does not"
+  },
+  "comparison_same_batch": {
+    "displacement_cal16": {
+      "test_accuracy": 97.6508289022556,
+      "mean_10m_cpu_seconds": 1.8860508,
+      "projected_1b_cpu_seconds": 188.60508000000002,
+      "projected_total": 96.54895412180448,
+      "output_10m_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62"
+    },
+    "stage9_fast16": {
+      "test_accuracy": 98.03124802386422,
+      "mean_10m_cpu_seconds": 7.6307258000000004,
+      "projected_1b_cpu_seconds": 763.07258,
+      "projected_total": 92.06606025242472,
+      "output_10m_sha256": "5689681c45088883a8c9cff874b98fa421e706cd75660108d2392fa1363b9cad"
+    },
+    "stage9_accurate64": {
+      "test_accuracy": 98.06906867758198,
+      "mean_10m_cpu_seconds": 16.8725238,
+      "projected_1b_cpu_seconds": 1687.25238,
+      "projected_total": 84.3948184420656,
+      "output_10m_sha256": "c2e991b25cdc096baf4f07a4482936613e80d66cfa1c054af0e03d7d4e281989"
+    }
+  },
+  "selection_reason": "Choose the faster validated candidate above 98; retain accurate64 for extra accuracy and stage8 for speed and higher projected total",
+  "projected_total_delta_vs_stage8": -4.482893869379765,
+  "evidence_sha256": {
+    "stage9_final_benchmark.json": "41ca2a4d6969708fb98ce23450ae7f311661915195bf2d24ed530ed178f13191",
+    "stage9_generalization.json": "391267d70beb0b2d7959c705edd690edcafe92092c0fcf1184755891f5742859",
+    "stage9_bound_encoding.json": "d6ed4651c195e71dfa2c1a2a04be60d961f94d733c42a1b9319f80d656d07587",
+    "stage8_manifest.json": "57ad12c9c6c2628d5e6841ef75537106c36bda653cf94310458eec2495d384cb",
+    "stage9_fast16_analysis.json": "7a10faabd28ff2bbb00cca9c3316ad22a8400be16cd5f0ba1ace4860a9e913fa",
+    "stage9_fast16_export.json": "871a6858e30013a30f869127e293a6d78b6086265ca12c968984255badfe04d8",
+    "stage9_fast16_package.json": "c4ee26691ed81535715f8e95cbde2c4d52ad97b41c492befa6ebd099a72612cb",
+    "stage9_fast16_validation.json": "82ca43b8f1b9c9aa7e2f30f7b3734b24fa88ac0d72fe05c3fc640b8d17ba2bf3",
+    "stage9_fast16_integration.json": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "stage9_fast16_contract.json": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "stage9_fast16_standalone.json": "18ee77109f2083794d6a9aab0a2a123620024d512ea53559bf4e5ca5dace004a",
+    "residual_bound_255_fast.json": "b729d15c334816fc09cc81482d3e204f6bfa58356038deb0437c04ad4c907464",
+    "residual_selection.json": "0f7e91aa3013df66b2f63541405a8f2df4f124ddc4f5d0ffbdf3470e2aee0488",
+    "displacement_refit.json": "2453a9f31557862ca75ef0cb8e69622a0b58fe273c7ab86a90f9c001273a920c",
+    "U_refit_q16_quantization.json": "04ab4170f90c30f38cd5ebf9f8a41a7df56f676566eeb95907d40938ff1e81b0",
+    "displacement_train_calibration.json": "e04ca15a920ba058e6e5a696741383a2df4ecb8d43e3a14b0e510abb6e8db3c0"
+  },
+  "source_sha256": {
+    "solution\\src\\displacement.cpp": "07f3dcb040440550998b7a58c9fa6cf6eab280b2a6a8dbba1140917e586f0f79",
+    "solution\\src\\displacement_residual_runtime.hpp": "e462b823395eb9696809ebef4f147736370d76151b2449928474562c876b6ebd",
+    "solution\\tools\\displacement_residual.py": "6b67dc99cd3f6996075e01b8cb80827e9f619bad430c1f4aa14a03ffe85378fc",
+    "solution\\tools\\displacement_residual_export.py": "3a999e1ee57ac5a16f3761221946134211436ea39c85e5466a4b6921d782e88a",
+    "solution\\tools\\displacement_residual_verify.py": "92eb552a41a48788e99ae00d95d9439e8a2e6c0f243230d0f076a62b494d0f86",
+    "solution\\tools\\displacement_bound_pack.py": "8d6bf74d2307efefc01e339b9f3e7aeb1b25d4dce575a3baf280af5fc16083a7",
+    "solution\\tools\\displacement_residual_select.py": "ffc9d222b3d72712a40fc450af4a04cd8243a43c0eb4a72caf46fba0c0f26ab4",
+    "solution\\tools\\displacement_assets.py": "3ae2026c5b178b0d2946f4f6f305932d3a889f0c3fad8be4060db3663b97aea3",
+    "solution\\tools\\displacement_run.py": "faf4bf84c734295d9779906a04d8fb53d74a67d1a8dab07c9bd0cb06fa08028e",
+    "solution\\tools\\displacement_analyze.py": "93ad898f8a0612246dce907ca0d0d3cabd5d528e43afc2ccc37480ae85e9eeaa",
+    "solution\\tools\\displacement_package.py": "9fca62456cf10b002c108e78a1d1378f9f473979de3e1ddc62e8dcc5a54522a6",
+    "solution\\tools\\displacement_contract.py": "0b0df6398df78f1f910f6890e1601b45943e82a7484aedfc829097d8adb5ef6b",
+    "solution\\tools\\benchmark.py": "df4cdb157565a117703f970deda1006e2c966f6b4f21836b9c52ff35a11209b3",
+    "solution\\tools\\integration.py": "e974de98bd3a6ed71f96e56c7a4e19019f7fbc9efdc3c987c42182b2a64387a3",
+    "solution\\tools\\standalone.py": "557a0b906e84709968bb7b763c7ca666c15c44fb698453c161b92fda0789d2f1",
+    "solution\\tools\\architecture.py": "d69fbf1b13c3e2ef4d3d8b90f6732fa3c9b4f31de4e98d0f8ca40b32e9b358af",
+    "solution\\tools\\release_stage8.py": "43a5d4d0ee0033760cb98a35d8ee472f76be2ca860c80acf93c21ff55231b29a",
+    "solution\\tools\\release_stage9.py": "1ca7a57746b589f63ef27c2c8fb1c181de1e3f6f93512f844df8c248286859cf"
+  },
+  "official_score": false,
+  "full_1b_completed": false,
+  "limitations": [
+    "Historical rng7 regression slices, not a blind test",
+    "Position holdout excludes only newly fitted residual parameters",
+    "CPU timing extrapolated from 10M; initialized model cost is included in each run",
+    "48 exact reserved queries do not represent the full hidden distribution",
+    "Unsupported directions and invalid Net landing retain zero fallback"
+  ]
+}

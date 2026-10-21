@@ -1,0 +1,15 @@
+{
+  "interface_checks": [
+    "LF",
+    "CRLF",
+    "UTF8_BOM",
+    "no_trailing_newline",
+    "blank_lines",
+    "order_and_names",
+    "identical_pin_zero",
+    "header_only",
+    "invalid_port_rejected",
+    "invalid_fields_rejected",
+    "invalid_header_rejected"
+  ]
+}

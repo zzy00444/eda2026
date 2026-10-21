@@ -8,11 +8,11 @@
   "caveat": "Historical rng7 regression slices, not blind; only new residual parameters exclude held source coordinates",
   "candidates": {
     "stage9_fast16": {
-      "binary_sha256": "8bcdaafa9604aafd664725e2b29e728ff40ddafef4f0425f42caafb90acd1fab",
+      "binary_sha256": "04cf060c823adee7449680e1b80a945b58990cace59d522dc9bed8ea939cefe1",
       "output_sha256": "eb3c20d6ef5f8b45806a0a1e056f723c8e02cac62b800416cfd69f8f32d24c3e",
       "reference_sha256": "785fd95e4db3e013c8b3a90c6a87fee25e99a8028d79063efc22373f05a5302f",
       "prediction_sha256": "785fd95e4db3e013c8b3a90c6a87fee25e99a8028d79063efc22373f05a5302f",
-      "export_report_sha256": "39f542f0011fcb45b536e9c346afaa52ac4661fef819db148b11ea452105ee75",
+      "export_report_sha256": "871a6858e30013a30f869127e293a6d78b6086265ca12c968984255badfe04d8",
       "rows": 1000000,
       "python_cpp_mismatch_count": 0,
       "max_absolute_difference": 0,
@@ -82,11 +82,11 @@
       }
     },
     "stage9_accurate64": {
-      "binary_sha256": "b97d01134dba19203669714bdf1add8f3624e5c093ef7b85fd30921fc63ac8a9",
+      "binary_sha256": "701adce5c49f5629f18fafcb62bba303065069ae5a6ab30906b0eec5b33d24ad",
       "output_sha256": "f9b2786912d9ad91d99f2e46c177d5bc2930258ae66ad6c72c1dc60c711d462c",
       "reference_sha256": "96b7aa249fa70947cb968268d2ad5eff621b846e425212d113d8d3a8fd8aaee3",
       "prediction_sha256": "96b7aa249fa70947cb968268d2ad5eff621b846e425212d113d8d3a8fd8aaee3",
-      "export_report_sha256": "7702abb527de3d57433684010a92b142c4beb58f6c13c1d7d2ac5fd35b39c806",
+      "export_report_sha256": "9a3408d4e4b54b39cae3315f2c984809c9f5f07861c117345b12440480e443d0",
       "rows": 1000000,
       "python_cpp_mismatch_count": 0,
       "max_absolute_difference": 0,

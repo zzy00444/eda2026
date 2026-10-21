@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-21",
+  "windows": {
+    "removed": [
+      {
+        "path": "solution\\build\\displacement\\phase_raw.z",
+        "bytes": 39750795
+      },
+      {
+        "path": "solution\\build\\displacement\\source_raw.z",
+        "bytes": 33929006
+      },
+      {
+        "path": "solution\\build\\displacement\\phase_mixed_delta.z",
+        "bytes": 24710387
+      },
+      {
+        "path": "solution\\build\\displacement\\q_mixed_16.z",
+        "bytes": 23337173
+      },
+      {
+        "path": "solution\\build\\displacement\\bound_exact.z",
+        "bytes": 23180253
+      },
+      {
+        "path": "solution\\build\\displacement\\q_mixed_byteplanes.z",
+        "bytes": 22327517
+      },
+      {
+        "path": "solution\\build\\displacement\\phase_delta.z",
+        "bytes": 21058412
+      },
+      {
+        "path": "solution\\build\\displacement\\q_phase_16.z",
+        "bytes": 20568524
+      },
+      {
+        "path": "solution\\build\\displacement\\q_phase_byteplanes.z",
+        "bytes": 19104456
+      },
+      {
+        "path": "solution\\build\\displacement\\q_mixed_variable.z",
+        "bytes": 18538695
+      },
+      {
+        "path": "solution\\build\\displacement\\q_phase_variable.z",
+        "bytes": 17424731
+      },
+      {
+        "path": "solution\\build\\displacement\\displacement_caltrace_result.csv",
+        "bytes": 40333686
+      },
+      {
+        "path": "solution\\build\\displacement\\displacement_baseline_result.csv",
+        "bytes": 40333391
+      },
+      {
+        "path": "solution\\build\\displacement\\displacement_cal16_result.csv",
+        "bytes": 40333686
+      },
+      {
+        "path": "solution\\bin\\estimate_displacement_caltrace",
+        "bytes": 84423116
+      }
+    ],
+    "freed_file_bytes": 469353828
+  },
+  "preserved": [
+    "stage9_fast16 ELF and ZIP",
+    "stage9_accurate64 ELF and ZIP",
+    "stage8 and stage7 ELF and ZIP backups",
+    "frozen source models and headers",
+    "stage9_bound.z",
+    "reference and prediction arrays",
+    "geometry and required diagnostic traces"
+  ],
+  "note": "Logical file bytes removed; WSL VHD physical disk size is not automatically reclaimed",
+  "wsl": {
+    "removed": [
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_caltrace",
+        "bytes": 84423116
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_caltrace.raw",
+        "bytes": 63952
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_caltrace_trace.bin",
+        "bytes": 16000000
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_caltrace_result.csv",
+        "bytes": 40333686
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_baseline.raw",
+        "bytes": 59672
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_cal16.raw",
+        "bytes": 63920
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/stage9_accurate64.raw",
+        "bytes": 18175723
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/stage9_fast16.raw",
+        "bytes": 17817499
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/stage9_fast16_result.csv",
+        "bytes": 40333686
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/stage9_accurate64_result.csv",
+        "bytes": 40333645
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_baseline_result.csv",
+        "bytes": 40333391
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/displacement_cal16_result.csv",
+        "bytes": 40333686
+      },
+      {
+        "path": "/home/zzy/eda2026-displacement/request.csv",
+        "bytes": 35394624
+      }
+    ],
+    "freed_file_bytes": 373666600
+  },
+  "total_freed_file_bytes": 843020428
+}

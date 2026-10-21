@@ -758,6 +758,45 @@ int main(int argc, char** argv) {
             }
         }
 
+        // A tile keeps one tree's instructions hot while visiting independent
+        // queries. Each query still adds leaves in the original tree order.
+#ifdef EST_RESIDUAL_BATCH
+        vector<long> residualOutput(nr);
+        constexpr int RBatchSize=128;
+        RFeature residualFeatureTile[RBatchSize*RFeatures];
+        double residualDeltaTile[RBatchSize];
+        size_t residualIndexTile[RBatchSize];
+        for(size_t begin=0;begin<nr;begin+=RBatchSize) {
+            size_t end=min(nr,begin+RBatchSize);
+            int count=0;
+            for(size_t i=begin;i<end;i++) {
+                const Rec& R=RC[i];
+                long pred=0;
+                if(R.ncd && !R.same) {
+                    long c0=RA[i]+R.cpen0;
+                    if(R.ncd>1) c0=min(c0,RB[i]+R.cpen1);
+                    pred=c0+R.lgap+R.netWall;
+                    if(pred>0 && R.tgtIdx<nTgt) {
+                        int bucket=pred>=CALIB_BINS[3]?4:pred>=CALIB_BINS[2]?3:pred>=CALIB_BINS[1]?2:pred>=CALIB_BINS[0]?1:0;
+                        pred=llround((double)pred*Calib[(size_t)R.tgtIdx*5+bucket]);
+                    }
+                    if(residualFeatures(R.sx,R.sy,R.tx,R.ty,R.source,R.target,pred,
+                                        residualFeatureTile+(size_t)count*RFeatures)) {
+                        residualIndexTile[count]=i;
+                        residualDeltaTile[count++]=0.;
+                    }
+                }
+                residualOutput[i]=pred;
+            }
+            rBatchPredict(residualFeatureTile,residualDeltaTile,count);
+            for(int j=0;j<count;j++) {
+                size_t i=residualIndexTile[j];
+                long pred=max(0.,floor((double)residualOutput[i]+residualDeltaTile[j]+.5));
+                if(RClamp) pred=max(pred,(long)residualFeatureTile[(size_t)j*RFeatures+RF_bound]);
+                residualOutput[i]=pred;
+            }
+        }
+#endif
         // ---------------- phase C: emit in input order ----------------
         {
         char* op = outBuf;
@@ -824,7 +863,9 @@ int main(int argc, char** argv) {
                              pred >= CALIB_BINS[0] ? 1 : 0;
                 pred = llround((double)pred * Calib[(size_t)R.tgtIdx * 5 + bucket]);
             }
-#ifdef EST_RESIDUAL
+#ifdef EST_RESIDUAL_BATCH
+            pred=residualOutput[i];
+#elif defined(EST_RESIDUAL)
             if (R.ncd && !R.same) pred=(long)residualPrediction(R.sx,R.sy,R.tx,R.ty,R.source,R.target,pred);
 #endif
             if (pred > 0) {
