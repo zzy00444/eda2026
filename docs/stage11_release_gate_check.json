@@ -1,0 +1,14 @@
+{
+  "candidate": "stage11_compactw160",
+  "default_promotion_rejected": true,
+  "expected_reason": "joint score gate failed: below same-batch stage10 incumbent",
+  "default_before_sha256": [
+    "46a06e7daf4061abbf425e2b8dd5d531cb38085cb2d3c0c473e54262cabcc9d3",
+    "9c96fac936ee1bfc6901bc746bc3f5fcc91fa1b8619df057c4107582e01391dc"
+  ],
+  "default_after_sha256": [
+    "46a06e7daf4061abbf425e2b8dd5d531cb38085cb2d3c0c473e54262cabcc9d3",
+    "9c96fac936ee1bfc6901bc746bc3f5fcc91fa1b8619df057c4107582e01391dc"
+  ],
+  "unchanged": true
+}

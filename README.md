@@ -1,48 +1,38 @@
 # EDA 2026 FPGA 延时估算
 
-第十一阶段正在按[基线匹配与分区相对误差压缩计划](docs/第十一阶段优化计划.md)推进，目标 98.25 / 同批综合分优势约 0.2；过程见[实时记录](docs/第十一阶段优化记录.md)。本轮尚未替换下述第十阶段发布版。
+2026-10-21 完成[第十一阶段](docs/第十一阶段优化记录.md)：当前默认为 `stage11_balancedw64`，另保留合法包中精度最高的 `stage11_compactw160`。第十阶段两版及第七至九阶段旧发布版全部保留。本轮仅用本地 Docker，未提交赛事远程平台，未推送 Git。
 
-2026-10-21 已完成[第十阶段联合优化计划](docs/第十阶段精度与综合分联合优化计划.md)：默认改为 `stage10_local96w64`，验证/测试准确度均超过 98，预计综合分高于同批第八阶段。另保留本轮已验收最高精度 `stage10_local160w160`；第九阶段两个包及第八阶段速度包全部保留。方法、负结果和复现见[第十阶段记录](docs/第十阶段优化记录.md)。本轮仅做本地 Docker 测试，未提交赛事平台。
+## 当前结果与产物
 
-## 产物与结果
+下表来自同批五轮 **100M** 的 CPU 均值，时间乘 10 外推 1B。准确度是赛题相对误差得分；历史公开切片不是盲测，外推总分不是官方成绩。
 
-下表为同机、相同输入、正反交错五轮 10M 的 CPU 均值。准确度是赛题相对误差得分；固定 rng7 切片已在历史开发中查看。全量 1B 和官方隐藏集尚未评测，1B 用时及总分均为外推。
-
-| 方案 | 验证准确度 | 测试回归准确度 | 10M CPU | 1B CPU 外推 | 预计总分 |
+| 方案 | 验证准确度 | 测试准确度 | 100M CPU | 1B CPU 外推 | 预计总分 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 第八阶段速度参照 | 97.638770 | 97.650829 | 2.420913 s | 4.035 分钟 | 96.103236 |
-| **第十阶段默认，96 维+稀疏墙内 64 树** | 98.015370 | 98.021603 | 2.691408 s | 4.486 分钟 | **96.174442** |
-| **额外保留高精度，160 维+稀疏墙内 160 树** | **98.079389** | **98.074532** | 2.973247 s | **4.955 分钟** | 95.981920 |
+| displacement_cal16 | 97.638770 | 97.650829 | 20.785931 s | 207.859 s | 96.388502 |
+| stage10_local96w64 | 98.015370 | 98.021603 | 21.246623 s | 212.466 s | 96.646730 |
+| stage11_fastw64 | 98.077092 | 98.073604 | 19.887726 s | 198.877 s | 96.801573 |
+| **stage11_balancedw64** | 98.202309 | 98.192013 | 20.045812 s | 200.458 s | 96.883126 |
+| stage11_compactw160 | 98.258566 | 98.247955 | 24.471854 s | 244.719 s | 96.559043 |
 
-默认版比同批第八阶段预计总分高 **0.071206**，优势较小；高精度版未过综合分门槛，仅按用户要求额外保留。高精度版五轮每次外推 4.488～5.388 分钟，均低于 30 分钟。历史第八阶段曾测得 96.548954，本轮默认比该历史数值低 0.374512；CPU 波动明显，按预定口径以同批比较验收，不能跨批拼接时间声称绝对超越历史。远程用时尚未测量。
+默认比同批第八阶段的预计综合分高 **0.494624**，比同批第十阶段默认高 **0.236396**。精度版验证/测试为 **98.258566 / 98.247955**，测试比 98.25 低约 0.002045，严格目标尚未完全达到；其综合分 高于同批第八阶段 0.170541，但低于同批第十阶段默认 0.087687，按用户要求额外保留，不能把两套配置的精度和速度拼成一个成绩。
 
-| 用途 | 提交包 | ZIP 字节 | 发布证据 |
+| 用途 | 提交包 | ZIP 字节 | 证据 |
 | --- | --- | ---: | --- |
-| 默认，联合验收通过 | [submission.zip](solution/submission.zip)，同 [stage10_local96w64_submission.zip](solution/stage10_local96w64_submission.zip) | 87,769,854 | [默认清单](docs/stage10_manifest.json) |
-| 本轮已验收最高精度，额外保留 | [stage10_local160w160_submission.zip](solution/stage10_local160w160_submission.zip) | 92,486,699 | [高精度清单](docs/stage10_accuracy_manifest.json) |
-| 速度与综合分参照 | [displacement_cal16_submission.zip](solution/displacement_cal16_submission.zip) | 80,797,119 | [第八阶段历史清单](docs/stage8_manifest.json) |
-| 第九阶段旧默认 | [stage9_fast16_submission.zip](solution/stage9_fast16_submission.zip) | 98,376,571 | [第九阶段清单](docs/stage9_manifest.json) |
-| 第九阶段旧高精度 | [stage9_accurate64_submission.zip](solution/stage9_accurate64_submission.zip) | 98,540,421 | [第九阶段高精度清单](docs/stage9_accuracy_manifest.json) |
+| 默认 | [submission.zip](solution/submission.zip)，同 [stage11_balancedw64_submission.zip](solution/stage11_balancedw64_submission.zip) | 98,094,824 | [默认清单](docs/stage11_manifest.json) |
+| 额外最高精度 | [stage11_compactw160_submission.zip](solution/stage11_compactw160_submission.zip) | 99,807,086 | [高精度清单](docs/stage11_accuracy_manifest.json) |
+| 已验收速度候选 | [stage11_fastw64_submission.zip](solution/stage11_fastw64_submission.zip) | 94,987,753 | [独立参考](docs/stage11_fastw64_reference.json) |
+| 第十阶段旧默认 / 旧精度版 | [96维](solution/stage10_local96w64_submission.zip) / [160维](solution/stage10_local160w160_submission.zip) | 87,769,854 / 92,486,699 | [历史默认](docs/stage10_manifest.json) / [历史精度](docs/stage10_accuracy_manifest.json) |
+| 第八阶段参照 | [displacement_cal16_submission.zip](solution/displacement_cal16_submission.zip) | 80,797,119 | [历史清单](docs/stage8_manifest.json) |
 
-两个新包均只包含 `bin/estimate`，通过百万行独立 Python/C++ 零差异、五次 10M 输出一致与重复内容核对、11 项接口、11 项额外错误/边界及 ZIP 空目录独立运行。容器峰值分别为 616,259,584 / 635,576,320 B，观察线程数 1；容器限额精确为 2,000,000,000 B。见[最终基准](docs/stage10_final_benchmark.json)、[默认验收](docs/stage10_local96w64_validation.json)和[高精度验收](docs/stage10_local160w160_validation.json)。
-
-新增参数的源坐标留出准确度为 98.041809 / 98.095581；继承的第八阶段参数曾使用这些位置，所以它不是全系统位置隔离。48 条保留位置精确查询中，第八阶段为 88.050655，新默认为 93.903862，高精度为 94.506240，仍有结构误差。这些结果不能证明隐藏集达到 98，详见[默认参考](docs/stage10_local96w64_reference.json)和[高精度参考](docs/stage10_local160w160_reference.json)。
+精度版每轮 1B 外推 4.008～4.186 分钟，均小于 30 分钟。三个新候选均通过百万行独立 Python/C++ 零差异、56 条精确查询、五轮重复内容核对、11 项接口、11 项边界及 ZIP 空目录独立运行。100M 的 cgroup 峰值含文件页缓存，最大 1,999,998,976 B；进程峰值 RSS 见原始报告。
 
 ## 环境与数据
 
-本机为 Windows、WSL2 `Ubuntu-20.04`、Docker Desktop，镜像 `fpga-ziguang:latest`，登记工具链 GCC 11.4.0、Linux/amd64。Docker Desktop 须启用该发行版的 WSL Integration；镜像含新运行时需要的 zlib。
+Windows、WSL2 `Ubuntu-20.04`、Docker Desktop，镜像 `fpga-ziguang:latest`，GCC 11.4、Linux/amd64。Docker 须开启该发行版的 WSL Integration。精度版使用镜像已有的 `liblzma.so.5` 解压内嵌局部矩阵，不需要外部模型文件。
 
-```powershell
-wsl --list --verbose
-wsl -d Ubuntu-20.04 -- docker version
-wsl -d Ubuntu-20.04 -- docker image inspect fpga-ziguang:latest
-```
+官方数据默认 `F:\EDA\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay`，应含 `arch/SRB_*.json` 和 `data/delay_estimate_ans.csv`；可设置 `EDA_DATA_DIR`。Windows Python 为 `F:\EDA\solution\.venv\Scripts\python.exe`，依赖见 `solution/requirements.txt`。外部 `F:\EDA\pango_delay_handover_v3` 只读，仅读取已完成生成距离表，未运行其脚本。
 
-若镜像缺失且本机有归档，可执行 `wsl -d Ubuntu-20.04 -- docker load -i /mnt/f/EDA/fpga-ziguang-latest.tar`。环境历史在仓库外 `F:\EDA\评测环境记录.md`。
-
-官方数据不入 Git，默认 `F:\EDA\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay`，应含 `arch/SRB_*.json` 和 `data/delay_estimate_ans.csv`；也可设置 `EDA_DATA_DIR`。本机 Windows Python 为 `F:\EDA\solution\.venv\Scripts\python.exe`，依赖见 `solution/requirements.txt`。新环境可执行 `python -m venv .venv`，再用其中的 Python 安装依赖。
-
-新克隆没有请求缓存时，从仓库根目录生成：
+新克隆生成请求缓存：
 
 ```powershell
 $env:EDA_DATA_DIR = 'F:\EDA\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay'
@@ -51,39 +41,26 @@ $env:EDA_DATA_DIR = 'F:\EDA\EDA-PANGO-SRB-Arch-Delay\EDA-PANGO-SRB-Arch-Delay'
 
 ## 重建与验收
 
-源码为 [displacement.cpp](solution/src/displacement.cpp)、[局部残差运行时](solution/src/displacement_local_runtime.hpp)和[稀疏墙内运行时](solution/src/displacement_wall_runtime.hpp)。基础冻结资产来自用户提供的 Pango 工程，见[导入指纹](docs/displacement_import.json)和[基础重建](docs/完整位移模型优化记录.md)。本轮只读外部已完成生成距离表并记录来源，不改动外部工程或赛题附件，也未运行外部训练脚本。
+源码为 [displacement.cpp](solution/src/displacement.cpp)、[局部压缩运行时](solution/src/displacement_local_runtime.hpp)、[稀疏墙内运行时](solution/src/displacement_wall_runtime.hpp)。基础为完整位移 rank128；局部使用互斥位移区域、生成距离相对误差权重、稀疏端口映射以及独立秩。匹配消融发现旧 M/校准调整只有很小收益，因此保留旧校准，新局部残差直接匹配 refit 基线。
 
-Git 不包含 ELF、ZIP、二进制模型、公开数据和大缓存，不能仅凭克隆直接构建。按[第十阶段记录](docs/第十阶段优化记录.md)依次生成局部因子、导出量化资产、运行局部基线、训练并导出稀疏墙内树。当前两候选不使用第九阶段包络资产。已有冻结资产时，快速重建默认：
+Git 不含 ELF、ZIP、二进制模型、公开数据及大缓存。先按[第八阶段记录](docs/完整位移模型优化记录.md)重建基础冻结资产，再按[第十一阶段记录](docs/第十一阶段优化记录.md)再生分区因子、从冻结 profile 导出资产、训练墙内模型。已有资产时的构建、独立参考、打包、验收命令也在该记录中。
 
-```powershell
-wsl -d Ubuntu-20.04 -- python3 /mnt/f/EDA/solution/eda2026/solution/tools/displacement_run.py build stage10_local96w64 --u /mnt/f/EDA/solution/eda2026/solution/build/displacement/U_refit_q16.bin --m /mnt/f/EDA/solution/eda2026/solution/build/displacement/M_refit.bin --calibration /mnt/f/EDA/solution/eda2026/solution/build/displacement/calibration_train.bin --local-file /mnt/f/EDA/solution/eda2026/solution/build/displacement/stage10_local96.local --wall-header /mnt/f/EDA/solution/eda2026/solution/build/displacement/stage10_local96w64.wall.hpp --define EST_FAST_ROUND
-wsl -d Ubuntu-20.04 -- python3 /mnt/f/EDA/solution/eda2026/solution/tools/displacement_run.py run stage10_local96w64
-& F:\EDA\solution\.venv\Scripts\python.exe solution\tools\displacement_analyze.py stage10_local96w64
-& F:\EDA\solution\.venv\Scripts\python.exe solution\tools\displacement_package.py stage10_local96w64
-wsl -d Ubuntu-20.04 -- python3 /mnt/f/EDA/solution/eda2026/solution/tools/displacement_run.py validate stage10_local96w64
-```
-
-候选构建共用 WSL 头文件，必须顺序执行，工作目录为 `/home/zzy/eda2026-displacement`。Linux ELF 不从 Windows 直接运行。重新发布前，两候选需完成精确参考查询、逐行参考核对及同批五轮基准：
+构建共用 `/home/zzy/eda2026-displacement` 的生成头，必须顺序执行；测时不运行训练、压缩或其他估算器。最终基准：
 
 ```powershell
-wsl -d Ubuntu-20.04 -- python3 /mnt/f/EDA/solution/eda2026/solution/tools/displacement_run.py run stage10_local96w64 stage10_local160w160 --request /mnt/f/EDA/solution/eda2026/solution/build/displacement/oracle_request.csv --suffix oracle
-& F:\EDA\solution\.venv\Scripts\python.exe solution\tools\displacement_local_verify.py stage10_local96w64 --local-file stage10_local96.local --wall-model stage10_local96_wall --trees 64
-& F:\EDA\solution\.venv\Scripts\python.exe solution\tools\displacement_local_verify.py stage10_local160w160 --local-file stage10_local160.local --wall-model stage10_local160_wall --trees 160
-wsl -d Ubuntu-20.04 -- python3 /mnt/f/EDA/solution/eda2026/solution/tools/displacement_run.py benchmark displacement_cal16 stage10_local96w64 stage10_local160w160 --runs 5 --tag stage10_final
-& F:\EDA\solution\.venv\Scripts\python.exe solution\tools\release_stage10.py stage10_local160w160 --retain
-& F:\EDA\solution\.venv\Scripts\python.exe solution\tools\release_stage10.py stage10_local96w64
+wsl -d Ubuntu-20.04 -- python3 /mnt/f/EDA/solution/eda2026/solution/tools/displacement_run.py benchmark displacement_cal16 stage10_local96w64 stage11_fastw64 stage11_balancedw64 stage11_compactw160 --runs 5 --repeat 100 --tag stage11_final
+& F:\EDA\solution\.venv\Scripts\python.exe solution/tools/release_stage11.py stage11_compactw160 --retain
+& F:\EDA\solution\.venv\Scripts\python.exe solution/tools/release_stage11.py stage11_balancedw64
 ```
 
-发布器核对源码、生成头、模型、六段基础资产及局部段、ELF/ZIP、准确度、五轮和独立运行证据，要求每轮 1B 外推小于 1800 秒；切换默认还必须通过同批第八阶段综合分门槛。`--retain` 只登记精度更高的备选，不覆盖默认。源码或产物变化须重新验收，旧报告不能证明新产物。测时期间避免训练、压缩和其他估算器，10M 临时输入输出会自动删除。
+发布器核对源码、模型、内嵌资产、ELF/ZIP、独立参考、资源及五轮实际行数。默认还须不低于同批第八阶段和第十阶段默认综合分；`--retain` 只登记精度备选，不覆盖默认。旧报告不能证明新产物。历史第八阶段 96.548954、旧 10M 与本轮 100M 的时间口径不混用。
 
 ## 交接与历史
 
-- [HANDOFF](HANDOFF.md)：当前文件、保留策略及下一步。
-- [solution/README](solution/README.md)：赛题、评分、接口和算法。
-- [第十阶段记录](docs/第十阶段优化记录.md)：本轮方法、负结果、联合验收及完整复现。
-- [第九阶段记录](docs/第九阶段优化记录.md)：历史全局包络/残差模型。
-- [第八阶段计划](docs/优化推进计划.md)、[第八阶段记录](docs/完整位移模型优化记录.md)：完整位移接入、压缩和训练。
-- [实现对比](solution/实现对比与适配评估.md)、[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)：历史比较，测时不与本轮混算。
-- [开发计划](solution/FPGA延时估算开发计划.md)：初始计划与当前进展入口。
+- [HANDOFF](HANDOFF.md)：当前资产、保留策略与下一步。
+- [solution/README](solution/README.md)：赛题规则、接口、评分及算法。
+- [第十一阶段计划](docs/第十一阶段优化计划.md) / [记录](docs/第十一阶段优化记录.md)：消融、负结果、冻结配置和复现。
+- [第十阶段记录](docs/第十阶段优化记录.md)、[第九阶段记录](docs/第九阶段优化记录.md)、[第八阶段记录](docs/完整位移模型优化记录.md)：历史方案与证据。
+- [开发计划](solution/FPGA延时估算开发计划.md)：初始计划及进展入口。
 
-第九/八/七阶段 ELF、ZIP、模型及历史清单保留。历史清单中的默认路径已被新版本接替，旧产物用具名备份查找；旧发布版应使用各自发布提交重建。下一轮优先扩大联合分数余量，再研究局部因子压缩与墙门/边界/稀少端口覆盖。
+历史 canonical 路径由新默认接替，旧版本用具名备份；旧发布版应在各自发布提交重建。超限诊断包 `stage11_accurate_oversize_submission.zip` 及实验 ELF 保留供分析，不属于合格提交包。

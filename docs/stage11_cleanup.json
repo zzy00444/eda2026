@@ -1,0 +1,34 @@
+{
+  "removed_temporary_encoding_probes": [
+    {
+      "name": "stage11_accurate.local.xz",
+      "bytes": 21275540
+    },
+    {
+      "name": "stage11_accurate_delta_probe.local",
+      "bytes": 29716932
+    },
+    {
+      "name": "stage11_accurate_delta_probe.local.xz",
+      "bytes": 19583716
+    },
+    {
+      "name": "stage11_accurate_delta_probe.local.bz2",
+      "bytes": 22001441
+    },
+    {
+      "name": "stage11_accurate_delta_probe_extreme.local.xz",
+      "bytes": 19625544
+    },
+    {
+      "name": "stage11_accurate_ut_probe.local",
+      "bytes": 29716932
+    },
+    {
+      "name": "stage11_accurate_ut_probe.local.xz",
+      "bytes": 19528788
+    }
+  ],
+  "bytes_freed": 161448893,
+  "published_artifacts_removed": false
+}

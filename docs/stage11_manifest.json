@@ -1,0 +1,363 @@
+{
+  "stage": 11,
+  "date": "2026-10-21",
+  "candidate": "stage11_balancedw64",
+  "retained_alternative": false,
+  "binary": "solution/bin/estimate",
+  "submission": "solution/submission.zip",
+  "validation_accuracy": 98.20230881996729,
+  "test_accuracy": 98.19201281619397,
+  "projected_1b_cpu_seconds": 200.45811800000004,
+  "projected_total": 96.88312593628851,
+  "full_public_accuracy": 98.21155520198461,
+  "position_assess": {
+    "rows": 180375,
+    "accuracy": 98.20243989073825,
+    "mae_ps": 10.563160083160083,
+    "rmse_ps": 18.801731242444077,
+    "abs_error_p50_p90_p99": [
+      6.0,
+      22.0,
+      83.0
+    ],
+    "signed_error_ps": -2.3641635481635483
+  },
+  "reserved_48": {
+    "rows": 48,
+    "accuracy": 96.07174248886709,
+    "mae_ps": 9.229166666666666,
+    "rmse_ps": 13.909678884383588,
+    "abs_error_p50_p90_p99": [
+      5.0,
+      21.800000000000026,
+      42.01000000000002
+    ],
+    "signed_error_ps": -1.2291666666666667
+  },
+  "python_cpp_mismatch_count": 0,
+  "comparison_same_batch": {
+    "displacement_cal16": {
+      "test_accuracy": 97.6508289022556,
+      "projected_1b_cpu_seconds": 207.85931400000004,
+      "projected_total": 96.38850217180449
+    },
+    "stage10_local96w64": {
+      "test_accuracy": 98.02160262237159,
+      "projected_1b_cpu_seconds": 212.466232,
+      "projected_total": 96.64673016456393
+    },
+    "stage11_fastw64": {
+      "test_accuracy": 98.07360382163465,
+      "projected_1b_cpu_seconds": 198.877256,
+      "projected_total": 96.80157259064106
+    },
+    "stage11_balancedw64": {
+      "test_accuracy": 98.19201281619397,
+      "projected_1b_cpu_seconds": 200.45811800000004,
+      "projected_total": 96.88312593628851
+    },
+    "stage11_compactw160": {
+      "test_accuracy": 98.24795543379336,
+      "projected_1b_cpu_seconds": 244.718544,
+      "projected_total": 96.5590431470347
+    }
+  },
+  "joint_gate_passed": true,
+  "projected_total_delta_vs_stage8": 0.4946237644840181,
+  "target_98_25_and_delta_point2_achieved": false,
+  "benchmark_rows": 100000000,
+  "max_container_bytes": 1999998976,
+  "max_threads": 1,
+  "cpu_budget_seconds": 1800,
+  "package": {
+    "candidate": "stage11_balancedw64",
+    "binary_bytes": 108073880,
+    "zip_bytes": 98094824,
+    "binary_sha256": "29dd4213926a94e098d9b6cb69eb65cd0a49252b6fca5698bf46b42a329f09a5",
+    "zip_sha256": "48a222160865cc0f49b543a52acb4ca1792448fe3f0f370c74e396ef82737115",
+    "contents": [
+      "bin/estimate"
+    ],
+    "unix_mode": "100755"
+  },
+  "build": {
+    "binary_sha256": "29dd4213926a94e098d9b6cb69eb65cd0a49252b6fca5698bf46b42a329f09a5",
+    "binary_bytes": 108073880,
+    "table_sha256": {
+      "oracle_vt.bin": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a",
+      "oracle_U.bin": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f",
+      "oracle_M.bin": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d",
+      "oracle_ids.txt": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a",
+      "oracle_arch.txt": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration": "/mnt/f/EDA/solution/eda2026/solution/build/displacement/calibration_train.bin",
+    "sources": 208,
+    "targets": 288,
+    "source_sha256": "bf16fc6d47414325b06bcdde27f0558282bd3449e177bf7e3af857bdf0eca391",
+    "compiler_flags": [
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-DEST_FAST_ROUND",
+      "-DEST_WALL",
+      "-DEST_LOCAL"
+    ],
+    "image": "fpga-ziguang:latest",
+    "wall_header_sha256": "88a5a115e6cfd8de272788061b318e8ce80742b48a4f18b4f36c07e4846681cb",
+    "wall_runtime_sha256": "8dfecbcea138d37c4ac31134642c936e96d3b93af497e8fb6913c8dc5de14a81",
+    "local_asset_sha256": "cb20ec758c27404de662600dafa716479f93b2e03d047c1bc98c70b50ddbf099",
+    "local_runtime_sha256": "8eedd912a8929ced498d40c36dadb872dc2842ab4637bdf4384d531e9ef995a2"
+  },
+  "embedded_assets": {
+    "oracle_vt.bin": {
+      "bytes": 68174616,
+      "sha256": "1370129e23ba63f8cef09446aee761e79e08d2e1a03b0c876f61968fc4040b8a"
+    },
+    "oracle_U.bin": {
+      "bytes": 15335960,
+      "sha256": "9819be16897418a3cac9e15847455fbc960e1512f30ba61bbc02d35a03e9917f"
+    },
+    "oracle_M.bin": {
+      "bytes": 119820,
+      "sha256": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d"
+    },
+    "oracle_ids.txt": {
+      "bytes": 2332,
+      "sha256": "6a45ac094aaefa504e7e21ff329f63c2a3374191b3d6c510657b41d4ec58242a"
+    },
+    "oracle_arch.txt": {
+      "bytes": 720564,
+      "sha256": "2c0a692514181f35279ce914e954f9937b54243fa5db4177213a09a06be80e84"
+    },
+    "calibration_train.bin": {
+      "bytes": 5760,
+      "sha256": "294ccb9669e3b2665825c70b20b7a34250ed479ef051dfb2fd4f329e4bb7d11d"
+    }
+  },
+  "local": {
+    "candidate": "stage11_balanced",
+    "format": "PGLOC005",
+    "parts": [
+      {
+        "factors": "stage11_tile_residual_00",
+        "factors_sha256": "0fe7628ad4e72bd5f3cb6486ccd42ac1d106896bc018b6b7b82572f2df6435ff",
+        "rank": 24,
+        "bits": 8,
+        "columns": 2688,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_residual_01",
+        "factors_sha256": "b3093366a4f6b4530c6895911cdccf94d882a9b3189c8faf63d3494a5f6881de",
+        "rank": 64,
+        "bits": 8,
+        "columns": 1152,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_residual_02",
+        "factors_sha256": "608cb5d30da14cb51d3bb49a710d70904e1a686ecd44c4107efb0372698d18cb",
+        "rank": 48,
+        "bits": 8,
+        "columns": 1176,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_residual_03",
+        "factors_sha256": "abed4a5aa0936231cc9d475ba58f1871963fc0426e2d7ead287c109c49cdab02",
+        "rank": 32,
+        "bits": 8,
+        "columns": 2688,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_residual_10",
+        "factors_sha256": "0398a6bc154fafd1222eaa168d3a9dbc2b5b3706bdcac73e27c92fc71ff22bfd",
+        "rank": 80,
+        "bits": 8,
+        "columns": 1904,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_direct_11",
+        "factors_sha256": "3d567d8d4763ad5bbfa83391ee99056bed601fb52c122f0c2fed3920b8e2dd12",
+        "rank": 96,
+        "bits": 8,
+        "columns": 816,
+        "stored_pairs": 23321,
+        "direct": true
+      },
+      {
+        "factors": "stage11_tile_residual_12",
+        "factors_sha256": "0b2079d20cc382e85d36f172337865dbbdfff80a875b66b0d32ee23206ed1b6b",
+        "rank": 96,
+        "bits": 8,
+        "columns": 833,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_direct_13",
+        "factors_sha256": "4f029a9d755cc1bdeabe71f8ea06370c1333f436895bba6979ba89aea917edb1",
+        "rank": 64,
+        "bits": 8,
+        "columns": 1904,
+        "stored_pairs": 23321,
+        "direct": true
+      },
+      {
+        "factors": "stage11_tile_residual_20",
+        "factors_sha256": "f8ee93d893637db6288c7cfc6c2df7ece8bbad07a39e80fc15451a2679a5945c",
+        "rank": 48,
+        "bits": 8,
+        "columns": 2688,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_direct_21",
+        "factors_sha256": "b5aab9040c864a0c99f4f47bbf40a13a1f798a1dd62ed9e30f2f25cfa8da9c6d",
+        "rank": 80,
+        "bits": 8,
+        "columns": 1152,
+        "stored_pairs": 23321,
+        "direct": true
+      },
+      {
+        "factors": "stage11_tile_residual_22",
+        "factors_sha256": "5f4d175bb9316c3ce55f04fd8ba68edf82cdcc6c11efbafe12d2e6de78336781",
+        "rank": 64,
+        "bits": 8,
+        "columns": 1176,
+        "stored_pairs": 23321,
+        "direct": false
+      },
+      {
+        "factors": "stage11_tile_residual_23",
+        "factors_sha256": "bdca0cd01f83bdcc01dd31dcb887583d6ebd5ee381a2d000a75a63c460c47e7f",
+        "rank": 48,
+        "bits": 8,
+        "columns": 2688,
+        "stored_pairs": 23321,
+        "direct": false
+      }
+    ],
+    "asset_sha256": "cb20ec758c27404de662600dafa716479f93b2e03d047c1bc98c70b50ddbf099",
+    "asset_bytes": 23574924,
+    "public_delay_labels_used": false,
+    "sparse_pairs_training_geometry_only": true,
+    "direct": false,
+    "mixed": true,
+    "correction": "one disjoint region per branch; separately round local and baseline dots before min"
+  },
+  "wall": {
+    "candidate": "stage11_balancedw64",
+    "model": "stage11_balanced_wall",
+    "model_sha256": "03c5bc024d076cdf65f0b44cf4540ee93490bbc6d1fe3fc4306daca63685172c",
+    "base": "stage11_balanced",
+    "trees": 64,
+    "header_sha256": "88a5a115e6cfd8de272788061b318e8ce80742b48a4f18b4f36c07e4846681cb",
+    "bound_used": false,
+    "valid": {
+      "rows": 50000,
+      "accuracy": 98.20230881996729,
+      "mae_ps": 10.5797,
+      "rmse_ps": 18.553089769631363,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        22.0,
+        81.0
+      ],
+      "signed_error_ps": -2.33566
+    },
+    "test": {
+      "rows": 50000,
+      "accuracy": 98.19201281619397,
+      "mae_ps": 10.62222,
+      "rmse_ps": 18.914405621113236,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        22.0,
+        86.0
+      ],
+      "signed_error_ps": -2.36966
+    },
+    "position_assess": {
+      "rows": 180375,
+      "accuracy": 98.20243989073825,
+      "mae_ps": 10.563160083160083,
+      "rmse_ps": 18.801731242444077,
+      "abs_error_p50_p90_p99": [
+        6.0,
+        22.0,
+        83.0
+      ],
+      "signed_error_ps": -2.3641635481635483
+    },
+    "reference_sha256": "ee9f170eb9a8275b43b65d2c4358b228c2f883e1a93e1bff80a8ab7c9d4f98e8",
+    "caveat": "Local base is deployed C++; wall correction is Python. A separate base-dot reference is required."
+  },
+  "evidence_sha256": {
+    "stage11_balanced_local_export.json": "c3fe522769687dc3a41c17277dca9dfd97b40eb82c4f030658f1b7f5928fb6c5",
+    "stage11_balanced_profile.json": "a27ab740d4a09e8b166b6735535411b9b82aefb69bbc850c26a42bb247113be6",
+    "stage11_balanced_wall.json": "7d7e51388b8db04bf63824c834d1a5b93f10876317403e993013eebd9815eca2",
+    "stage11_balancedw64_analysis.json": "02789f46c2debacb3a8e19eba4db1716979205b8002d93b683ff22238246e788",
+    "stage11_balancedw64_contract.json": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "stage11_balancedw64_integration.json": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "stage11_balancedw64_package.json": "afa69c3d684305d52ecd13e8362d36f570ec349d9058ed7758496419f1d305bb",
+    "stage11_balancedw64_reference.json": "4772c9baaf189bd32331085c68b2b1ed46d14a3af8631437320f755f467d0ca1",
+    "stage11_balancedw64_standalone.json": "d322cd6c278c7272986bcc52f12d6d2c2c39a0e9725d257950926340be9aacc1",
+    "stage11_balancedw64_validation.json": "8a4ff8fa39bc7f2095c6977916fcd542c25ce8b4a185398f783800fbc0a61892",
+    "stage11_balancedw64_wall_export.json": "239159b3157db4c94dcb230276dfb0b1c02d4b57964c77cd8cc5382ffe4fee49",
+    "stage11_final_benchmark.json": "24ea08c5097c8accc2647d38964cb875b9b45df2738e4e775ec00940d5055f72",
+    "stage11_match.json": "204f970e47312aa9267ba98fa89fc7a2628491b0c4996798087a5de419518460",
+    "stage11_profiles.json": "f6662124239bdee82a83e05aacae1e76d12b0c86b805098bb8e6251088e1fa0f",
+    "stage11_tile_direct_11_training.json": "309de0f222443096f3da0946c9244452da47fc5bfbf987fa7c5162f303dd084e",
+    "stage11_tile_direct_13_training.json": "de3bca72e56e2a8714317c1ca67821aae5d7b1fe066375018869be4aca86404c",
+    "stage11_tile_direct_21_training.json": "38cab2965443b85da75258b4d16a489eb4e713dd5201e7f1c00b187b2b403dba",
+    "stage11_tile_residual_00_training.json": "4f7fec2d596c3cb5f82504005bdf7b384e9472aaa97bc7605e0ff6cf0a6d6e13",
+    "stage11_tile_residual_01_training.json": "378e3aefef0eda85145937aa1698e22cc9d92eb1c6b76fc9225fee4baa597928",
+    "stage11_tile_residual_02_training.json": "eeafabe33d56fbe36bf94139321f94e400f69e9fd5436e84dfca7f5abda88a1e",
+    "stage11_tile_residual_03_training.json": "7d1a9c3f810a832ccffdc5f708954026c21279f83112ba49a0b0d66fa0ac6b63",
+    "stage11_tile_residual_10_training.json": "e409a8d1906baed5854aa0fda15799a5e8533e0a174c793c65a47caa63d69dea",
+    "stage11_tile_residual_12_training.json": "ba0a70b499fb18c6fdf65261cacf8dec76052571330c5352335e3e6924e69c0d",
+    "stage11_tile_residual_20_training.json": "ca0fb13fc8122a4e324289e6efb734a84b62855d91124d94cfbc5d4dfc8ff15a",
+    "stage11_tile_residual_22_training.json": "5ee241fcdc76408e84e54232e62c2114b20a2c3ba9c7c391dae499ab85076af1",
+    "stage11_tile_residual_23_training.json": "cff29b8203cdcdeb2b9b5d8d78afa9449667d0ed7d62bcc73cf7addb278f3410",
+    "stage11_tile_screen.json": "2f183a6b48fa3293dc9a11b1dafaee69f93bd1098b2939641f0aea39fb54cd53"
+  },
+  "preserved_manifest_sha256": {
+    "stage8_manifest.json": "57ad12c9c6c2628d5e6841ef75537106c36bda653cf94310458eec2495d384cb",
+    "stage9_manifest.json": "ab938f491071b37506de56cab8dc72093392d0471c0271ad2a420c1e0e2f50bf",
+    "stage9_accuracy_manifest.json": "f3ec479ae34d3ec174940f62fc3f6c7b24d30eae98915eb38b21e2233f9004f1",
+    "stage10_manifest.json": "1c2be9af6cc8c58e464c4c3d5d7c1fb0cf129b1f0048e65f51e276920d2d0132",
+    "stage10_accuracy_manifest.json": "e709bf2c3e7f6a7ced76d54677200394d76da497f4e73d92f04574714da7d979"
+  },
+  "source_sha256": {
+    "src/displacement.cpp": "bf16fc6d47414325b06bcdde27f0558282bd3449e177bf7e3af857bdf0eca391",
+    "src/displacement_local_runtime.hpp": "8eedd912a8929ced498d40c36dadb872dc2842ab4637bdf4384d531e9ef995a2",
+    "src/displacement_wall_runtime.hpp": "8dfecbcea138d37c4ac31134642c936e96d3b93af497e8fb6913c8dc5de14a81",
+    "tools/displacement_run.py": "bd962fc5e2fd9aa34186f544dff2b7479f6d0d40ab361cca9fa5aa0852591daf",
+    "tools/displacement_local_train.py": "fbf36427255e0df1a3bde1ccd1f3edbcd468e9d787ecd0e760561aabf1079731",
+    "tools/displacement_tile_train.py": "4549579ef5e344c61ebd65ea692a262285f6c5bef5c9f703c49747304c00b1fb",
+    "tools/displacement_relative_refine.py": "c5727ef319f7ed40afcb1c76bd1f2298175e1ec4828a8a650564520542de12cd",
+    "tools/displacement_partition_export.py": "e0828aed5fc6476a56eef261588d61d283b8de41c8af37268906bdaaa97f800b",
+    "tools/displacement_partition_screen.py": "2b6a4a1efb268425dcafae9e9c577c9f1ace012322edaa03b85977cb65f00849",
+    "tools/displacement_tile_select.py": "8c429cf80bac866b79f3a2a695ccf5899c5f95522c6c6f06674274a20ecca457",
+    "tools/displacement_local_compress.py": "7d90a2375c085c8b2a86ab5a8e76dee0e54fc5d29a4087fe4c467284f1703ad5",
+    "tools/displacement_local_verify.py": "52cf8c6578c7b5c37bcc883f5215fd49e644978afd4f56f9372f6a45c23aee12",
+    "tools/release_stage11.py": "15db885b2d7e25832521ab2c8aa2f45cd27708d403ec173fc6ca239c97e00814"
+  },
+  "official_score": false,
+  "full_1b_completed": false,
+  "limitations": [
+    "Historical public regression slices; no blind or official accuracy claim",
+    "CPU extrapolated from repeated input; not full 1B",
+    "Train source-coordinate exclusion applies only to new parameters, not inherited baseline"
+  ]
+}
