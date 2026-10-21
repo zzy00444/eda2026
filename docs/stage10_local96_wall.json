@@ -1,0 +1,143 @@
+{
+  "name": "stage10_local96_wall",
+  "base": "stage10_local96",
+  "base_prediction_sha256": "b87733714bf2434fd1dabf10d28f68b4084d553dde54cd93196f78ce4fe175fb",
+  "params": {
+    "objective": "regression_l1",
+    "learning_rate": 0.1,
+    "num_leaves": 31,
+    "min_data_in_leaf": 25,
+    "lambda_l2": 5,
+    "max_bin": 255,
+    "num_threads": 6,
+    "verbosity": -1,
+    "seed": 20261021,
+    "deterministic": true,
+    "force_col_wise": true,
+    "cat_smooth": 30,
+    "cat_l2": 20,
+    "max_cat_threshold": 32
+  },
+  "fit_rows": 4233,
+  "held_wall_rows": 1033,
+  "features": [
+    "sx",
+    "sy",
+    "tx",
+    "ty",
+    "dx",
+    "dy",
+    "ax",
+    "ay",
+    "distance",
+    "source",
+    "target",
+    "source_family",
+    "target_family",
+    "source_bit",
+    "target_bit",
+    "ndx",
+    "ndy",
+    "rx",
+    "ry",
+    "rax",
+    "ray",
+    "overx",
+    "overy",
+    "dx_mod",
+    "dy_mod",
+    "rx_mod",
+    "ry_mod",
+    "sx_mod",
+    "sy_mod",
+    "tx_mod",
+    "ty_mod",
+    "source_band",
+    "target_band",
+    "source_phase",
+    "target_phase",
+    "cross",
+    "landing_cross",
+    "source_wall",
+    "landing_wall",
+    "target_wall",
+    "source_door_distance",
+    "landing_door_distance",
+    "target_door_distance",
+    "edge_x",
+    "edge_y",
+    "gap_x",
+    "gap_y",
+    "net_gap_x",
+    "net_gap_y",
+    "base",
+    "base_minus_gap",
+    "net_length",
+    "direction"
+  ],
+  "curve": [
+    {
+      "trees": 16,
+      "wall_valid_accuracy": 91.16445049630313,
+      "whole_valid_accuracy": 97.98588016105259
+    },
+    {
+      "trees": 32,
+      "wall_valid_accuracy": 95.58591806305218,
+      "whole_valid_accuracy": 98.01178996099375
+    },
+    {
+      "trees": 64,
+      "wall_valid_accuracy": 96.19682831931217,
+      "whole_valid_accuracy": 98.01536989509543
+    },
+    {
+      "trees": 96,
+      "wall_valid_accuracy": 96.249829906899,
+      "whole_valid_accuracy": 98.0156804843987
+    },
+    {
+      "trees": 128,
+      "wall_valid_accuracy": 96.27003336689494,
+      "whole_valid_accuracy": 98.01579887667427
+    },
+    {
+      "trees": 160,
+      "wall_valid_accuracy": 96.27230446148384,
+      "whole_valid_accuracy": 98.01581218528855
+    }
+  ],
+  "selected": {
+    "trees": 160,
+    "wall_valid_accuracy": 96.27230446148384,
+    "whole_valid_accuracy": 98.01581218528855
+  },
+  "held_wall_baseline": {
+    "rows": 1033,
+    "accuracy": 71.14130311022235,
+    "mae_ps": 208.5808325266215,
+    "rmse_ps": 225.10868193707296,
+    "abs_error_p50_p90_p99": [
+      193.0,
+      347.80000000000007,
+      431.03999999999985
+    ],
+    "signed_error_ps": -34.92739593417232
+  },
+  "held_wall_updated": {
+    "rows": 1033,
+    "accuracy": 95.37369622625947,
+    "mae_ps": 27.888673765730882,
+    "rmse_ps": 39.66221119776149,
+    "abs_error_p50_p90_p99": [
+      20.0,
+      61.0,
+      131.67999999999995
+    ],
+    "signed_error_ps": -1.6950629235237173
+  },
+  "model_sha256": "c3e80aa7fb6be0098659d8b457ab2476598b48a6cff0fa067c38fe5e7e2122da",
+  "test_labels_used": false,
+  "architecture_bound_used": false,
+  "caveat": "New residual excludes held source coordinates; inherited stage8 does not"
+}

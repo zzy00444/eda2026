@@ -1,0 +1,102 @@
+{
+  "image": "fpga-ziguang:latest",
+  "cpu_limit": 1,
+  "memory_limit_bytes": 2000000000,
+  "runs": 1,
+  "timer": "child user+sys; fresh container per candidate/run",
+  "order": "alternating forward/reverse",
+  "rows": 10000000,
+  "cpu_model": "Intel(R) Core(TM) i9-14900HX",
+  "official_score": false,
+  "full_1b_completed": false,
+  "candidates": {
+    "displacement_cal16": {
+      "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+      "reference_1m_sha256": "6c8c0f043fa7b119d0b649754b915666fc202a57e0f9431319b33fb7a9c7d6cf",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.114560275000258,
+          "user_seconds": 1.498604,
+          "sys_seconds": 0.506177,
+          "cpu_seconds": 2.004781,
+          "process_peak_rss_kib": 156636,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 594980864,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.004781,
+      "projected_1b_cpu_seconds": 200.47809999999998,
+      "max_container_bytes": 594980864
+    },
+    "stage10_boundonly": {
+      "binary_sha256": "4ce6d481bf9c658179c98e2a50016a12eb07e5dea13e585322954c3ce744c609",
+      "reference_1m_sha256": "1757b06e7514a96dc496e5f5229b16fce36597fe92b72098253b9bb41210cbe2",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.5839516810010537,
+          "user_seconds": 1.968014,
+          "sys_seconds": 0.5089,
+          "cpu_seconds": 2.476914,
+          "process_peak_rss_kib": 219008,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 645193728,
+          "output_sha256": "a1207a817cc937f77ca327e336253df7e5b9d2d649172123055608c51b220e9c",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.476914,
+      "projected_1b_cpu_seconds": 247.6914,
+      "max_container_bytes": 645193728
+    },
+    "stage10_lutonly": {
+      "binary_sha256": "453aa455ba644760966cef8d3e918f2e1d0499f1306ace2ccd9b1fd6e536fa50",
+      "reference_1m_sha256": "8ea8b032054e98d07c512c719d1f9442bc4e8a570d8e033dba682d3d88f81afe",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.6475371460001043,
+          "user_seconds": 2.056531,
+          "sys_seconds": 0.522042,
+          "cpu_seconds": 2.578573,
+          "process_peak_rss_kib": 219008,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 645378048,
+          "output_sha256": "0075199dcf17ed6ec85192f305c859a65cfae86a1ef97d6f9b18c93f435400c6",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.578573,
+      "projected_1b_cpu_seconds": 257.8573,
+      "max_container_bytes": 645378048
+    },
+    "stage10_fixed": {
+      "binary_sha256": "808294c93ddae074e6efdb1b52cc9b0ae8f322bd0b7574d0ed38f232088a44fa",
+      "reference_1m_sha256": "c8f143174a386702770ee61d5fbdfc9df62a3a7b3317736b7e3c3d7022eaccdf",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 3.0567379639996943,
+          "user_seconds": 2.49806,
+          "sys_seconds": 0.45059899999999997,
+          "cpu_seconds": 2.948659,
+          "process_peak_rss_kib": 219004,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 645496832,
+          "output_sha256": "9ac1b6aa8a6891de09a775ec6a8f0ff36d0f3447b8e29b4c4c1a6404f61bc550",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.948659,
+      "projected_1b_cpu_seconds": 294.8659,
+      "max_container_bytes": 645496832
+    }
+  }
+}

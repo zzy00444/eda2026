@@ -1,0 +1,435 @@
+{
+  "factors_sha256": "3cc59161ebbe43e893d98d4321ef3ccf1f542bf0b5ce93dae6b5f019a3df7885",
+  "baseline_valid": 97.63876959265059,
+  "selected_branch_proxy": true,
+  "test_labels_used": false,
+  "curve": [
+    {
+      "bits": 8,
+      "rank": 32,
+      "distance_gate": 30,
+      "valid_accuracy": 97.70677667199969,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 8,
+      "rank": 32,
+      "distance_gate": 50,
+      "valid_accuracy": 97.7284877691591,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 8,
+      "rank": 32,
+      "distance_gate": 75,
+      "valid_accuracy": 97.74857007302944,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 8,
+      "rank": 32,
+      "distance_gate": 100,
+      "valid_accuracy": 97.76061093726383,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 8,
+      "rank": 32,
+      "distance_gate": 150,
+      "valid_accuracy": 97.76738510720006,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 32,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.76738510720006,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 64,
+      "distance_gate": 30,
+      "valid_accuracy": 97.72906470386847,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 8,
+      "rank": 64,
+      "distance_gate": 50,
+      "valid_accuracy": 97.766046805717,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 8,
+      "rank": 64,
+      "distance_gate": 75,
+      "valid_accuracy": 97.79810487657832,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 8,
+      "rank": 64,
+      "distance_gate": 100,
+      "valid_accuracy": 97.8188922792188,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 8,
+      "rank": 64,
+      "distance_gate": 150,
+      "valid_accuracy": 97.83039327659267,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 64,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.83039327659267,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 96,
+      "distance_gate": 30,
+      "valid_accuracy": 97.74406557889672,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 8,
+      "rank": 96,
+      "distance_gate": 50,
+      "valid_accuracy": 97.79226430972255,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 8,
+      "rank": 96,
+      "distance_gate": 75,
+      "valid_accuracy": 97.831073919275,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 8,
+      "rank": 96,
+      "distance_gate": 100,
+      "valid_accuracy": 97.85691881622739,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 8,
+      "rank": 96,
+      "distance_gate": 150,
+      "valid_accuracy": 97.87397563958824,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 96,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.87397563958824,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 128,
+      "distance_gate": 30,
+      "valid_accuracy": 97.75899800162811,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 8,
+      "rank": 128,
+      "distance_gate": 50,
+      "valid_accuracy": 97.81210522820412,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 8,
+      "rank": 128,
+      "distance_gate": 75,
+      "valid_accuracy": 97.85835748576237,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 8,
+      "rank": 128,
+      "distance_gate": 100,
+      "valid_accuracy": 97.88795462591816,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 8,
+      "rank": 128,
+      "distance_gate": 150,
+      "valid_accuracy": 97.90907466845955,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 128,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.90907466845955,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 160,
+      "distance_gate": 30,
+      "valid_accuracy": 97.76705708062559,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 8,
+      "rank": 160,
+      "distance_gate": 50,
+      "valid_accuracy": 97.82773074558078,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 8,
+      "rank": 160,
+      "distance_gate": 75,
+      "valid_accuracy": 97.87941761637296,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 8,
+      "rank": 160,
+      "distance_gate": 100,
+      "valid_accuracy": 97.91260970418753,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 8,
+      "rank": 160,
+      "distance_gate": 150,
+      "valid_accuracy": 97.93630087310953,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 8,
+      "rank": 160,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.93630087310953,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 32,
+      "distance_gate": 30,
+      "valid_accuracy": 97.70747492098116,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 16,
+      "rank": 32,
+      "distance_gate": 50,
+      "valid_accuracy": 97.72911225075819,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 16,
+      "rank": 32,
+      "distance_gate": 75,
+      "valid_accuracy": 97.74908133872214,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 16,
+      "rank": 32,
+      "distance_gate": 100,
+      "valid_accuracy": 97.76114341368262,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 16,
+      "rank": 32,
+      "distance_gate": 150,
+      "valid_accuracy": 97.76799733373474,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 32,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.76799733373474,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 64,
+      "distance_gate": 30,
+      "valid_accuracy": 97.72906022096821,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 16,
+      "rank": 64,
+      "distance_gate": 50,
+      "valid_accuracy": 97.76602177521393,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 16,
+      "rank": 64,
+      "distance_gate": 75,
+      "valid_accuracy": 97.7978717453873,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 16,
+      "rank": 64,
+      "distance_gate": 100,
+      "valid_accuracy": 97.81866438393938,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 16,
+      "rank": 64,
+      "distance_gate": 150,
+      "valid_accuracy": 97.8300619792921,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 64,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.8300619792921,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 96,
+      "distance_gate": 30,
+      "valid_accuracy": 97.74425323168842,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 16,
+      "rank": 96,
+      "distance_gate": 50,
+      "valid_accuracy": 97.79246471013495,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 16,
+      "rank": 96,
+      "distance_gate": 75,
+      "valid_accuracy": 97.83126578211565,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 16,
+      "rank": 96,
+      "distance_gate": 100,
+      "valid_accuracy": 97.85716005013653,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 16,
+      "rank": 96,
+      "distance_gate": 150,
+      "valid_accuracy": 97.87420468188465,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 96,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.87420468188465,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 128,
+      "distance_gate": 30,
+      "valid_accuracy": 97.75883008457156,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 16,
+      "rank": 128,
+      "distance_gate": 50,
+      "valid_accuracy": 97.81189852036833,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 16,
+      "rank": 128,
+      "distance_gate": 75,
+      "valid_accuracy": 97.85812098628018,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 16,
+      "rank": 128,
+      "distance_gate": 100,
+      "valid_accuracy": 97.88769552680962,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 16,
+      "rank": 128,
+      "distance_gate": 150,
+      "valid_accuracy": 97.90879950094937,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 128,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.90879950094937,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 160,
+      "distance_gate": 30,
+      "valid_accuracy": 97.7672521808362,
+      "valid_coverage": 0.02576
+    },
+    {
+      "bits": 16,
+      "rank": 160,
+      "distance_gate": 50,
+      "valid_accuracy": 97.82791944652377,
+      "valid_coverage": 0.05256
+    },
+    {
+      "bits": 16,
+      "rank": 160,
+      "distance_gate": 75,
+      "valid_accuracy": 97.87965869735585,
+      "valid_coverage": 0.08484
+    },
+    {
+      "bits": 16,
+      "rank": 160,
+      "distance_gate": 100,
+      "valid_accuracy": 97.91291101152001,
+      "valid_coverage": 0.11368
+    },
+    {
+      "bits": 16,
+      "rank": 160,
+      "distance_gate": 150,
+      "valid_accuracy": 97.93660744913944,
+      "valid_coverage": 0.14732
+    },
+    {
+      "bits": 16,
+      "rank": 160,
+      "distance_gate": 1000,
+      "valid_accuracy": 97.93660744913944,
+      "valid_coverage": 0.14732
+    }
+  ],
+  "best": {
+    "bits": 16,
+    "rank": 160,
+    "distance_gate": 150,
+    "valid_accuracy": 97.93660744913944,
+    "valid_coverage": 0.14732
+  }
+}

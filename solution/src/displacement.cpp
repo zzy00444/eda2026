@@ -415,7 +415,10 @@ struct Rec {
     uint8_t ncd;        // candidates 0..2
     uint8_t same;       // self query
     uint16_t tgtIdx;    // target-port index for residual calibration
-#ifdef EST_RESIDUAL
+#ifdef EST_WALL
+    uint8_t needsWall;
+#endif
+#if defined(EST_RESIDUAL) || defined(EST_WALL)
     uint16_t sx,sy,tx,ty,source,target;
 #endif
 #ifdef EST_TRACE
@@ -434,6 +437,12 @@ struct Rec {
 #endif
 #ifdef EST_RESIDUAL
 #include "displacement_residual_runtime.hpp"
+#endif
+#ifdef EST_LOCAL
+#include "displacement_local_runtime.hpp"
+#endif
+#ifdef EST_WALL
+#include "displacement_wall_runtime.hpp"
 #endif
 int main(int argc, char** argv) {
 #ifdef EST_PROFILE
@@ -597,6 +606,9 @@ int main(int argc, char** argv) {
     }
     tgtIdxOf.assign(NP, -1); for (int i = 0; i < (int)tgtPort.size(); i++) tgtIdxOf[tgtPort[i]] = i;
     srcIdxOf.assign(NP, -1); for (int i = 0; i < nSrc; i++) srcIdxOf[srcPort[i]] = i;
+#ifdef EST_LOCAL
+    if (!localInit()) { fprintf(stderr,"cannot decode local factors\n"); return 1; }
+#endif
 
     Calib.assign((size_t)nTgt * 5, 1.f);
     {
@@ -764,6 +776,9 @@ int main(int argc, char** argv) {
                 const int16_t* vr = &Vt[(size_t)(j.key >> 1) * RANK];
                 float s = dotProduct(UP + j.uoff, vr, RANK);
                 long r = estimateRound((double)j.mrow + (double)s);
+#ifdef EST_LOCAL
+                r += localCorrection(j.key >> 1, j.uoff / RANK);
+#endif
                 (j.key & 1u ? RB : RA)[j.idx] = r;
             }
             for (; k < nj; k++) {
@@ -771,6 +786,9 @@ int main(int argc, char** argv) {
                 const int16_t* vr = &Vt[(size_t)(j.key >> 1) * RANK];
                 float s = dotProduct(UP + j.uoff, vr, RANK);
                 long r = estimateRound((double)j.mrow + (double)s);
+#ifdef EST_LOCAL
+                r += localCorrection(j.key >> 1, j.uoff / RANK);
+#endif
                 (j.key & 1u ? RB : RA)[j.idx] = r;
             }
         }
@@ -897,6 +915,9 @@ int main(int argc, char** argv) {
 #elif defined(EST_RESIDUAL)
             if (R.ncd && !R.same) pred=(long)residualPrediction(R.sx,R.sy,R.tx,R.ty,R.source,R.target,pred);
 #endif
+#ifdef EST_WALL
+            if (R.needsWall && R.ncd && !R.same) pred=wallPrediction(R.sx,R.sy,R.tx,R.ty,R.source,R.target,pred);
+#endif
             if (pred > 0) {
                 int m = fmtPos(op + 1, (uint32_t)pred);
                 op += m + 1;
@@ -981,6 +1002,9 @@ int main(int argc, char** argv) {
                     R.keyLen = (uint32_t)(c2 - base);
                     R.ncd = 0; R.same = 0; R.lgap = 0; R.netWall = 0; R.tgtIdx = 0;
                     R.cpen0 = 0; R.cpen1 = 0;
+#ifdef EST_WALL
+                    R.needsWall = 0;
+#endif
 #ifdef EST_TRACE
                     R.pair = R.row0 = R.row1 = -1;
 #endif
@@ -1021,6 +1045,12 @@ int main(int argc, char** argv) {
                         }
                     }
                     int sx = x0 + ndx, sy = y0 + ndy;
+#ifdef EST_WALL
+                    if (sx>=76 && sx<=89 && !doorY[sy]) {
+                        R.needsWall=1;
+                        R.sx=x0;R.sy=y0;R.tx=x1;R.ty=y1;R.source=p0;R.target=(v1&0x3FFu)-1;
+                    }
+#endif
                     long lgap = vpre[max(x0, sx)] - vpre[min(x0, sx)] + hpre[max(y0, sy)] - hpre[min(y0, sy)]
                               + vpre[max(sx, x1)] - vpre[min(sx, x1)] + hpre[max(sy, y1)] - hpre[min(sy, y1)];
                     uint32_t uoff = (uint32_t)(((size_t)si * nTgt + ti) * RANK);

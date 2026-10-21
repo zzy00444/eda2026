@@ -41,6 +41,8 @@ def main():
     build.add_argument('--define', action='append', default=[])
     build.add_argument('--residual-header', type=Path)
     build.add_argument('--bound-file', type=Path)
+    build.add_argument('--local-file', type=Path)
+    build.add_argument('--wall-header', type=Path)
     run = sub.add_parser('run')
     run.add_argument('names', nargs='+')
     run.add_argument('--request', type=Path, default=REPO / 'solution/build/local_runs/request_1m.csv')
@@ -67,6 +69,17 @@ def main():
         raw = WORK / (args.name + '.raw')
         flags = ['-std=c++17', '-O3', '-DNDEBUG'] + ['-D' + item for item in args.define]
         libraries = []
+        if args.wall_header:
+            if args.residual_header:
+                raise ValueError('Wall-only and full residual runtimes are alternative builds')
+            shutil.copy2(args.wall_header, WORK / 'displacement_wall_model.hpp')
+            shutil.copy2(REPO / 'solution/src/displacement_wall_runtime.hpp', WORK / 'displacement_wall_runtime.hpp')
+            flags += ['-DEST_WALL']
+        if args.local_file:
+            if args.residual_header:
+                raise ValueError('Local and envelope descriptors cannot share the same slot')
+            shutil.copy2(REPO / 'solution/src/displacement_local_runtime.hpp', WORK / 'displacement_local_runtime.hpp')
+            flags += ['-DEST_LOCAL']
         if args.residual_header:
             if not args.bound_file:
                 raise ValueError('Residual build requires --bound-file')
@@ -75,6 +88,12 @@ def main():
             flags += ['-DEST_RESIDUAL']
             libraries += ['-lz']
         docker(['g++', *flags, '/work/displacement.cpp', *libraries, '-o', '/work/' + raw.name])
+        if args.local_file:
+            with raw.open('ab') as target:
+                begin = target.tell()
+                local = args.local_file.read_bytes()
+                target.write(local)
+                target.write(b'PGLCF001'+struct.pack('<3Q', begin, len(local), 0))
         if args.residual_header:
             with raw.open('ab') as target:
                 begin = target.tell()
@@ -86,6 +105,12 @@ def main():
         binary = WORK / args.name
         record = pack(raw, BUILD / 'oracle', binary, args.u, args.m, args.calibration)
         record.update(source_sha256=sha(source), compiler_flags=flags, image=IMAGE)
+        if args.wall_header:
+            record.update(wall_header_sha256=sha(args.wall_header),
+                          wall_runtime_sha256=sha(REPO / 'solution/src/displacement_wall_runtime.hpp'))
+        if args.local_file:
+            record.update(local_asset_sha256=sha(args.local_file),
+                          local_runtime_sha256=sha(REPO / 'solution/src/displacement_local_runtime.hpp'))
         if args.residual_header:
             record.update(residual_header_sha256=sha(args.residual_header), bound_sha256=sha(args.bound_file),
                           residual_runtime_sha256=sha(REPO / 'solution/src/displacement_residual_runtime.hpp'), libraries=libraries)

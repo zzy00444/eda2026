@@ -1,0 +1,134 @@
+{
+  "candidate": "stage10_local96w64",
+  "binary_sha256": "f44d29d9fa4df1e420a7d0543226030eb9b5e2982c9eab19e6cd5d5b54caceac",
+  "local_asset_sha256": "731b7909ed728f0565ca44260cb35434ef434e2376e8dda5bc0fcc6915e31560",
+  "wall_model_sha256": "c3e80aa7fb6be0098659d8b457ab2476598b48a6cff0fa067c38fe5e7e2122da",
+  "wall_trees": 64,
+  "output_sha256": "4699ee9bbe5052d2bd8afb7101456b6b7f31a3119139293bdaef4b5a03e8b322",
+  "reference_sha256": "f25664df50b7b0c610c03aadf44f323ae64780bcc74ccba737082eab5088aee0",
+  "rows": 1000000,
+  "python_cpp_mismatch_count": 0,
+  "stage8_reference_mismatch_count": 0,
+  "both_branches_reconstructed": true,
+  "float32_fma_emulated": true,
+  "local_only_valid": {
+    "rows": 50000,
+    "accuracy": 97.87397563958824,
+    "mae_ps": 12.18142,
+    "rmse_ps": 25.689876994645186,
+    "abs_error_p50_p90_p99": [
+      7.0,
+      23.0,
+      105.01000000000204
+    ],
+    "signed_error_ps": -2.45418
+  },
+  "caveat": "Historical regression slices; only new wall parameters and local geometry weights exclude held source coordinates",
+  "splits": {
+    "valid": {
+      "updated": {
+        "rows": 50000,
+        "accuracy": 98.01536989509542,
+        "mae_ps": 11.09064,
+        "rmse_ps": 18.934506066966733,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          23.0,
+          81.0
+        ],
+        "signed_error_ps": -2.14924
+      },
+      "baseline": {
+        "rows": 50000,
+        "accuracy": 97.63876959265059,
+        "mae_ps": 12.69178,
+        "rmse_ps": 26.082645954733966,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          25.0,
+          105.0
+        ],
+        "signed_error_ps": -2.56106
+      },
+      "paired_delta": {
+        "mean_accuracy_delta": 0.3766003024448328,
+        "source_coordinate_cluster_95_interval": [
+          0.3498868961910822,
+          0.40331370869858335
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "test": {
+      "updated": {
+        "rows": 50000,
+        "accuracy": 98.02160262237159,
+        "mae_ps": 11.08242,
+        "rmse_ps": 19.198367118065015,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          23.0,
+          86.0
+        ],
+        "signed_error_ps": -2.1737
+      },
+      "baseline": {
+        "rows": 50000,
+        "accuracy": 97.6508289022556,
+        "mae_ps": 12.6805,
+        "rmse_ps": 26.068785549004772,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          25.0,
+          111.0
+        ],
+        "signed_error_ps": -2.4301
+      },
+      "paired_delta": {
+        "mean_accuracy_delta": 0.37077372011600573,
+        "source_coordinate_cluster_95_interval": [
+          0.3448208817553646,
+          0.39672655847664684
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "position_assess": {
+      "updated": {
+        "rows": 180375,
+        "accuracy": 98.04180852944243,
+        "mae_ps": 11.005699237699238,
+        "rmse_ps": 19.082574476433955,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          23.0,
+          83.0
+        ],
+        "signed_error_ps": -2.193003465003465
+      },
+      "baseline": {
+        "rows": 180375,
+        "accuracy": 97.68438335551399,
+        "mae_ps": 12.532701316701317,
+        "rmse_ps": 25.786300627839196,
+        "abs_error_p50_p90_p99": [
+          7.0,
+          25.0,
+          107.0
+        ],
+        "signed_error_ps": -2.479955647955648
+      },
+      "paired_delta": {
+        "mean_accuracy_delta": 0.3574251739284418,
+        "source_coordinate_cluster_95_interval": [
+          0.3409880151759042,
+          0.3738623326809794
+        ],
+        "source_coordinate_groups": 12037,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "image": "fpga-ziguang:latest",
+  "cpu_limit": 1,
+  "memory_limit_bytes": 2000000000,
+  "runs": 2,
+  "timer": "child user+sys; fresh container per candidate/run",
+  "order": "alternating forward/reverse",
+  "rows": 10000000,
+  "cpu_model": "Intel(R) Core(TM) i9-14900HX",
+  "official_score": false,
+  "full_1b_completed": false,
+  "candidates": {
+    "displacement_cal16": {
+      "binary_sha256": "dabe1b977bb25f2ce912c1c3cdbf579233d02ad4a4caf3a9398abed9758e8d90",
+      "reference_1m_sha256": "6c8c0f043fa7b119d0b649754b915666fc202a57e0f9431319b33fb7a9c7d6cf",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.5028705349999996,
+          "user_seconds": 1.849905,
+          "sys_seconds": 0.555765,
+          "cpu_seconds": 2.4056699999999998,
+          "process_peak_rss_kib": 156904,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 595324928,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        },
+        {
+          "run": 2,
+          "wall_seconds": 2.3046495090000008,
+          "user_seconds": 1.80592,
+          "sys_seconds": 0.442588,
+          "cpu_seconds": 2.248508,
+          "process_peak_rss_kib": 156848,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 581787648,
+          "output_sha256": "e0a7fb3312fd719c5409eed3ca512ae7d1b1af9ca8cd2531dcd31efb40769f62",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.327089,
+      "projected_1b_cpu_seconds": 232.7089,
+      "max_container_bytes": 595324928
+    },
+    "stage10_local96w64": {
+      "binary_sha256": "f44d29d9fa4df1e420a7d0543226030eb9b5e2982c9eab19e6cd5d5b54caceac",
+      "reference_1m_sha256": "4699ee9bbe5052d2bd8afb7101456b6b7f31a3119139293bdaef4b5a03e8b322",
+      "runs": [
+        {
+          "run": 1,
+          "wall_seconds": 2.769872552000038,
+          "user_seconds": 2.141658,
+          "sys_seconds": 0.511618,
+          "cpu_seconds": 2.653276,
+          "process_peak_rss_kib": 190264,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 615641088,
+          "output_sha256": "331f0db76da49c67ba0880831c6d0ae1d9db4d10e0d71f4a9dcd4d77e4b634a0",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        },
+        {
+          "run": 2,
+          "wall_seconds": 2.7125269389999858,
+          "user_seconds": 2.138989,
+          "sys_seconds": 0.496977,
+          "cpu_seconds": 2.635966,
+          "process_peak_rss_kib": 190128,
+          "max_observed_threads": 1,
+          "container_peak_bytes": 615481344,
+          "output_sha256": "331f0db76da49c67ba0880831c6d0ae1d9db4d10e0d71f4a9dcd4d77e4b634a0",
+          "rows": 10000000,
+          "repeated_output_verified": true
+        }
+      ],
+      "mean_10m_cpu_seconds": 2.644621,
+      "projected_1b_cpu_seconds": 264.46209999999996,
+      "max_container_bytes": 615641088
+    }
+  }
+}

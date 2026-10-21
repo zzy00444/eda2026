@@ -1,0 +1,14 @@
+{
+  "candidate": "stage10_local96",
+  "factors": "stage10_local_weighted",
+  "factors_sha256": "3cc59161ebbe43e893d98d4321ef3ccf1f542bf0b5ce93dae6b5f019a3df7885",
+  "rank": 96,
+  "bits": 8,
+  "columns": 11809,
+  "pairs": 59904,
+  "asset_sha256": "731b7909ed728f0565ca44260cb35434ef434e2376e8dda5bc0fcc6915e31560",
+  "asset_bytes": 9084132,
+  "correction": "round(local dot) added to round(base M+dot), before branch minimum and calibration",
+  "distance_gate": "V row belongs to frozen local rectangle; both candidates evaluated",
+  "public_delay_labels_used": false
+}

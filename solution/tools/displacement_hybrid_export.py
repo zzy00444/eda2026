@@ -122,6 +122,8 @@ def main():
                   '    int xx=125*((dx-mx)/10),yp=127*((dy-my)/12),ym=-125*((dy-my)/12);',
                   '    int bound=max(max(q[0]+xx+yp,q[1]+xx+ym),max(q[2]-xx+yp,q[3]-xx+ym));',
                   '    bound+=ngx+ngy;', '    RFeature f[RFeatures];']
+        lines += ['#if defined(EST_RESIDUAL_ABLATION) && EST_RESIDUAL_ABLATION==1',
+                  '    output=max((long)bound,base); return true;', '#endif']
         for key in sorted(required-{'margin','lut_minus_base'}):
             lines.append('    f[RF_'+key+']='+exprs[key]+';')
         for key in usedbins:
@@ -137,6 +139,8 @@ def main():
         rounding='(int)base+((correction+128)>>8)' if args.fixed else '(int)floor(base+correction+.5)'
         lines += [f'    int lut=max(bound,max(0,{rounding}));',
                   '    f[RF_lut_minus_base]=lut-base;', '    double delta=0;']
+        lines += ['#if defined(EST_RESIDUAL_ABLATION) && EST_RESIDUAL_ABLATION==2',
+                  '    output=lut; return true;', '#endif']
         lines += [f'    delta+=cG{i}(f);' for i in range(args.global_trees)]
         lines += ['    output=max(bound,max(0,(int)(lut+delta+.5)));','    return true;','}']
     header=OUT/(args.name+'.hpp');header.write_text('\n'.join(lines)+'\n')
