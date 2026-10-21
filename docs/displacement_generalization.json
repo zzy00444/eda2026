@@ -1,0 +1,175 @@
+{
+  "oracle_rows": 56,
+  "oracle_new_rows": 48,
+  "candidates": {
+    "displacement_baseline": {
+      "official_eight": {
+        "rows": 8,
+        "accuracy": 94.49090250198549,
+        "mae_ps": 10.75,
+        "rmse_ps": 12.0,
+        "abs_error_p50_p90_p99": [
+          10.5,
+          16.9,
+          18.79
+        ],
+        "signed_error_ps": -0.25
+      },
+      "reserved_48": {
+        "rows": 48,
+        "accuracy": 88.24862520987203,
+        "mae_ps": 18.604166666666668,
+        "rmse_ps": 25.05951249858358,
+        "abs_error_p50_p90_p99": [
+          12.5,
+          43.50000000000002,
+          56.59
+        ],
+        "signed_error_ps": -4.520833333333333
+      },
+      "paired_valid_delta_vs_baseline": {
+        "mean_accuracy_delta": 0.0,
+        "source_coordinate_cluster_95_interval": [
+          0.0,
+          0.0
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_test_delta_vs_baseline": {
+        "mean_accuracy_delta": 0.0,
+        "source_coordinate_cluster_95_interval": [
+          0.0,
+          0.0
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "displacement_refit_q16": {
+      "official_eight": {
+        "rows": 8,
+        "accuracy": 94.80526674037026,
+        "mae_ps": 10.375,
+        "rmse_ps": 11.75265927354316,
+        "abs_error_p50_p90_p99": [
+          9.5,
+          16.9,
+          18.79
+        ],
+        "signed_error_ps": -0.125
+      },
+      "reserved_48": {
+        "rows": 48,
+        "accuracy": 88.09915541239836,
+        "mae_ps": 18.583333333333332,
+        "rmse_ps": 24.83864596416909,
+        "abs_error_p50_p90_p99": [
+          12.0,
+          44.60000000000001,
+          55.06
+        ],
+        "signed_error_ps": -4.458333333333333
+      },
+      "paired_valid_delta_vs_baseline": {
+        "mean_accuracy_delta": 0.03770580071662718,
+        "source_coordinate_cluster_95_interval": [
+          0.034065880559944736,
+          0.04134572087330962
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_test_delta_vs_baseline": {
+        "mean_accuracy_delta": 0.03747903413221784,
+        "source_coordinate_cluster_95_interval": [
+          0.03391668704206648,
+          0.0410413812223692
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    },
+    "displacement_cal16": {
+      "official_eight": {
+        "rows": 8,
+        "accuracy": 94.9324909434597,
+        "mae_ps": 10.0,
+        "rmse_ps": 11.5,
+        "abs_error_p50_p90_p99": [
+          9.5,
+          17.3,
+          17.93
+        ],
+        "signed_error_ps": -0.75
+      },
+      "reserved_48": {
+        "rows": 48,
+        "accuracy": 88.05065497392324,
+        "mae_ps": 18.625,
+        "rmse_ps": 24.49829926069699,
+        "abs_error_p50_p90_p99": [
+          13.5,
+          43.60000000000001,
+          53.650000000000006
+        ],
+        "signed_error_ps": -4.041666666666667
+      },
+      "paired_valid_delta_vs_baseline": {
+        "mean_accuracy_delta": 0.05825450212096,
+        "source_coordinate_cluster_95_interval": [
+          0.051499366573111285,
+          0.06500963766880871
+        ],
+        "source_coordinate_groups": 34005,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      },
+      "paired_test_delta_vs_baseline": {
+        "mean_accuracy_delta": 0.05531169950394604,
+        "source_coordinate_cluster_95_interval": [
+          0.04873331815839778,
+          0.061890080849494294
+        ],
+        "source_coordinate_groups": 33991,
+        "note": "Approximate cluster interval, conditional on this evaluated dataset"
+      }
+    }
+  },
+  "M_only_position_disjoint_check": {
+    "fit_rows": 719583,
+    "assess_rows": 180375,
+    "frozen_penalty": 4.0,
+    "baseline": {
+      "rows": 180375,
+      "accuracy": 97.58824291501298,
+      "mae_ps": 13.030480942480942,
+      "rmse_ps": 26.462113557224672,
+      "abs_error_p50_p90_p99": [
+        7.0,
+        26.0,
+        110.0
+      ],
+      "signed_error_ps": -4.686719334719335
+    },
+    "updated": {
+      "rows": 180375,
+      "accuracy": 97.62519144188514,
+      "mae_ps": 12.806802494802495,
+      "rmse_ps": 26.154621104657682,
+      "abs_error_p50_p90_p99": [
+        7.0,
+        25.0,
+        109.0
+      ],
+      "signed_error_ps": -3.764972972972973
+    },
+    "mean_accuracy_delta": 0.036948526872172247,
+    "source_coordinate_cluster_95_interval": [
+      0.034991566509306106,
+      0.03890548723503839
+    ],
+    "source_coordinate_groups": 12037,
+    "note": "Approximate cluster interval, conditional on this evaluated dataset",
+    "scope": "M is refitted on other source coordinates; final deployed M uses the main training split"
+  }
+}

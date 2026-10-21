@@ -1,0 +1,43 @@
+{
+  "base_candidate": "displacement_refit_q16",
+  "fit_rows": 899957,
+  "reserved_source_coordinates": [
+    [
+      20,
+      25
+    ],
+    [
+      60,
+      275
+    ],
+    [
+      100,
+      525
+    ]
+  ],
+  "minimum_group_count": 50,
+  "count_prior": 50,
+  "objective": "weighted median ratio with pred/truth weights; relative L1 proxy",
+  "configs": [
+    {
+      "shrink_factor": 0.0,
+      "valid_accuracy": 97.61822089124628
+    },
+    {
+      "shrink_factor": 0.25,
+      "valid_accuracy": 97.62669941391927
+    },
+    {
+      "shrink_factor": 0.5,
+      "valid_accuracy": 97.63307637406547
+    },
+    {
+      "shrink_factor": 1.0,
+      "valid_accuracy": 97.63876959265059
+    }
+  ],
+  "selected_shrink_factor": 1.0,
+  "selected_valid_accuracy": 97.63876959265059,
+  "output_sha256": "294ccb9669e3b2665825c70b20b7a34250ed479ef051dfb2fd4f329e4bb7d11d",
+  "label_scope": "rng7 training rows only; validation selects shrink; test unused"
+}

@@ -4,6 +4,8 @@
 
 这是“面向超大规模 FPGA 的布局布线延时估算算法”实现仓库。接手时先阅读仓库根目录 [`README.md`](README.md) 的环境准备，再看 [`solution/README.md`](solution/README.md) 的接口、评分和算法结构，最后查阅[第七阶段报告](solution/FPGA延时估算第七阶段结果.md)及[实现比较](solution/实现对比与适配评估.md)。本交接说明更新于 2026-10-21。
 
+新一轮完整位移模型优化正在按[计划](docs/优化推进计划.md)推进，[执行记录](docs/完整位移模型优化记录.md)包含代码入口、模型格式与实验结果。P1 已复现 Pango 未校准基线，P2 的 U-int16 实际 ZIP 为 80.79 MB；后续候选在完成统一验收前不替换下述默认产物。
+
 - 提交程序：`solution/src/main.cpp`
 - 特征、训练和导出：`solution/tools/`
 - 共享路径配置：`solution/tools/project_paths.py`

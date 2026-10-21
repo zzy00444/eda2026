@@ -218,14 +218,21 @@ static inline const char* findByte(const char* p, const char* end, char ch) {
 // 0..3 decimal digits without a branch; the loop tail keeps longer runs (and
 // non-digit bytes, which the original folded in as *p - '0' too) bit identical.
 static inline int parseDigits(const char* p, int n) {
+    if (n <= 0) return -1;
     if (n > 3) {
         int v = 0;
-        for (int i = 0; i < n; i++) v = v * 10 + (p[i] - '0');
+        for (int i = 0; i < n; i++) {
+            unsigned d = (unsigned)(p[i] - '0');
+            if (d > 9 || v > (INT_MAX - (int)d) / 10) return -1;
+            v = v * 10 + (int)d;
+        }
         return v;
     }
     int d0 = p[0] - '0';
     int d1 = p[1] - '0';
     int d2 = p[2] - '0';
+    if ((unsigned)d0 > 9 || (n >= 2 && (unsigned)d1 > 9) ||
+        (n >= 3 && (unsigned)d2 > 9)) return -1;
     int v2 = d0 * 10 + d1;
     int v3 = v2 * 10 + d2;
     int v = (n == 3) ? v3 : ((n == 2) ? v2 : d0);
@@ -236,6 +243,7 @@ static inline int parseDigits(const char* p, int n) {
 // Returns false exactly when the original inline scan would `continue`.
 static inline bool parseField(const char* s, const char* end, int& x, int& y,
                               const char*& pin, int& pinLen) {
+    if (end - s < 9 || memcmp(s, "SRB_", 4) != 0) return false;
     const char* q = s + 4;
     if (q >= end) return false;
     if (q + 8 <= end) {
@@ -250,7 +258,7 @@ static inline bool parseField(const char* s, const char* end, int& x, int& y,
                 y = parseDigits(q + iu + 1, is - iu - 1);
                 pin = q + is + 1;
                 pinLen = (int)(end - pin);
-                return true;
+                return (unsigned)x < (unsigned)W && (unsigned)y < (unsigned)H && pinLen > 0;
             }
         }
     }
@@ -264,7 +272,7 @@ static inline bool parseField(const char* s, const char* end, int& x, int& y,
     y = parseDigits(u + 1, (int)(sl - u - 1));
     pin = sl + 1;
     pinLen = (int)(end - pin);
-    return true;
+    return (unsigned)x < (unsigned)W && (unsigned)y < (unsigned)H && pinLen > 0;
 }
 
 // ------------------------------------------------------------ pin name hash
@@ -596,6 +604,7 @@ int main(int argc, char** argv) {
     //   bits 10..19 = srcIdxOf[port] + 1
     //   bits 20..29 = tgtIdxOf[port] + 1
     static uint32_t PIN[1 << 16];
+    static uint64_t PIN_KEY[1 << 16];
     vector<uint32_t> pval(NP);
     vector<uint64_t> pkey(NP);
     int maxNameLen = 0;
@@ -620,6 +629,7 @@ int main(int argc, char** argv) {
                 uint32_t h = (uint32_t)((pkey[i] * seed) >> 48);
                 if (PIN[h] != 0) { ok = false; break; }
                 PIN[h] = pval[i];
+                PIN_KEY[h] = pkey[i];
             }
             if (ok) { pinSeed = seed; break; }
             seed = seed * 0x2545F4914F6CDD1Dull + 0x9E3779B97F4A7C15ull;
@@ -633,7 +643,8 @@ int main(int argc, char** argv) {
             if (n > 8) return 0;                  // no arch pin name that long
             uint64_t k = load64(s);
             if (n < 8) k &= ((uint64_t)1 << (8 * n)) - 1;
-            return PIN[(uint32_t)((k * pinSeed) >> 48)];
+            uint32_t slot = (uint32_t)((k * pinSeed) >> 48);
+            return PIN_KEY[slot] == k ? PIN[slot] : 0;
         }
         uint32_t h = nhash(s, n);
         while (ht[h] >= 0) {
@@ -656,6 +667,16 @@ int main(int argc, char** argv) {
     // ---- streaming I/O ----
     FILE* fi = fopen(inPath, "rb");
     if (!fi) { fprintf(stderr, "cannot open %s\n", inPath); return 1; }
+    {
+        char header[64];
+        if (!fgets(header, sizeof(header), fi)) { fprintf(stderr, "missing CSV header\n"); return 1; }
+        char* text = header;
+        if (strlen(text) >= 3 && (unsigned char)text[0] == 0xEF &&
+            (unsigned char)text[1] == 0xBB && (unsigned char)text[2] == 0xBF) text += 3;
+        size_t n = strlen(text);
+        while (n && (text[n-1] == '\n' || text[n-1] == '\r')) text[--n] = 0;
+        if (strcmp(text, "From,To") != 0) { fprintf(stderr, "invalid CSV header\n"); return 1; }
+    }
     FILE* fo = fopen(outPath, "wb");
     if (!fo) { fclose(fi); fprintf(stderr, "cannot write %s\n", outPath); return 1; }
     { const char* hdr = "From,To,delay\n"; size_t hl = strlen(hdr); if (fwrite(hdr, 1, hl, fo) != hl) { fclose(fo); fclose(fi); return 1; } }
@@ -732,7 +753,8 @@ int main(int argc, char** argv) {
         for (size_t i = 0; i < nr; i++) {
             const Rec& R = RC[i];
             if (op + R.keyLen + 64 > oe) {
-                fwrite(outBuf, 1, (size_t)(op - outBuf), fo);
+                size_t bytes = (size_t)(op - outBuf);
+                if (fwrite(outBuf, 1, bytes, fo) != bytes) exit(1);
                 op = outBuf;
             }
             // Copy the key with three overlapping 16-byte stores: the bytes past
@@ -799,7 +821,10 @@ int main(int argc, char** argv) {
                 op += 3;
             }
         }
-        if (op != outBuf) fwrite(outBuf, 1, (size_t)(op - outBuf), fo);
+        if (op != outBuf) {
+            size_t bytes = (size_t)(op - outBuf);
+            if (fwrite(outBuf, 1, bytes, fo) != bytes) exit(1);
+        }
         }
         nr = 0; nj = 0; maxJobKey = 0;
     };
@@ -809,7 +834,7 @@ int main(int argc, char** argv) {
         while (!eof && have < BLOCKB) {
             size_t got = fread(dat + have, 1, BLOCKB - have, fi);
             if (got) have += got;
-            else { eof = true; break; }
+            else { if (ferror(fi)) return 1; eof = true; break; }
         }
         // Only complete lines are consumed: the tail after the last '\n' waits
         // for the next block (a line may straddle a block boundary).
@@ -831,9 +856,13 @@ int main(int argc, char** argv) {
             char* const lim = dat + proc;
             while (p < lim) {
                 if (p[0] != 'S' || p + 1 >= lim || p[1] != 'R') {
-                    // header / blank / malformed: skip to the next newline
                     char* nl0 = (char*)memchr(p, '\n', (size_t)(lim - p));
                     if (!nl0) break;
+                    for (char* q = p; q < nl0; q++) {
+                        if (*q != '\r' && *q != ' ' && *q != '\t') {
+                            fprintf(stderr, "invalid CSV row\n"); return 1;
+                        }
+                    }
                     p = nl0 + 1;
                     continue;
                 }
@@ -847,14 +876,17 @@ int main(int argc, char** argv) {
                         do { eol--; } while (eol > base && (eol[-1] == '\r' || eol[-1] == ' ' || eol[-1] == '\t'));
                     }
                     const char* c1 = findByte(base, eol, ',');
-                    if (c1 >= eol) continue;
+                    if (c1 >= eol || eol - base > 1024) { fprintf(stderr, "invalid CSV row\n"); return 1; }
                     const char* c2 = findByte(c1 + 1, eol, ',');
+                    if (c2 != eol) { fprintf(stderr, "invalid field count\n"); return 1; }
                     int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
                     const char* pin0 = base;
                     const char* pin1 = base;
                     int plen0 = 0, plen1 = 0;
-                    if (!parseField(base, c1, x0, y0, pin0, plen0)) continue;
-                    if (!parseField(c1 + 1, c2, x1, y1, pin1, plen1)) continue;
+                    if (!parseField(base, c1, x0, y0, pin0, plen0) ||
+                        !parseField(c1 + 1, c2, x1, y1, pin1, plen1)) {
+                        fprintf(stderr, "invalid pin coordinates\n"); return 1;
+                    }
                     if (nr == CAP) flushChunk();               // pathological input guard
                     Rec& R = RC[nr];
                     R.keyOff = (int32_t)(base - dat);
@@ -868,6 +900,7 @@ int main(int argc, char** argv) {
                     nr++;
                     uint32_t v0 = pinLookup(pin0, plen0);
                     uint32_t v1 = pinLookup(pin1, plen1);
+                    if (!v0 || !v1) { fprintf(stderr, "unknown port\n"); return 1; }
                     int p0 = (int)(v0 & 0x3FFu) - 1;
                     int si = (int)((v0 >> 10) & 0x3FFu) - 1;
                     int ti = (int)((v1 >> 20) & 0x3FFu) - 1;
@@ -885,6 +918,9 @@ int main(int argc, char** argv) {
                         if (bt) { cdxx[ncd] = dx; cpen[ncd] = 0; ncd++; }
                     }
                     int ndx = netdx[p0], ndy = netdy[p0];
+                    // A forced Net landing beyond the chip cannot form a path.
+                    if ((unsigned)(x0 + ndx) >= (unsigned)W ||
+                        (unsigned)(y0 + ndy) >= (unsigned)H) continue;
                     int netWall = 0;
                     if (ndx != 0) {
                         int xl = x0 + ndx;
@@ -937,10 +973,10 @@ int main(int argc, char** argv) {
         have = rem;
         if (eof) break;
     }
-    fclose(fo);
-    fclose(fi);
+    int outputStatus = fclose(fo);
+    int inputStatus = fclose(fi);
 #ifdef EST_TRACE
     if (traceOut) fclose(traceOut);
 #endif
-    return 0;
+    return outputStatus == 0 && inputStatus == 0 ? 0 : 1;
 }

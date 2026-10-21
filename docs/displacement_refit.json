@@ -1,0 +1,84 @@
+{
+  "train_rows": 899958,
+  "excluded_train_rows": 42,
+  "excluded_source_coordinates": [
+    [
+      20,
+      25
+    ],
+    [
+      60,
+      275
+    ],
+    [
+      100,
+      525
+    ]
+  ],
+  "objective_proxy": "relative-error weighted robust least squares around baseline",
+  "screening": "Fixed baseline branch; integer correction approximation, actual C++ required",
+  "validation_configs": [
+    {
+      "components": 0,
+      "penalty": 4.0,
+      "approx_valid_accuracy": 97.61840690039503,
+      "mean_abs_correction_ps": 1.53008
+    },
+    {
+      "components": 0,
+      "penalty": 16.0,
+      "approx_valid_accuracy": 97.6176595962463,
+      "mean_abs_correction_ps": 1.22786
+    },
+    {
+      "components": 0,
+      "penalty": 64.0,
+      "approx_valid_accuracy": 97.60862235366024,
+      "mean_abs_correction_ps": 0.71214
+    },
+    {
+      "components": 4,
+      "penalty": 4.0,
+      "approx_valid_accuracy": 97.6023271095585,
+      "mean_abs_correction_ps": 2.4787872631504033
+    },
+    {
+      "components": 4,
+      "penalty": 16.0,
+      "approx_valid_accuracy": 97.61321852826048,
+      "mean_abs_correction_ps": 1.929291242648961
+    },
+    {
+      "components": 4,
+      "penalty": 64.0,
+      "approx_valid_accuracy": 97.61581141745744,
+      "mean_abs_correction_ps": 1.2138483311500181
+    },
+    {
+      "components": 16,
+      "penalty": 4.0,
+      "approx_valid_accuracy": 97.48008568924833,
+      "mean_abs_correction_ps": 4.637988011624949
+    },
+    {
+      "components": 16,
+      "penalty": 16.0,
+      "approx_valid_accuracy": 97.57970179744102,
+      "mean_abs_correction_ps": 3.117730090856705
+    },
+    {
+      "components": 16,
+      "penalty": 64.0,
+      "approx_valid_accuracy": 97.61642337541208,
+      "mean_abs_correction_ps": 1.7890660236466882
+    }
+  ],
+  "selected": {
+    "components": 0,
+    "penalty": 4.0,
+    "approx_valid_accuracy": 97.61840690039503
+  },
+  "baseline_valid_accuracy": 97.58051509052964,
+  "U_sha256": "b4c63f4973cf09ecd23e9fd70040cbb927ac15848d1b5fe887558fa88eff752f",
+  "M_sha256": "9cfc5a657d66149433dc18ec916e9b234504dc4c8e5bd56f782cf3c40484076d"
+}

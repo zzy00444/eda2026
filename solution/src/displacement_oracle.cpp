@@ -262,6 +262,6 @@ int main(int argc, char** argv) {
         for (auto& v : bucket) v.clear();
     }
     fprintf(stderr, "TOTAL time=%.2fs pops=%lld  exact-match=%lld mismatch=%lld  meanRelErr=%.6f\n",
-            totalTime, totalPops, nz, nbad, qs.empty() ? 0.0 : sumErr / (double)qs.size());
+            totalTime, totalPops, (long long)nz, (long long)nbad, qs.empty() ? 0.0 : sumErr / (double)qs.size());
     return 0;
 }
