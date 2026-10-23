@@ -226,6 +226,56 @@ static inline const char* findByte(const char* p, const char* end, char ch) {
     return p;
 }
 
+// Locate the two CSV commas and line ending in one forward pass. The normal
+// path performs a newline scan and then two independent comma scans; request
+// files have exactly two commas per valid data row, so sharing these scans is
+// cheaper when the optimized parser is enabled.
+static inline bool findRowDelimiters(const char* p, const char* end,
+                                     const char*& c1, const char*& c2,
+                                     const char*& nl, bool& extraComma) {
+    const uint64_t commaPat = 0x2C2C2C2C2C2C2C2Cull;
+    const uint64_t newlinePat = 0x0A0A0A0A0A0A0A0Aull;
+    int commas = 0;
+    extraComma = false;
+    c1 = c2 = nl = end;
+    while (p + 8 <= end) {
+        const char* base = p;
+        uint64_t word = load64(p);
+        uint64_t hits = zbyte(word ^ commaPat) | zbyte(word ^ newlinePat);
+        while (hits) {
+            unsigned bit = (unsigned)__builtin_ctzll(hits);
+            hits &= ~(1ull << bit);
+            unsigned offset = bit >> 3;
+            char ch = base[offset];
+            if (ch == ',') {
+                if (commas == 0) c1 = base + offset;
+                else if (commas == 1) c2 = base + offset;
+                else extraComma = true;
+                commas++;
+            } else if (ch == '\n') {
+                nl = base + offset;
+                if (c2 == end) c2 = nl;
+                return true;
+            }
+        }
+        p += 8;
+    }
+    while (p < end) {
+        if (*p == ',') {
+            if (commas == 0) c1 = p;
+            else if (commas == 1) c2 = p;
+            else extraComma = true;
+            commas++;
+        } else if (*p == '\n') {
+            nl = p;
+            if (c2 == end) c2 = nl;
+            return true;
+        }
+        p++;
+    }
+    return false;
+}
+
 // 0..3 decimal digits without a branch; the loop tail keeps longer runs (and
 // non-digit bytes, which the original folded in as *p - '0' too) bit identical.
 static inline int parseDigits(const char* p, int n) {
@@ -983,6 +1033,26 @@ int main(int argc, char** argv) {
                     p = nl0 + 1;
                     continue;
                 }
+#ifdef EST_FAST_ROW_PARSE
+                const char* base = p;
+                const char* c1;
+                const char* c2;
+                const char* nl;
+                bool extraComma;
+                if (!findRowDelimiters(base, lim, c1, c2, nl, extraComma)) break;
+                p = (char*)nl + 1;
+                {
+#ifdef EST_FAST_ROW_PARSE_DEBUG
+                    static int debugRows = 0;
+                    if (debugRows++ < 3) fprintf(stderr, "fast row offsets %td %td %td text=%.*s\\n", c1-base, c2-base, nl-base, (int)(nl-base), base);
+#endif
+                    const char* eol = nl;
+                    if (eol[-1] == '\r' || eol[-1] == ' ' || eol[-1] == '\t') {
+                        do { eol--; } while (eol > base && (eol[-1] == '\r' || eol[-1] == ' ' || eol[-1] == '\t'));
+                    }
+                    if (c1 >= eol || eol - base > 1024) { fprintf(stderr, "invalid CSV row\n"); return 1; }
+                    if (extraComma) { fprintf(stderr, "invalid field count\n"); return 1; }
+#else
                 char* nl = (char*)memchr(p, '\n', (size_t)(lim - p));
                 if (!nl) break;                            // should not happen
                 const char* base = p;
@@ -996,6 +1066,7 @@ int main(int argc, char** argv) {
                     if (c1 >= eol || eol - base > 1024) { fprintf(stderr, "invalid CSV row\n"); return 1; }
                     const char* c2 = findByte(c1 + 1, eol, ',');
                     if (c2 != eol) { fprintf(stderr, "invalid field count\n"); return 1; }
+#endif
                     int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
                     const char* pin0 = base;
                     const char* pin1 = base;
