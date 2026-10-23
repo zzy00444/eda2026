@@ -136,6 +136,9 @@ def main() -> None:
     parser.add_argument("--model", type=Path, default=None)
     parser.add_argument("--public-rows", type=int, default=0)
     parser.add_argument("--eval-only", action="store_true")
+    parser.add_argument("--positions", default="", help="x,y;x,y list to restrict the dumps (default: all)")
+    parser.add_argument("--lin-position", default="40,275",
+                        help="source position whose cells fit the per-pair linear part; empty = all")
     args = parser.parse_args()
 
     arch = load_architecture()
@@ -157,6 +160,14 @@ def main() -> None:
     for entry in index:
         by_pos.setdefault((entry["x"], entry["y"]), {})[entry["port"]] = entry
     positions = sorted(p for p, d in by_pos.items() if all(n in d for n in src_names))
+    if args.positions:
+        want = set()
+        for token in args.positions.split(";"):
+            if token.strip():
+                a, b = token.split(",")
+                want.add((int(a), int(b)))
+        positions = [p for p in positions if p in want]
+        print(f"restricted to positions {positions}", flush=True)
     print(f"positions with full dumps: {positions}", flush=True)
 
     dxs = np.arange(-119, 120, dtype=np.int32)
@@ -218,7 +229,35 @@ def main() -> None:
     print(f"holes in sample: {int((~valid).sum())} of {X.size}", flush=True)
     X[~valid] = np.broadcast_to(pair_mean[:, None], X.shape)[~valid]
     D = np.stack([np.ones(len(sample)), sdx, sdy], axis=1).astype(np.float64)
-    lin = X.astype(np.float64) @ np.linalg.pinv(D.T)
+    # Route 1: fit the per-pair linear part on its own sample drawn from the cells
+    # covered by the *interior* representative, so edge/corner source positions do
+    # not pollute it.  They still contribute their own displacement coefficients.
+    if args.lin_position:
+        lx, ly = (int(v) for v in args.lin_position.split(","))
+        li = positions.index((lx, ly)) if (lx, ly) in positions else -1
+        if li >= 0:
+            pool = np.nonzero((cover_pos == li).ravel())[0]
+            print(f"linear-fit pool: {len(pool)} cells", flush=True)
+            lin_sample = rng.choice(pool, size=min(3000, len(pool)), replace=False)
+            Dlin = np.stack([np.ones(len(lin_sample)),
+                             np.array([divmod(int(c), NY)[0] - 119 for c in lin_sample], dtype=np.float32),
+                             np.array([divmod(int(c), NY)[1] - 549 for c in lin_sample], dtype=np.float32)],
+                            axis=1).astype(np.float64)
+            Xl = np.empty((pairs, len(lin_sample)), dtype=np.float32)
+            for j, c in enumerate(lin_sample):
+                ix, iy = divmod(int(c), NY)
+                pi, tpos = cell_target(ix, iy)
+                col = cell_matrix(pi, tpos).ravel()
+                bad = np.isnan(col)
+                if bad.any():
+                    col[bad] = pair_mean[bad]
+                Xl[:, j] = col
+            lin = Xl.astype(np.float64) @ np.linalg.pinv(Dlin.T)
+            del Xl
+        else:
+            lin = X.astype(np.float64) @ np.linalg.pinv(D.T)
+    else:
+        lin = X.astype(np.float64) @ np.linalg.pinv(D.T)
     A = lin[:, 0].astype(np.float32)
     Bx = lin[:, 1].astype(np.float32)
     By = lin[:, 2].astype(np.float32)
@@ -268,25 +307,12 @@ def main() -> None:
     if not covered.all():
         from scipy import ndimage
         inv = ~covered
-        residue = (dxs[:, None] % 10) * 12 + (dys[None, :] % 12)
         idxmap = ndimage.distance_transform_edt(inv, return_distances=False, return_indices=True)
         flat_src = (idxmap[0] * NY + idxmap[1]).ravel()
-        for cls in range(120):
-            cls_mask = residue == cls
-            src_cells = np.nonzero(cls_mask & covered)[0]
-            dst_cells = np.nonzero(cls_mask.ravel() & inv.ravel())[0]
-            if len(dst_cells) == 0:
-                continue
-            if len(src_cells) > 0:
-                coef_mean = C[:, src_cells].astype(np.float64).mean(axis=1)
-                sc = float(np.abs(coef_mean).max()) / qmax_c
-                sc = sc if sc > 0 else 1.0
-                C[:, dst_cells] = np.rint(coef_mean / sc).clip(-qmax_c, qmax_c).astype(C.dtype)[:, None]
-                scale[dst_cells] = sc
-            else:
-                C[:, dst_cells] = C[:, flat_src[dst_cells]]
-                scale[dst_cells] = scale[flat_src[dst_cells]]
-        print(f"filled {int(inv.sum())} uncovered cells", flush=True)
+        dst_cells = np.nonzero(inv.ravel())[0]
+        C[:, dst_cells] = C[:, flat_src[dst_cells]]
+        scale[dst_cells] = scale[flat_src[dst_cells]]
+        print(f"filled {int(inv.sum())} uncovered cells from the nearest covered displacement", flush=True)
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(args.out, U8=U8, su=np.float32(su), A=A, Bx=Bx, By=By,
