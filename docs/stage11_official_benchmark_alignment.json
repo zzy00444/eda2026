@@ -1,0 +1,36 @@
+{
+  "candidate": "stage11_balancedw64",
+  "submission": "solution/stage11_balancedw64_submission.zip",
+  "source": "user-reported official platform result; not independently retrieved",
+  "official_result": {
+    "tasks": [
+      {"task": 0, "status": "success", "cpu_ms": 287120, "real_ms": 287535, "memory_kib": 236276},
+      {"task": 1, "status": "success", "cpu_ms": 274880, "real_ms": 275930, "memory_kib": 236476}
+    ],
+    "mean_cpu_seconds": 281.0,
+    "mean_real_seconds": 281.7325,
+    "accuracy": 98.07,
+    "time_score": 84.39,
+    "consistency_score": 100.0,
+    "total_score": 96.12
+  },
+  "local_docker_reference": {
+    "evidence": "docs/stage11_final_benchmark.json",
+    "runs": 5,
+    "rows_per_run": 100000000,
+    "mean_100m_cpu_seconds": 20.0458118,
+    "projected_1b_cpu_seconds": 200.458118,
+    "test_accuracy": 98.19201281619397,
+    "raw_projected_total": 96.88312593628851
+  },
+  "alignment": {
+    "method": "official mean task CPU / local projected 1B CPU",
+    "runtime_ratio": 1.4017890759604956,
+    "calibrated_1b_cpu_seconds": 281.0,
+    "calibrated_time_score": 84.38888888888889,
+    "calibrated_total_using_local_test_accuracy": 96.21194358628851,
+    "recomputed_total_from_rounded_official_metrics": 96.117,
+    "official_reported_total": 96.12,
+    "note": "The aligned local estimate uses local test accuracy and the official-platform runtime ratio. The official result is separately reported and is not replaced by the estimate. One platform result does not establish hidden-set generalization or a stable runtime ratio."
+  }
+}

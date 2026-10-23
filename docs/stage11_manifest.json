@@ -354,6 +354,7 @@
     "tools/release_stage11.py": "15db885b2d7e25832521ab2c8aa2f45cd27708d403ec173fc6ca239c97e00814"
   },
   "official_score": false,
+  "official_alignment": "stage11_official_benchmark_alignment.json; user-reported official result, separate from raw local Docker benchmark",
   "full_1b_completed": false,
   "limitations": [
     "Historical public regression slices; no blind or official accuracy claim",
