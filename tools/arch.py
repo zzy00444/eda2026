@@ -110,6 +110,10 @@ class Architecture:
         for n in self.nets:
             self.nets_from[n.src].append(n)
         self.sources = [i for i in range(len(self.ports)) if self.arcs_from[i] or self.nets_from[i]]
+        # Query endpoints are all non-I ports (Q&A: "I* 端口以外均可能作为请求端点").
+        # A logic load port has no outgoing edge, so the reachable From universe is
+        # exactly the non-I ports with at least one outgoing arc or net (208 here).
+        self.query_sources = [i for i in self.sources if not self.ports[i].startswith("I")]
         self.targets = sorted({a.dst for a in self.arcs} | {n.src for n in self.nets})
         self.vertical_lines = [l for l in self.lines if l.vertical]
         self.horizontal_lines = [l for l in self.lines if not l.vertical]
@@ -277,6 +281,7 @@ def report(arch: Architecture) -> dict:
         "nets": len(arch.nets),
         "net_vectors": dict(sorted((f"{dx},{dy}", c) for (dx, dy), c in Counter((n.dx, n.dy) for n in arch.nets).items())),
         "sources": len(arch.sources),
+        "sources_query": len(arch.query_sources),
         "targets": len(arch.targets),
         "lines": len(arch.lines),
         "blocks": len(arch.blocks),

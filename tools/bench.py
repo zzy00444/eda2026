@@ -64,7 +64,7 @@ def run_once(binary: Path, request: Path, result: Path, repo: Path) -> dict:
         raise SystemExit("binary, request and result must live inside the repository")
     script = (
         "export TIMEFORMAT='wall=%R user=%U sys=%S'; "
-        f"time ./{relative_bin} -in ./{relative_req} -out ./{relative_out}; "
+        f"{{ time ./{relative_bin} -in ./{relative_req} -out ./{relative_out}; }} 2>&1; "
         "cat /sys/fs/cgroup/memory.peak"
     )
     start = time.perf_counter()
