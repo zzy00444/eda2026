@@ -50,6 +50,9 @@ WALL_X = [75, 76, 79, 83, 86, 89, 90, 91]
 DOOR_Y = [49, 50, 51, 99, 100, 101, 149, 150, 199, 200, 449, 450, 499, 500, 549]
 EDGE_X = [0, 1, 12, 118, 119]
 BLOCK0_EDGE = [(16, 0), (16, 50), (17, 99), (20, 20), (24, 30), (30, 60)]
+# Greedy-selected extra source positions so that 94.2% of the public request
+# displacements are covered by at least one full 208-port dump.
+COVERAGE_POSITIONS = [(109, 400), (19, 149), (119, 0), (0, 549)]
 
 
 def field_name(x: int, y: int, port: str) -> str:
@@ -85,6 +88,8 @@ def preset_pins(arch, preset: str) -> list[tuple[int, int, str]]:
         for (x, y) in BLOCK0_EDGE:
             out.append((x, y, "A_AQ0"))
         return out
+    if preset == "coverage":
+        return [(x, y, p) for (x, y) in COVERAGE_POSITIONS for p in sources]
     if preset == "all":
         return preset_pins(arch, "core") + preset_pins(arch, "phase") + preset_pins(arch, "defect")
     raise SystemExit(f"unknown preset {preset}")
@@ -151,7 +156,7 @@ def index(outdir: Path = FIELDS, columns: int = 288) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=["dump", "index"])
-    parser.add_argument("--preset", default="core", choices=["core", "phase", "defect", "all"])
+    parser.add_argument("--preset", default="core", choices=["core", "coverage", "phase", "defect", "all"])
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--image", default="fpga-ziguang:latest")
     parser.add_argument("--allports", action="store_true", help="dump distances to all 496 ports")
