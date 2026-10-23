@@ -364,8 +364,8 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    if (mode == "field") {
-        if (argc < 5) { fprintf(stderr, "field needs <pin> <out.bin>\n"); return 2; }
+    if (mode == "field" || mode == "fieldall") {
+        if (argc < 5) { fprintf(stderr, "%s needs <pin> <out.bin>\n", mode.c_str()); return 2; }
         int sx, sy, sp;
         if (!parsePin(argv[3], sx, sy, sp)) { fprintf(stderr, "bad pin %s\n", argv[3]); return 3; }
         const int s0 = xy2srb[static_cast<size_t>(sy) * W + sx];
@@ -373,11 +373,13 @@ int main(int argc, char** argv) {
         Dijkstra dj;
         const uint32_t d = dj.run(nodeOf(s0, sp), -1);
         (void)d;
-        const int ntg = static_cast<int>(targetPorts.size());
+        const bool allPorts = (mode == "fieldall");
+        const int ntg = allPorts ? NP : static_cast<int>(targetPorts.size());
         std::vector<uint16_t> field(static_cast<size_t>(NSRB) * ntg);
         for (int s = 0; s < NSRB; ++s) {
             for (int k = 0; k < ntg; ++k) {
-                const uint32_t dist = dj.dist[nodeOf(s, targetPorts[k])];
+                const int port = allPorts ? k : targetPorts[k];
+                const uint32_t dist = dj.dist[nodeOf(s, port)];
                 field[static_cast<size_t>(s) * ntg + k] =
                     dist >= 65535u ? 65535u : static_cast<uint16_t>(dist);
             }
@@ -386,7 +388,7 @@ int main(int argc, char** argv) {
         if (!fo) { fprintf(stderr, "cannot open %s\n", argv[4]); return 2; }
         fwrite(field.data(), sizeof(uint16_t), field.size(), fo);
         fclose(fo);
-        fprintf(stderr, "field: srbs=%d ports=%d targets=%d pops=%lld\n", NSRB, NP, ntg, dj.pops);
+        fprintf(stderr, "%s: srbs=%d ports=%d columns=%d pops=%lld\n", mode.c_str(), NSRB, NP, ntg, dj.pops);
         return 0;
     }
 
