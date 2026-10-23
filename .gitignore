@@ -300,3 +300,8 @@ __marimo__/
 /solution/stage*_source_archive.zip
 /solution/stage*_submission.zip
 /solution/submission.zip
+
+# generated model artifacts
+models/
+*.bin
+!tests/**/*.bin
