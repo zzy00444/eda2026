@@ -13,6 +13,8 @@
 //
 // Compile: g++ -O3 -mavx2 -std=c++17 -o build/estimate src/estimate.cpp
 
+#include <immintrin.h>
+
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -43,6 +45,7 @@ struct PortEntry {
 };
 
 int gRank = 0, gNx = 0, gNy = 0, gNs = 0, gNt = 0, gNports = 0;
+int gDbgCount = 0;
 float gSu = 0.f;
 bool gU8 = true, gC8 = false;
 
@@ -148,6 +151,7 @@ int parseBlock(char* base, size_t total, size_t& pos, Row* out) {
         while (p < lineEnd && *p >= '0' && *p <= '9') ty = ty * 10 + (*p++ - '0');
         ++p;
         const int tp = portId(p, static_cast<int>(lineEnd - p));
+        if (getenv("LEAN_DEBUG") && n < 5) fprintf(stderr, "line[%.*s] sp=%d tp=%d\\n", lineLen, lineStart, sp, tp);
         if (sp < 0 || tp < 0) continue;
         Row& r = out[n];
         memcpy(r.text, lineStart, static_cast<size_t>(lineLen));
@@ -167,7 +171,8 @@ int parseBlock(char* base, size_t total, size_t& pos, Row* out) {
 inline void computeRow(Row& r) {
     const int32_t pair = static_cast<int32_t>(r.src) * gNt + r.tgt;
     const int16_t vx = gSrcVx[r.src], vy = gSrcVy[r.src];
-    const int fx = r.sx + vx, fy = r.sy + vy;
+    const int fx = std::min(119, std::max(0, r.sx + vx));   // same clamp as the fit
+    const int fy = std::min(549, std::max(0, r.sy + vy));
     const int32_t gap = std::abs(gVp[fx] - gVp[r.sx]) + std::abs(gVp[r.tx] - gVp[fx]) +
                         std::abs(gHp[fy] - gHp[r.sy]) + std::abs(gHp[r.ty] - gHp[fy]);
     const int cell = r.cell;
@@ -176,6 +181,15 @@ inline void computeRow(Row& r) {
     const int32_t dot = dotRow(cRow, uRow, gRank);
     const float lin = gA[pair] + gBx[pair] * (r.tx - r.sx) + gBy[pair] * (r.ty - r.sy);
     const double v = static_cast<double>(lin) + static_cast<double>(dot) * gScale[cell] * gSu + gap;
+    if (getenv("LEAN_DEBUG1") && gDbgCount++ < 1) {
+        const int16_t* cc = static_cast<const int16_t*>(cRow);
+        const int16_t* uu = static_cast<const int16_t*>(uRow);
+        fprintf(stderr, "c0..3=%d,%d,%d,%d u0..3=%d,%d,%d,%d rank=%d\\n", cc[0], cc[1], cc[2], cc[3], uu[0], uu[1], uu[2], uu[3], gRank);
+    }
+    if (getenv("LEAN_DEBUG1") && gDbgCount < 2) {
+        fprintf(stderr, "pair=%d cell=%d sx=%d sy=%d tx=%d ty=%d gap=%d lin=%.1f dot=%d sc=%.4f su=%.3g v=%.1f\\n",
+                pair, cell, r.sx, r.sy, r.tx, r.ty, gap, lin, dot, gScale[cell], gSu, v);
+    }
     r.delay = static_cast<int32_t>(v < 0 ? 0 : v + 0.5);
 }
 
@@ -212,27 +226,35 @@ int main(int argc, char** argv) {
     void* map = mmap(nullptr, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (map == MAP_FAILED) { fprintf(stderr, "mmap failed\n"); return 2; }
     const char* blob = static_cast<const char*>(map) + trailer[0];
+    const uint64_t blobSize = trailer[1];
     Header h;
     memcpy(&h, blob, sizeof(Header));
     if (memcmp(h.magic, "LEAN0001", 8) != 0) { fprintf(stderr, "bad model magic\n"); return 2; }
     gRank = h.rank; gNx = h.nx; gNy = h.ny; gNs = h.ns; gNt = h.nt; gNports = h.nports;
     gSu = h.su; gU8 = (h.flags & 1) != 0; gC8 = (h.flags & 2) != 0;
-    const char* p = blob + sizeof(Header);
-    const size_t pairs = static_cast<size_t>(gNs) * gNt;
-    const size_t cells = static_cast<size_t>(gNx) * gNy;
-    gA = reinterpret_cast<const float*>(p); p += 4 * pairs;
-    gBx = reinterpret_cast<const float*>(p); p += 4 * pairs;
-    gBy = reinterpret_cast<const float*>(p); p += 4 * pairs;
-    gU = p; p += pairs * gRank * (gU8 ? 1 : 2);
-    gC = p; p += cells * gRank * (gC8 ? 1 : 2);
-    gScale = reinterpret_cast<const float*>(p); p += 4 * cells;
-    gVp = reinterpret_cast<const int32_t*>(p); p += 4 * 120;
-    gHp = reinterpret_cast<const int32_t*>(p); p += 4 * 550;
-    gSrcVx = reinterpret_cast<const int8_t*>(p); p += gNs;
-    gSrcVy = reinterpret_cast<const int8_t*>(p); p += gNs;
-    gPorts = reinterpret_cast<const PortEntry*>(p);
 
+    // section table lives in the footer at the end of the blob
+    const char* footer = blob + blobSize - 188;
+    if (memcmp(footer, "LEANIDX1", 8) != 0) { fprintf(stderr, "bad section footer\n"); return 2; }
+    const uint32_t nsect = *reinterpret_cast<const uint32_t*>(footer + 8);
+    if (nsect != 11) { fprintf(stderr, "unexpected section count %u\n", nsect); return 2; }
+    const uint64_t* sec = reinterpret_cast<const uint64_t*>(footer + 12);
+    auto at = [&](int i) { return blob + sec[2 * i]; };
+    gA = reinterpret_cast<const float*>(at(0));
+    gBx = reinterpret_cast<const float*>(at(1));
+    gBy = reinterpret_cast<const float*>(at(2));
+    gU = at(3);
+    gC = at(4);
+    gScale = reinterpret_cast<const float*>(at(5));
+    gVp = reinterpret_cast<const int32_t*>(at(6));
+    gHp = reinterpret_cast<const int32_t*>(at(7));
+    gSrcVx = reinterpret_cast<const int8_t*>(at(8));
+    gSrcVy = reinterpret_cast<const int8_t*>(at(9));
+    gPorts = reinterpret_cast<const PortEntry*>(at(10));
+
+    if (getenv("LEAN_DEBUG1")) fprintf(stderr, "stage: footer ok rank=%d nports=%d name0=[%.8s]\n", gRank, gNports, gPorts[0].name);
     for (int i = 0; i < (1 << 16); ++i) gVal[i] = -1;
+    if (getenv("LEAN_DEBUG1")) fprintf(stderr, "stage: table zeroed\\n");
     for (int i = 0; i < gNports; ++i) {
         const uint32_t hh = hashName(gPorts[i].name, static_cast<int>(strlen(gPorts[i].name)));
         uint32_t slot = hh & 0xffffu;
@@ -241,6 +263,7 @@ int main(int argc, char** argv) {
         gVal[slot] = static_cast<int16_t>(i);
     }
 
+    if (getenv("LEAN_DEBUG1")) fprintf(stderr, "stage: hash built, port0=%.24s\\n", gPorts[0].name);
     FILE* in = fopen(inPath, "rb");
     FILE* out = fopen(outPath, "wb");
     if (!in || !out) { fprintf(stderr, "cannot open -in/-out files\n"); return 2; }

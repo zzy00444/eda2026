@@ -2,26 +2,18 @@
 
 Layout (little endian):
 
-    char   magic[8]      = "LEAN0001"
-    u32    version       = 1
-    u32    rank
-    u32    nx, ny        displacement grid (239 x 1099)
-    u32    ns, nt        source/target port counts (208, 288)
-    u32    nports        (496)
-    f32    su            basis scale
-    u32    flags         bit0: U int8 (else int16), bit1: C int8 (else int16)
-    f32    A[ns*nt]
-    f32    Bx[ns*nt]
-    f32    By[ns*nt]
-    <U>    ns*nt*rank    int8/int16
-    <C>    nx*ny*rank    int8/int16
-    f32    scale[nx*ny]
-    i32    vp[120]
-    i32    hp[550]
-    i8     src_vx[ns], src_vy[ns]
-    port table: nports x { char name[24]; i16 src; i16 tgt; }
+    header    : char magic[8]="LEAN0001", u32 version, u32 rank, u32 nx, ny, ns, nt,
+                u32 nports, f32 su, u32 flags (bit0 U int8, bit1 C int8)      -> 44 B
+    sections  : A, Bx, By (f32 ns*nt each), U (int8/int16 ns*nt*rank),
+                C.T (int8/int16 nx*ny*rank, cell-major), scale (f32 nx*ny),
+                vp (i32 121), hp (i32 551), vx (i8 ns), vy (i8 ns),
+                ports (nports x {char name[24]; i16 src; i16 tgt})
+    footer    : char magic[8]="LEANIDX1", u32 count, count x (u64 offset, u64 size)
 
-Usage: python tools/export_lean.py --model build/lean.tel.npz --out models/lean.bin
+The runtime reads the footer at (blob_end - FOOTER_SIZE) so no offset arithmetic
+is duplicated between writer and reader.
+
+Usage: python tools/export_lean.py --model build/lean_7pos.npz --out models/lean.bin
 """
 
 from __future__ import annotations
@@ -40,6 +32,9 @@ sys.path.insert(0, str(ROOT / "tools"))
 from arch import load_architecture  # noqa: E402
 from fit_lean import gap_arrays, source_nets  # noqa: E402
 
+SECTIONS = ("A", "Bx", "By", "U", "C", "scale", "vp", "hp", "vx", "vy", "ports")
+FOOTER_SIZE = 8 + 4 + 16 * len(SECTIONS)
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -57,37 +52,50 @@ def main() -> None:
     nports = len(arch.ports)
     src_of = {p: i for i, p in enumerate(arch.query_sources)}
     tgt_of = {p: i for i, p in enumerate(arch.targets)}
-
     flags = (1 if U8.dtype == np.int8 else 0) | (2 if C.dtype == np.int8 else 0)
+
+    chunks = {
+        "A": A.astype("<f4").tobytes(),
+        "Bx": Bx.astype("<f4").tobytes(),
+        "By": By.astype("<f4").tobytes(),
+        "U": U8.astype("<i1" if U8.dtype == np.int8 else "<i2").tobytes(),
+        "C": C.T.astype("<i1" if C.dtype == np.int8 else "<i2").tobytes(),  # cell-major
+        "scale": scale.astype("<f4").tobytes(),
+        "vp": vp.astype("<i4").tobytes(),
+        "hp": hp.astype("<i4").tobytes(),
+        "vx": vxs.astype(np.int8).tobytes(),
+        "vy": vys.astype(np.int8).tobytes(),
+        "ports": b"".join(
+            str(arch.ports[i]).encode("ascii")[:23].ljust(24, b"\x00")
+            + struct.pack("<hh", src_of.get(i, -1), tgt_of.get(i, -1))
+            for i in range(nports)
+        ),
+    }
+
+    blob = bytearray()
+    blob += b"LEAN0001"
+    blob += struct.pack("<I", 1)
+    blob += struct.pack("<I", rank)
+    blob += struct.pack("<4I", nx, ny, ns, nt)
+    blob += struct.pack("<I", nports)
+    blob += struct.pack("<f", su)
+    blob += struct.pack("<I", flags)
+    offsets = []
+    for name in SECTIONS:
+        data = chunks[name]
+        offsets.append((name, len(blob), len(data)))
+        blob += data
+    blob += b"LEANIDX1"
+    blob += struct.pack("<I", len(offsets))
+    for _, off, sz in offsets:
+        blob += struct.pack("<QQ", off, sz)
+
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    with args.out.open("wb") as f:
-        f.write(b"LEAN0001")
-        f.write(struct.pack("<I", 1))
-        f.write(struct.pack("<I", rank))
-        f.write(struct.pack("<4I", nx, ny, ns, nt))
-        f.write(struct.pack("<I", nports))
-        f.write(struct.pack("<f", su))
-        f.write(struct.pack("<I", flags))
-        for arr in (A, Bx, By):
-            f.write(np.asarray(arr, dtype=np.float32).tobytes())
-        f.write(np.ascontiguousarray(U8).tobytes())
-        f.write(np.ascontiguousarray(C).tobytes())
-        f.write(np.asarray(scale, dtype=np.float32).tobytes())
-        f.write(np.asarray(vp, dtype=np.int32).tobytes())
-        f.write(np.asarray(hp, dtype=np.int32).tobytes())
-        f.write(np.asarray(vxs, dtype=np.int8).tobytes())
-        f.write(np.asarray(vys, dtype=np.int8).tobytes())
-        table = np.zeros(nports, dtype=[("name", "S24"), ("src", "<i2"), ("tgt", "<i2")])
-        for i, name in enumerate(arch.ports):
-            table["name"][i] = name.encode("ascii")[:23]
-            table["src"][i] = src_of.get(i, -1)
-            table["tgt"][i] = tgt_of.get(i, -1)
-        f.write(table.tobytes())
-    size = args.out.stat().st_size
+    args.out.write_bytes(bytes(blob))
     print(json.dumps({
-        "out": str(args.out), "bytes": size, "rank": rank,
-        "u_dtype": str(U8.dtype), "c_dtype": str(C.dtype),
-        "expected": (8 + 4 + 4 + 16 + 4 + 4 + 4) + 12 * ns * nt + U8.nbytes + C.nbytes + 4 * nx * ny + 4 * (120 + 550) + 2 * ns + nports * 28,
+        "out": str(args.out), "bytes": len(blob), "rank": rank,
+        "u_dtype": str(U8.dtype), "c_dtype": str(C.dtype), "footer": FOOTER_SIZE,
+        "sections": {n: [o, s] for n, o, s in offsets},
     }, indent=2))
 
 
