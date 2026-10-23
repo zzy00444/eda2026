@@ -2,6 +2,8 @@
 
 2026-10-23 第十三阶段已冻结：已验收的速度候选 [stage12_b128_submission.zip](stage12_b128_submission.zip) 同批本机校准估分 96.284189，仍低于 97。默认 `submission.zip` 和最高精度备选均未替换，不再启动新的优化实验。见[第十三阶段记录](../docs/第十三阶段优化记录.md)；下方旧表格保留未校准的第十一阶段口径。
 
+新路线设计建议见[新技术路线建议报告](../docs/新技术路线建议报告.md)。
+
 2026-10-23 更新。当前默认 `stage11_balancedw64`，`submission.zip` 与具名包相同；额外保留合法最高精度 `stage11_compactw160_submission.zip`，第十阶段两版和第七至九阶段旧发布版继续保留。见[默认清单](../docs/stage11_manifest.json)、[精度清单](../docs/stage11_accuracy_manifest.json)、[官方成绩时间对齐记录](../docs/stage11_official_benchmark_alignment.json)和[第十一阶段记录](../docs/第十一阶段优化记录.md)。
 
 ## 当前结果
