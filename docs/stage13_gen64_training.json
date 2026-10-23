@@ -1,0 +1,12 @@
+{
+  "name": "stage13_gen64",
+  "rank": 64,
+  "rows": 59904,
+  "columns": 20865,
+  "direct": false,
+  "refit_base": true,
+  "public_delay_labels_used": false,
+  "geometry_training_rows_only": true,
+  "relative_weight": "sampled displacement residual from architecture-generated all_C tables",
+  "factors_sha256": "73b26ca55590ed8978b933a464687485548e982e8afd084955e2a73542a57024"
+}

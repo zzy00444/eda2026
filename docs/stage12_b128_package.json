@@ -1,0 +1,11 @@
+{
+  "candidate": "stage12_b128",
+  "binary_bytes": 108073880,
+  "zip_bytes": 98094793,
+  "binary_sha256": "4df5e641149d40f4193e1546543fb4e173085bd14499279a670c7d999b36e07a",
+  "zip_sha256": "226121d2172fa02f05b500765df72c75f7fb3d462b06151d075487b50e893854",
+  "contents": [
+    "bin/estimate"
+  ],
+  "unix_mode": "100755"
+}

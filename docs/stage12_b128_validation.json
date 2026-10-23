@@ -1,0 +1,13 @@
+{
+  "candidate": "stage12_b128",
+  "binary_sha256": "4df5e641149d40f4193e1546543fb4e173085bd14499279a670c7d999b36e07a",
+  "zip_sha256": "226121d2172fa02f05b500765df72c75f7fb3d462b06151d075487b50e893854",
+  "reports": {
+    "integration": "db478782ed2ca20bfaaa45c237e483b609969152f8ec24621a36480fc7c1765e",
+    "contract": "76fd339529593d8d34065c8e1ce3ae7e975028bdb9a9989dbaf2db452b087c2d",
+    "standalone": "5ed2899a249e13f518f254960fcd010f619ec0fa17b07ead7886b576132c08fd"
+  },
+  "image": "fpga-ziguang:latest",
+  "memory_limit_bytes": 2000000000,
+  "all_passed": true
+}

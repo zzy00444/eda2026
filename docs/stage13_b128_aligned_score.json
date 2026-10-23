@@ -1,0 +1,23 @@
+{
+  "benchmark": "docs\\stage13_b128_aligned_benchmark.json",
+  "alignment": "docs/stage11_official_benchmark_alignment.json",
+  "runtime_ratio": 1.4017890759604956,
+  "accuracy_source": "historical public test split",
+  "official_score": false,
+  "candidates": {
+    "stage11_balancedw64": {
+      "accuracy": 98.19201281619397,
+      "local_projected_1b_cpu_seconds": 211.30342000000005,
+      "calibrated_1b_cpu_seconds": 296.2028258690926,
+      "calibrated_time_score": 83.54428745171708,
+      "estimated_total": 96.08525337071275
+    },
+    "stage12_b128": {
+      "accuracy": 98.19201281619397,
+      "local_projected_1b_cpu_seconds": 194.273576,
+      "calibrated_1b_cpu_seconds": 272.3305765845811,
+      "calibrated_time_score": 84.87052352307882,
+      "estimated_total": 96.284188781417
+    }
+  }
+}

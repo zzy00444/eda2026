@@ -1,0 +1,23 @@
+{
+  "candidate": "stage13_gen64",
+  "format": "PGLOC003",
+  "parts": [
+    {
+      "factors": "stage13_gen64",
+      "factors_sha256": "73b26ca55590ed8978b933a464687485548e982e8afd084955e2a73542a57024",
+      "rank": 64,
+      "bits": 8,
+      "columns": 20865,
+      "stored_pairs": 23321,
+      "direct": false
+    }
+  ],
+  "asset_sha256": "2e5c14514e55ba10d2ebefb3800c71ec3523b7477994e6c993d3e5fd709338ee",
+  "asset_bytes": 5468660,
+  "public_delay_labels_used": false,
+  "sparse_pairs_training_geometry_only": true,
+  "direct": false,
+  "mixed": false,
+  "delta_v": true,
+  "correction": "one disjoint region per branch; separately round local and baseline dots before min"
+}
